@@ -6,9 +6,8 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 
+
 typedef enum e_arg{
-  CMD,
-  ATT,
   DQS,
   SQS,
   NQS
@@ -19,5 +18,7 @@ typedef struct s_script{
   char *arg;
   t_arg type;
 } t_script;
+
+t_script *ft_scarping(char *prompt);
 
 #endif  
