@@ -29,11 +29,12 @@ $(LIBFT):
 
 clean:
 	rm -f $(OBJ)
-	rm -f ./libft/*.o
+	make -C ./libft clean
 	rm -f ./build_in_cmd/*.o
 
 fclean: clean
 	rm -f $(NAME)
+	make -C ./libft fclean
 
 re: fclean all
 
