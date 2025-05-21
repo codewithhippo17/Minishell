@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_scarping.c                                      :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/14 17:51:44 by ehamza            #+#    #+#             */
-/*   Updated: 2025/05/14 18:00:17 by ehamza           ###   ########.fr       */
+/*   Created: 2025/05/14 17:44:15 by ehamza            #+#    #+#             */
+/*   Updated: 2025/05/14 17:50:47 by ehamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 
 #include "minishell.h"
 
 
 
-
-t_script *ft_scarping(char *prompt)
-{
-    int i;
-
-    i = 0;
-    while (ft_isalpha(prompt[i]))
-    
-    while (prompt[i])
-    {
-        
-            
-        
-        
-    }
-    
+int main() {
+	t_script *script;
+	script->arg = "echo";
+	script->type = CMD;
+	
+	return 0;
 }

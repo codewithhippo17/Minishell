@@ -1,0 +1,22 @@
+[25/05/20025]{01:49PM}(ybelghad)--> repo updated !!!!!!!!!
+  *fixes:
+      + add buld in commandes.
+      + add external commandes.
+      + migrate minishell.c => hipo_minishell.c
+      + migrate ft_minishell.c => minishell.c
+      + revamp all see minishell.c
+      + add some utils and memmory managment
+      + update minihell.h
+      + update Makefile
+  *issues:
+      + some problems in pwd need to handel
+      + not convest with env.c i will see my re do it
+  **This is the final result we may factor this or remove all and start over**
+                  **but for now let us keep this at it is**
+{YACINE}
+
+
+
+
+
+
