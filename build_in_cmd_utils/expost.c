@@ -15,28 +15,26 @@ void	update_variable(char **s, char **env, int index)
 {
 	char	*temp;
 
-	free(env[index]); // Free the old value
+	free(env[index]);
 	env[index] = ft_strjoin(s[0], "=");
 	temp = ft_strjoin(env[index], s[1]);
 	free(env[index]);
 	env[index] = temp;
 }
 
-void	add_variable(char **s, char **env)
+void	add_variable(char *s, char **env)
 {
 	int		i;
-	char	*temp;
 
 	i = 0;
 	while (env[i])
 	{
 		i++;
 	}
-	env[i] = ft_strjoin(s[0], "=");
-	temp = ft_strjoin(env[i], s[1]);
-	free(env[i]);
-	env[i] = temp;
-	env[i + 1] = NULL; // Ensure the next pointer is NULL
+	env[i] = ft_strdup(s);
+  if (!env[i])
+    return ;
+	env[i + 1] = NULL;
 }
 
 int	exports(char *var, char **env)
@@ -64,21 +62,27 @@ int	exports(char *var, char **env)
 		i++;
 	}
 	if (!found)
-		add_variable(s, env);
+		add_variable(var, env);
 	free_split(s);
   return (0);
 }
 
-int	ft_export(char *av, char **env)
+int	ft_export(char **av, char **env)
 {
-	if (av)
-	{
-		if (exports(av, env) != 0)
-      return (1);
-	}
-  else
+  int i;
+
+  i = 0;
+  if (av[++i])
   {
-    int i = 0;
+    while (av[i])
+    {
+		  if (exports(av[i++], env) != 0)
+        return (1);
+    }
+  }
+	else
+  {
+    i = 0;
 	  while (env[i])
 	  {
 		  printf("%s\n", env[i++]);

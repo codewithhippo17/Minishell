@@ -40,7 +40,7 @@ char **ft_parsing(t_script *script);
 //-------------------**ft_scarping**-------------------//
 t_script *ft_scarping(char *prompt);
 
-//-------------------**mini_build-in_cmd**-----------//
+//-------------------**build-in_cmd**-----------//
 int	is_builtin(char **s);
 void	execute_builtin(t_minishell *minishell);
 
@@ -51,14 +51,12 @@ int	ft_exec_all(t_minishell *minishell);
 void		free_split(char **s);
 void		ft_exit(char *error);
 
-//----------------ººmini_build-in_cmd.cºº------------------//
+//----------------ººbuild-in_cmd_utilsºº------------------//
 int			echo(char *str, int status);
 int			cd(char *str, char **m_env);
 int			pwd(void);
-//void		exports(char *var, char **env);
 int		envierment(char **env);
-//------------------------ººexportsºº--------------------//
-int   ft_export(char *av, char **m_env);
+int   ft_export(char **av, char **m_env);
 
 //-----------------ººminishel_utils.cºº----------------//
 char		*my_getenv(char *name, char **env);

@@ -42,6 +42,6 @@ int	cd(char *str, char **m_env)
 		return (1);
 	}
 	prev_dir = ft_strjoin("OLDPWD=", current_dir);
-	ft_export(prev_dir, m_env);
+	ft_export(&prev_dir, m_env);
 	return (0);
 }

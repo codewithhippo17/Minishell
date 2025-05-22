@@ -1,5 +1,22 @@
 #include "minishell.h"
 
+int	is_builtin(char **s)
+{
+	if (ft_strncmp(s[0], "echo", ft_strlen("echo")) == 0)
+		return (1);
+	else if (ft_strncmp(s[0], "cd", ft_strlen("cd")) == 0)
+		return (1);
+	else if (ft_strncmp(s[0], "pwd", ft_strlen("pwd")) == 0)
+		return (1);
+	else if (ft_strncmp(s[0], "env", ft_strlen("env")) == 0)
+		return (1);
+	else if (ft_strncmp(s[0], "export", ft_strlen("export")) == 0)
+		return (1);
+	else if (ft_strncmp(s[0], "exit", ft_strlen("exit")) == 0)
+		return (1);
+	return (0);
+}
+
 void	handle_command(t_minishell *minishell)
 {
 	if (is_builtin(minishell->cmd_args))
@@ -11,18 +28,14 @@ void	handle_command(t_minishell *minishell)
 	free(minishell->input);
 }
 
-int	main(int argc, char *argv[], char **env)
+void set_env(t_minishell *minishell, char **env)
 {
-	t_minishell	*minishell;
-	int			l;
+  int			l;
 	int			i;
 
 	l = 0;
 	i = 0;
-	minishell = malloc(sizeof(t_minishell));
-
-  //More thinking i my revamp it to be env.c well see
-	while (env && env[l])
+  while (env && env[l])
 		l++;
 	minishell->m_env = malloc((l + 1) * sizeof(char *));
 	while (env && env[i])
@@ -32,15 +45,25 @@ int	main(int argc, char *argv[], char **env)
 		{
 			printf("Memory allocation failed\n");
 			free_split(minishell->m_env);
-			return (1);
+			return ;
 		}
 		i++;
 	}
+}
 
+int	main(int argc, char *argv[], char **env)
+{
+	t_minishell	*minishell;
+
+	minishell = malloc(sizeof(t_minishell));
+  
+  set_env(minishell, env);
 	while (argc == 1 && argv)
 	{
 		minishell->input = readline("minishell$");
 		add_history(minishell->input);
+    if (minishell->input == NULL)
+      exit(EXIT_SUCCESS);
 		minishell->cmd_args = ft_split(minishell->input, ' ');
 		if (!minishell->cmd_args)
 		{
