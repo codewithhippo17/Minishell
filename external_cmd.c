@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   external_cmd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/12 18:14:19 by ybelghad          #+#    #+#             */
+/*   Updated: 2025/06/12 18:14:19 by ybelghad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void	child_pr(char **cmd, char **env)
+static void	child_pr_all(char **cmd, char **env)
 {
 	char	*path;
 
@@ -19,8 +31,8 @@ int	ft_exec_all(t_minishell *minishell)
 	pid = fork();
 	if (pid == -1)
 		ft_exit("fork: Error\n");
-	else if (pid == 0)
-		child_pr(minishell->cmd_args, minishell->m_env);
+	if (pid == 0)
+		child_pr_all(minishell->cmd_args, minishell->m_env);
 	else
 	{
 		wait(&status);

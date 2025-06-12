@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybelghad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:35:53 by ybelghad          #+#    #+#             */
 /*   Updated: 2024/11/04 01:09:31 by ybelghad         ###   ########.fr       */

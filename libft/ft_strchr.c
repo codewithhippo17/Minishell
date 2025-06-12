@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybelghad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 23:17:46 by ybelghad          #+#    #+#             */
 /*   Updated: 2024/11/04 09:56:59 by ybelghad         ###   ########.fr       */

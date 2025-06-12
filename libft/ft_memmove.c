@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybelghad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:31:18 by ybelghad          #+#    #+#             */
 /*   Updated: 2024/11/06 04:19:51 by ybelghad         ###   ########.fr       */

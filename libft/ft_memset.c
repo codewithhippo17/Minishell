@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybelghad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 22:12:49 by ybelghad          #+#    #+#             */
 /*   Updated: 2024/11/01 18:18:28 by ybelghad         ###   ########.fr       */

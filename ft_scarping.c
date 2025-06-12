@@ -3,32 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_scarping.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/14 17:51:44 by ehamza            #+#    #+#             */
-/*   Updated: 2025/05/14 18:00:17 by ehamza           ###   ########.fr       */
+/*   Created: 2025/06/02 11:12:57 by marvin            #+#    #+#             */
+/*   Updated: 2025/06/02 11:12:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-
-
-
-t_script *ft_scarping(char *prompt)
+t_script	*ft_scarping(char *prompt)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (ft_isalpha(prompt[i]))
-    
-    while (prompt[i])
-    {
-        
-            
-        
-        
-    }
-    
+	i = 0;
+	while (ft_isalpha(prompt[i]))
+		while (prompt[i])
+		{
+		}
 }

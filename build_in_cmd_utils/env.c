@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/11 03:27:21 by marvin            #+#    #+#             */
-/*   Updated: 2025/05/11 03:27:24 by marvin           ###   ########.fr       */
+/*   Created: 2025/06/12 18:10:42 by ybelghad          #+#    #+#             */
+/*   Updated: 2025/06/12 18:10:42 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	envierment(char **env)
+int	envierment(char **m_env)
 {
 	int	i;
 
 	i = 0;
-	while (env[i])
+	while (m_env[i])
 	{
-		printf("%s\n", env[i++]);
+		printf("%s\n", m_env[i]);
+		i++;
 	}
 	return (0);
 }

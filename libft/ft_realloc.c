@@ -1,32 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 12:21:03 by ybelghad          #+#    #+#             */
-/*   Updated: 2024/11/04 10:02:48 by ybelghad         ###   ########.fr       */
+/*   Created: 2025/06/12 18:08:25 by ybelghad          #+#    #+#             */
+/*   Updated: 2025/06/12 18:08:25 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 {
-	size_t	actual_len;
-	char	*st;
+	void	*new_ptr;
+	size_t	size_to_copy;
 
-	if (!s)
+  size_to_copy = 0;
+	if (new_size == 0)
+	{
+		free(ptr);
 		return (NULL);
-	actual_len = ft_strlen(s);
-	if (start >= actual_len)
-		return (ft_calloc(1, sizeof(char)));
-	if (start + len > actual_len)
-		len = actual_len - start;
-	st = ft_calloc(len + 1, sizeof(char));
-	if (!st)
+	}
+	if (ptr == NULL)
+	{
+		return (malloc(new_size));
+	}
+	new_ptr = malloc(new_size);
+	if (!new_ptr)
+	{
 		return (NULL);
-	ft_strlcpy(st, s + start, len + 1);
-	return (st);
+	}
+	if (old_size < new_size)
+	{
+		size_to_copy = old_size;
+	}
+	else
+	{
+		size_to_copy = new_size;
+	}
+	ft_memcpy(new_ptr, ptr, size_to_copy);
+	free(ptr);
+	return (new_ptr);
 }

@@ -8,16 +8,20 @@ INCLUDES = -I/usr/include/readline -I./libft
 
 LIBFT = ./libft/libft.a
 
-#SRC = minishell.c mini_build-in_cmd.c minishel_utils.c free_exit.c minishell_expost.c $(wildcard ./build_in_cmd/*.c)
-
 SRC = minishell.c \
 			build_in_cmd.c \
 			external_cmd.c \
 			minishell_utils.c \
 			free_exit.c\
+			pipex.c \
 			$(wildcard ./build_in_cmd_utils/*.c)
 
 OBJ = $(SRC:.c=.o)
+
+m: fclean all
+	rm -f $(OBJ)
+	make -C ./libft clean
+	rm -f ./build_in_cmd/*.o
 
 all: $(NAME)
 

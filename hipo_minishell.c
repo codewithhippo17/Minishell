@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   hipo_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,17 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-
 #include "minishell.h"
 
+int	main(void)
+{
+	t_script	*script;
 
-
-int main() {
-	t_script *script;
 	script->arg = "echo";
 	script->type = CMD;
-	
-	return 0;
+	return (0);
 }

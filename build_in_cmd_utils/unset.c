@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 10:52:50 by ybelghad          #+#    #+#             */
-/*   Updated: 2024/10/25 14:13:39 by ybelghad         ###   ########.fr       */
+/*   Created: 2025/06/12 18:13:59 by ybelghad          #+#    #+#             */
+/*   Updated: 2025/06/12 18:13:59 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-size_t	ft_strlen(const char *str)
+#include "../minishell.h"
+/*
+void uset_env(t_env *m_env, char *var)
 {
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+  if ()
+}*/
