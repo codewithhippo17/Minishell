@@ -26,47 +26,46 @@
 
 typedef struct s_minishell
 {
-	char			*input;
-	char			**m_env;
-  char      **s_env;
-	char			**cmd_args;
-	int				status;
-}					t_minishell;
+	char	*input;
+	char	**m_env;
+	char	**s_env;
+	char	**cmd_args;
+	int		status;
+}			t_minishell;
 
 //-------------------**ft_scarping**---------------------//
 
-
 //-------------------**build-in_cmd**-----------//
-int					is_builtin(char **s);
-void				execute_builtin(t_minishell *minishell);
+int			is_builtin(char **s);
+void		execute_builtin(t_minishell *minishell);
 
 //-------------------**external_cmd**-------------//
-int					ft_exec_all(t_minishell *minishell);
+int			ft_exec_all(t_minishell *minishell);
 
 //---------------ººfreesplitºº-----------------//
-void				free_split(char **s);
-void				ft_exit(char *error);
+void		free_split(char **s);
+void		ft_exit(char *error);
 
 //----------------ººbuild-in_cmd_utilsºº------------------//
-int					echo(char *str, int status);
-int					cd(char *str, t_minishell *minishell);
-int					pwd(void);
-int					envierment(char **m_env);
-//int					ft_export(char **av, char **m_env);
-int	        exports(char *var, char ***env);
-int	exec_export(t_minishell *minishell);
+int			echo(char *str, int status);
+int			cd(char *str, t_minishell *minishell);
+int			pwd(void);
+int			envierment(char **m_env);
+// int					ft_export(char **av, char **m_env);
+int			exports(char *var, char ***env);
+int			exec_export(t_minishell *minishell);
 
 //-----------------ººminishel_utils.cºº----------------//
-char				*my_getenv(char *name, char **env);
-char				*get_path(char *cmd, char **env);
+char		*my_getenv(char *name, char **env);
+char		*get_path(char *cmd, char **env);
 
 // --------------ººPIPEX_UTILSºº--------------- //
-void				ft_free_tab(char **tab);
-void				ft_exit_status(char *error, int status);
-void				ft_free_exit(char **args, char *erno, int status);
-void				ft_close_wait_exit(int p_fd[], int pid1, int pid2);
+void		ft_free_tab(char **tab);
+void		ft_exit_status(char *error, int status);
+void		ft_free_exit(char **args, char *erno, int status);
+void		ft_close_wait_exit(int p_fd[], int pid1, int pid2);
 
 // -----------------ººPIPEXºº------------------ //
-void				pipex(t_minishell *minishell);
+void		pipex(t_minishell *minishell);
 
 #endif

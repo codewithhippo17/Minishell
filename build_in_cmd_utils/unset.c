@@ -12,7 +12,8 @@
 
 #include "../minishell.h"
 /*
-void uset_env(t_env *m_env, char *var)
-{
-  if ()
+int	uset_env(char *var, char **m_env)
+{  
+  if (...)
+  return (0);
 }*/

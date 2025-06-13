@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
-#include <stdio.h>
-#include <unistd.h>
 
 int	update_variable(char *s, char **env, int i)
 {

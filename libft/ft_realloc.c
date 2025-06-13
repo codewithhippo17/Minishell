@@ -17,7 +17,7 @@ void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 	void	*new_ptr;
 	size_t	size_to_copy;
 
-  size_to_copy = 0;
+	size_to_copy = 0;
 	if (new_size == 0)
 	{
 		free(ptr);

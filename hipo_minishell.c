@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+/*
 int	main(void)
 {
 	t_script	*script;
@@ -19,4 +20,4 @@ int	main(void)
 	script->arg = "echo";
 	script->type = CMD;
 	return (0);
-}
+}*/

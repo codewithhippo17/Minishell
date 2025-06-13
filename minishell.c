@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "minishell.h"
-#include <stdlib.h>
-#include <string.h>
 
 int	is_builtin(char **s)
 {
@@ -94,10 +91,19 @@ int	main(int argc, char *argv[], char **env)
 	t_minishell	*minishell;
 
 	minishell = malloc(sizeof(t_minishell));
-	if (!(minishell->m_env = set_env(env, 0)))
+  minishell->m_env = set_env(env, 0);
+	if (!minishell->m_env)
+	{
+		free(minishell);
 		return (EXIT_FAILURE);
-	if (!(minishell->s_env = set_env(env, 1)))
+	}
+  minishell->s_env = set_env(env, 1);
+	if (!minishell->s_env)
+	{
+		free_split(minishell->m_env);
+		free(minishell);
 		return (EXIT_FAILURE);
+	}
 	while (argc == 1 && argv)
 	{
 		minishell->input = readline("minishell$");

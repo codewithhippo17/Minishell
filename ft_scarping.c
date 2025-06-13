@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 t_script	*ft_scarping(char *prompt)
 {
 	int	i;
@@ -21,4 +21,4 @@ t_script	*ft_scarping(char *prompt)
 		while (prompt[i])
 		{
 		}
-}
+}*/
