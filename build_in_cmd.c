@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "minishell.h"
 
 int	is_var(char *str)
@@ -81,6 +82,47 @@ int	exec_export(t_minishell *minishell)
 	return (status);
 }
 
+int	is_num(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	ft_my_exit(char *e_xit)
+{
+	if (e_xit && is_num(e_xit))
+		exit(ft_atoi(e_xit));
+	else
+		exit(EXIT_SUCCESS);
+}
+
+int	exec_unset(t_minishell *minishell)
+{
+	int	i;
+	int	status;
+
+	i = 1;
+	status = 0;
+	while (minishell->cmd_args[i])
+	{
+		status = unset_env(minishell->cmd_args[i], &(minishell->m_env));
+		if (!status)
+			status = unset_env(minishell->cmd_args[i], &(minishell->s_env));
+		else
+			return (1);
+		i++;
+	}
+	return (status);
+}
+
 void	execute_builtin(t_minishell *minishell)
 {
 	if (ft_strncmp(minishell->cmd_args[0], "echo",
@@ -98,12 +140,17 @@ void	execute_builtin(t_minishell *minishell)
 	else if (ft_strncmp(minishell->cmd_args[0], "export",
 			ft_strlen(minishell->cmd_args[0])) == 0)
 		minishell->status = exec_export(minishell);
+	else if (ft_strncmp(minishell->cmd_args[0], "unset",
+			ft_strlen(minishell->cmd_args[0])) == 0)
+		minishell->status = exec_unset(minishell);
 	else if (ft_strncmp(minishell->cmd_args[0], "exit",
 			ft_strlen(minishell->cmd_args[0])) == 0)
 	{
-		if (minishell->cmd_args[1])
-			exit(ft_atoi(minishell->cmd_args[1]));
-		else
-			exit(EXIT_SUCCESS);
+		ft_my_exit(minishell->cmd_args[1]);
+		/*
+			if (minishell->cmd_args[1])
+				exit(ft_atoi(minishell->cmd_args[1]));
+			else
+				exit(EXIT_SUCCESS);*/
 	}
 }

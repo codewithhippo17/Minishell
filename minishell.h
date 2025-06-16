@@ -52,8 +52,10 @@ int			cd(char *str, t_minishell *minishell);
 int			pwd(void);
 int			envierment(char **m_env);
 // int					ft_export(char **av, char **m_env);
+int	update_variable(char *s, char **env, int i);
 int			exports(char *var, char ***env);
 int			exec_export(t_minishell *minishell);
+int	unset_env(char *var, char ***env);
 
 //-----------------ººminishel_utils.cºº----------------//
 char		*my_getenv(char *name, char **env);

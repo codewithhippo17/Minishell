@@ -38,20 +38,19 @@ char	**add_variable(char **env, const char *new_var, int current_size)
 		ft_putstr_fd("Memory allocation failed**************\n", 2);
 		return (env);
 	}
-	new_env[current_size + 1] = NULL; //
-	(current_size)++;
+	new_env[current_size + 1] = NULL;
 	return (new_env);
 }
 
 int	exports(char *var, char ***env)
 {
-	char	**s;
 	int		i;
 	int		found;
 	char	**temp;
+	char	**split;
 
-	s = ft_split(var, '=');
-	if (!s)
+	split = ft_split(var, '=');
+	if (!split)
 	{
 		printf("Memory allocation failed\n");
 		return (1);
@@ -60,15 +59,22 @@ int	exports(char *var, char ***env)
 	found = 0;
 	while ((*env)[i])
 	{
-		if (ft_strncmp((*env)[i], s[0], strlen(s[0])) == 0)
+		if (ft_strncmp((*env)[i], split[0], strlen(split[0])) == 0)
 		{
-			if (update_variable(var, *env, i))
+			if (ft_strchr(var, '='))
 			{
-				free_split(s);
-				return (1);
+				if (update_variable(var, *env, i))
+				{
+					free_split(split);
+					return (1);
+				}
+				found = 1;
+				break ;
 			}
-			found = 1;
-			break ;
+			else
+			{
+				return (0);
+			}
 		}
 		i++;
 	}
@@ -77,11 +83,11 @@ int	exports(char *var, char ***env)
 		temp = add_variable(*env, var, i);
 		if (!temp)
 		{
-			free_split(s);
+			free_split(split);
 			return (1);
 		}
 		*env = temp;
 	}
-	free_split(s);
+	free_split(split);
 	return (0);
 }

@@ -24,6 +24,8 @@ int	is_builtin(char **s)
 		return (1);
 	else if (ft_strncmp(s[0], "export", ft_strlen("export")) == 0)
 		return (1);
+	else if (ft_strncmp(s[0], "unset", ft_strlen("unset")) == 0)
+		return (1);
 	else if (ft_strncmp(s[0], "exit", ft_strlen("exit")) == 0)
 		return (1);
 	return (0);
