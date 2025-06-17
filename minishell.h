@@ -56,6 +56,8 @@ int	update_variable(char *s, char **env, int i);
 int			exports(char *var, char ***env);
 int			exec_export(t_minishell *minishell);
 int	unset_env(char *var, char ***env);
+int	exec_unset(t_minishell *minishell);
+
 
 //-----------------ººminishel_utils.cºº----------------//
 char		*my_getenv(char *name, char **env);
