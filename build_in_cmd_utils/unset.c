@@ -11,16 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <string.h>
-
-int	set_flag(char *var)
-{
-	if (ft_strncmp(var, "PWD", ft_strlen("PWD")) == 0)
-		return (1);
-	else if (ft_strncmp(var, "OLDPWD", ft_strlen("OLDPWD")) == 0)
-		return (1);
-	return (0);
-}
 
 char	**rm_var(char *var, char **env)
 {
@@ -73,39 +63,17 @@ int	if_ixist(char *var, char **env)
 
 int	unset_env(char *var, char ***env)
 {
-	int		i;
 	int		l;
-	int		flag;
 	char	**temp;
 
-	i = 0;
 	l = 0;
 	if (!if_ixist(var, *env))
 		return (0);
 	while ((*env)[l])
 		l++;
-	flag = set_flag(var);
-	if (!flag)
-	{
-		temp = rm_var(var, *env);
-		if (!temp)
-			return (1);
-		*env = temp;
-	}
-	else
-	{
-		while (i < l)
-		{
-			if (ft_strncmp((*env)[i], var, ft_strlen(var)) == 0)
-			{
-				if ((*env)[i] != NULL)
-					free((*env)[i]);
-				(*env)[i] = ft_strdup(var);
-				if (!(*env)[i])
-					return (1);
-			}
-			i++;
-		}
-	}
+	temp = rm_var(var, *env);
+	if (!temp)
+		return (1);
+	*env = temp;
 	return (0);
 }

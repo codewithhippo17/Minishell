@@ -12,6 +12,7 @@
 
 #include "libft/libft.h"
 #include "minishell.h"
+#include <string.h>
 
 int	is_var(char *str)
 {
@@ -60,6 +61,48 @@ int	handle_export_arg(t_minishell *minishell, int i)
 	return (status);
 }
 
+int	declair_x(char **env)
+{
+	int		i;
+	int		j;
+	int		l;
+	char	*temp;
+	char	**split;
+
+	i = 0;
+	l = 0;
+	while (env[l])
+		l++;
+	while (i < l)
+	{
+		j = 0;
+		while (j < l)
+		{
+			if (ft_strcmp(env[i], env[j]) >= 0)
+				j++;
+			else
+			{
+				temp = env[i];
+				env[i] = env[j];
+				env[j] = temp;
+			}
+		}
+		i++;
+	}
+  i = 0;
+  while (env[i])
+  {
+    split = ft_split(env[i], '=');
+    if(!split)
+      return (1);
+    printf("%s %s%c\"%s\"\n", "declare -x", split[0], '=', split[1]);
+    free_split(split);
+    split = NULL;
+    i++;
+  }
+	return (0);
+}
+
 int	exec_export(t_minishell *minishell)
 {
 	int	i;
@@ -77,7 +120,7 @@ int	exec_export(t_minishell *minishell)
 	}
 	else
 	{
-		status = envierment(minishell->s_env);
+		status = declair_x(minishell->s_env);
 	}
 	return (status);
 }
@@ -101,7 +144,7 @@ void	ft_my_exit(char *e_xit)
 	if (e_xit && is_num(e_xit))
 		exit(ft_atoi(e_xit));
 	else
-		exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
 }
 
 int	exec_unset(t_minishell *minishell)

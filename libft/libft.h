@@ -15,7 +15,6 @@
 
 // Includes-----
 
-# include "libft.h"  // More Thinking....
 # include <stddef.h> // For size_t
 # include <stdlib.h> // For ft_atoi
 # include <unistd.h> // For Write
@@ -44,7 +43,6 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 int		ft_atoi(const char *str);
 void	*ft_calloc(size_t nmemb, size_t size);
-void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 char	*ft_strdup(const char *s);
 
 //  Part 2 - Additional functions-----
@@ -60,5 +58,9 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+
+// Part 3 - Expanding----------------
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
+int		ft_strcmp(const char *s1, const char *s2);
 
 #endif
