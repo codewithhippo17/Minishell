@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "minishell.h"
-#include <string.h>
 
 int	is_var(char *str)
 {
@@ -76,30 +74,38 @@ int	declair_x(char **env)
 	while (i < l)
 	{
 		j = 0;
-		while (j < l)
+		while (j < l - 1)
 		{
-			if (ft_strcmp(env[i], env[j]) >= 0)
-				j++;
-			else
+			if (ft_strcmp(env[i], env[j]) < 0)
 			{
 				temp = env[i];
 				env[i] = env[j];
 				env[j] = temp;
 			}
+			j++;
 		}
 		i++;
 	}
-  i = 0;
-  while (env[i])
-  {
-    split = ft_split(env[i], '=');
-    if(!split)
-      return (1);
-    printf("%s %s%c\"%s\"\n", "declare -x", split[0], '=', split[1]);
-    free_split(split);
-    split = NULL;
-    i++;
-  }
+	i = 0;
+	while (env[i])
+	{
+		j = 1;
+		split = ft_split(env[i], '=');
+		if (!split)
+			return (1);
+		printf("declare -x %s=\"", split[0]);
+		while (split[j])
+		{
+			printf("%s", split[j]);
+			if (split[j + 1])
+				printf("=");
+			j++;
+		}
+		printf("\"\n");
+		free_split(split);
+		split = NULL;
+		i++;
+	}
 	return (0);
 }
 
@@ -130,6 +136,8 @@ int	is_num(char *str)
 	int	i;
 
 	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -144,7 +152,7 @@ void	ft_my_exit(char *e_xit)
 	if (e_xit && is_num(e_xit))
 		exit(ft_atoi(e_xit));
 	else
-		exit(EXIT_FAILURE);
+		exit(2);
 }
 
 int	exec_unset(t_minishell *minishell)
@@ -188,12 +196,5 @@ void	execute_builtin(t_minishell *minishell)
 		minishell->status = exec_unset(minishell);
 	else if (ft_strncmp(minishell->cmd_args[0], "exit",
 			ft_strlen(minishell->cmd_args[0])) == 0)
-	{
 		ft_my_exit(minishell->cmd_args[1]);
-		/*
-			if (minishell->cmd_args[1])
-				exit(ft_atoi(minishell->cmd_args[1]));
-			else
-				exit(EXIT_SUCCESS);*/
-	}
 }

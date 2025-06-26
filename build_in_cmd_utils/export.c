@@ -73,6 +73,7 @@ int	exports(char *var, char ***env)
 			}
 			else
 			{
+        ft_free_tab(split);
 				return (0);
 			}
 		}
