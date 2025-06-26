@@ -45,6 +45,12 @@ typedef struct s_script{
     t_cmd **cmd;
 } t_script;
 
+typedef struct s_var{
+  char *var;
+  char *value;
+  struct s_var *next_var;
+} t_var;
+
 typedef struct s_minishell
 {
 	char	*input;
