@@ -24,6 +24,27 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+typedef enum e_flag {
+    CMD,
+    PIPE,
+    LR,
+    RR,
+    DLR,
+    DRR,
+    ARG
+} t_flag;
+
+typedef struct s_cmd{
+    char *arg;
+    t_flag arg_type;
+    struct s_cmd *next_cmd;
+    struct s_cmd *next_arg;
+} t_cmd;
+
+typedef struct s_script{
+    t_cmd **cmd;
+} t_script;
+
 typedef struct s_minishell
 {
 	char	*input;
