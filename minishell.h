@@ -25,9 +25,9 @@
 # include <unistd.h>
 
 typedef enum e_quote_type {
-    NO_QUOTE,     // unquoted word
-    SINGLE_QUOTE, // '...'
-    DOUBLE_QUOTE // "..."
+    NQS, // unquoted word
+    SQS, // '...'
+    DQS// "..."
 } t_quote_type;
 
 typedef enum e_flag {
