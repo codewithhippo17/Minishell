@@ -87,3 +87,14 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	return (ns);
 }
+#include <stdio.h>
+
+int main()
+{
+    int i = 0;
+    char **split = ft_split("<< del cat -e | grep hippo | tr 'p' 's' | cat | wc -l > out.txt", '|');
+    while (split[i] != NULL) {
+    printf("%s\n", split[i]);
+        i++;
+    }
+}
