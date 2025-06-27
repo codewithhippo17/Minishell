@@ -11,8 +11,28 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-char	**ft_parsing(t_script *script)
+#include <stdio.h>
+
+int nb_cmds(char *str)
 {
+    int nb;
+
+    nb = 0;
+    while (*str)
+    {
+        if (*str == '|')
+            nb++;
+        str++;
+    }
+    return (nb);
 }
-*/
+
+int main()
+{
+    printf("%d\n", nb_cmds("<< del cat -e | grep hippo | tr 'p' 's' | cat | wc -l > out.txt"));
+}
+
+/*char	**ft_parsing(t_script *script)
+{
+}*/
+

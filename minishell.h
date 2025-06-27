@@ -24,6 +24,12 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+typedef enum e_quote_type {
+    NO_QUOTE,     // unquoted word
+    SINGLE_QUOTE, // '...'
+    DOUBLE_QUOTE // "..."
+} t_quote_type;
+
 typedef enum e_flag {
     CMD,
     PIPE,
@@ -35,10 +41,11 @@ typedef enum e_flag {
 } t_flag;
 
 typedef struct s_cmd{
-    char *arg;
-    t_flag arg_type;
-    struct s_cmd *next_cmd;
-    struct s_cmd *next_arg;
+    char            *arg;
+    t_flag          arg_type;
+    t_quote_type    word_type;
+    struct s_cmd    *next_cmd;
+    struct s_cmd    *next_arg;
 } t_cmd;
 
 typedef struct s_script{
