@@ -87,6 +87,8 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	return (ns);
 }
+
+/*
 #include <stdio.h>
 
 int main()
@@ -97,4 +99,4 @@ int main()
     printf("%s\n", split[i]);
         i++;
     }
-}
+}*/
