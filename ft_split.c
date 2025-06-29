@@ -35,6 +35,26 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	return (NULL);
 }
 
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	int				i;
+	unsigned char	*s1t;
+	unsigned char	*s2t;
+
+	i = 0;
+	s1t = (unsigned char *)s1;
+	s2t = (unsigned char *)s2;
+	if (!s1 && !s2 && !n)
+		return (0);
+	while (n--)
+	{
+		if (s1t[i] != s2t[i])
+			return (s1t[i] - s2t[i]);
+		i++;
+	}
+	return (0);
+}
+
 static int	ft_strlenc(const char *str, char *del)
 {
 	int	i;
@@ -52,7 +72,7 @@ static int	count_split(char *str)
 
 	count = 0;
 	i = 0;
-	while (str != NULL)
+	while (str != NULL && *str != '\0')
     {
         str = ft_strnstr(str, " | ", strlen(str));
         if (str != NULL)
@@ -61,36 +81,36 @@ static int	count_split(char *str)
     }
 	return (count);
 }
-/*
+
 static char	**ft_freemem(char **split, int i)
 {
 	while (i >= 0)
 	{
 		free(split[i]);
-		i--;<< del cat -e | grep hippo "|" tr 'p' 's' | cat | wc -l > out.txt
+		i--;
 	}
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char *del)
+char	**ft_split(char const *s, char c)
 {
 	char	**split;
 	int		i;
 	int		j;
 
 	i = 0;
-	split = (char **)malloc ((count_split(s, del) + 1) * 8);
+	split = (char **)malloc ((count_split(s, c) + 1) * 8);
 	if (!split)
 		return (NULL);
 	while (*s)
 	{
 		if (*s != c)
-		{<< del cat -e | grep hippo "|" tr 'p' 's' | cat | wc -l > out.txt
+		{
 			split[i] = malloc(ft_strlenc(s, c) + 1);
 			if (!split[i])
 				return (ft_freemem(split, i));
 			j = 0;
-			while (*s != c && *s)//
+			while (*s != c && *s)
 				split[i][j++] = *s++;
 			split[i++][j] = 0;
 		}
@@ -99,7 +119,10 @@ char	**ft_split(char const *s, char *del)
 	}
 	split[i] = NULL;
 	return (split);
-}*/
+}
+
+
+
 
  #include <stdio.h>
 // #include <unistd.h>
@@ -131,5 +154,5 @@ char	**ft_split(char const *s, char *del)
 
 int main()
 {
-    printf("%d\n", count_split("hhhh|hhhh | kkkkkkkk | uuuuuu | "));
+    printf("%d\n", count_split("hhhh | hhhh | kkkkkkkk | uuuuuu | "));
 }
