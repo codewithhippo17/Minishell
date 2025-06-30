@@ -117,7 +117,7 @@ cat (CMD)
 typedef struct s_token
 {
     char            *value;       // The string (e.g. echo, >>, file.txt)
-    t_flag          type;         // WORD, REDIR_OUT, etc.
+    t_flag          type;         // CMD, ARG, PIPE, RR, etc.
     t_quote_type    quote;        // Quote context: affects expansion
     struct s_token  *next;        // Next token in list
 }   t_token;
@@ -166,37 +166,53 @@ typedef struct s_minishell
 	int		status;
 }			t_minishell;
 
-//-------------------**ft_scarping**---------------------//
+//-------------------**lexing**---------------------//
+
+void    skip_whitespace(int *i, const char *input);
+int     is_quote(char c);
+int     is_operator_start(char c);
+t_token *parse_quoted(int *i, char *input);
+t_token *parse_operator(int *i, const char *input);
+t_token *parse_variable(int *i, const char *input);
+t_token *parse_word(int *i, const char *input);
+void    append_token(t_token **head, t_token **tail, t_token *new_token);
 
 //-------------------**build-in_cmd**-----------//
+
 int			is_builtin(char **s);
 void		execute_builtin(t_minishell *minishell);
 
 //-------------------**external_cmd**-------------//
+
 int			ft_exec_all(t_minishell *minishell);
 
 //---------------ººfreesplitºº-----------------//
+
 void		free_split(char **s);
 void		ft_exit(char *error);
 
 //----------------ººbuild-in_cmd_utilsºº------------------//
+
 int			echo(char *str, int status);
 int			cd(char *str, t_minishell *minishell);
 int			pwd(void);
 int			envierment(char **m_env);
+
 // int					ft_export(char **av, char **m_env);
+
 int	update_variable(char *s, char **env, int i);
 int			exports(char *var, char ***env);
 int			exec_export(t_minishell *minishell);
 int	unset_env(char *var, char ***env);
 int	exec_unset(t_minishell *minishell);
 
-
 //-----------------ººminishel_utils.cºº----------------//
+
 char		*my_getenv(char *name, char **env);
 char		*get_path(char *cmd, char **env);
 
 // --------------ººPIPEX_UTILSºº--------------- //
+
 void		ft_free_tab(char **tab);
 void		ft_exit_status(char *error, int status);
 void		ft_free_exit(char **args, char *erno, int status);
