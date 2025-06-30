@@ -3,6 +3,12 @@
 #include "minishell.h"
 #include <stdlib.h>
 
+int is_space(char c)
+{
+    if (c == ' ' || c == '\t')
+        return (1);
+    return (0);
+}
 
 int is_quote(char c)
 {
@@ -73,10 +79,9 @@ t_token *lexer(char *input)
 
     while (input[i])
     {
-        skip_whitespace(&i, input);
-        if (input[i] == '\0')
-            break;
-        if (is_quote(input[i]))
+        if (is_space(input[i]))
+            append_token(&head, &tail, parse_spaces(&i, input));
+        else if (is_quote(input[i]))
             append_token(&head, &tail, parse_quoted(&i, input, input[i]));
         else if (is_operator_start(input[i]))
             append_token(&head, &tail, parse_operator(&i, input));
@@ -92,7 +97,7 @@ int main()
 {
     int i = 0;
     
-    t_token *token = parse_quoted(&i, "echo");
+    t_token *token = parse_quoted(&i, "echo", '"');
     printf("%s\n", token->value);
     if (token->quote == DQS) {
         printf("DQS\n");

@@ -1,17 +1,22 @@
-char	*ft_strndup(const char *s)
-{
-	char	*tmp;
-	size_t	i;
+#include "minishell.h"
 
-	i = 0;
-	tmp = (char *)malloc(ft_strlen(s) + 1);
-	if (!tmp)
-		return (NULL);
-	while (s[i])
-	{
-		tmp[i] = s[i];
-		i++;
-	}
-	tmp[i] = '\0';
-	return (tmp);
+int is_space(char c)
+{
+    if (c == ' ' || c == '\t')
+        return (1);
+    return (0);
+}
+
+int is_quote(char c)
+{
+    if (c == 34 || c == 39)
+        return (1);
+    return (0);
+}
+
+int is_operator_start(char c)
+{
+    if (c == '|' || c == '<' || c == '>')
+        return (1);
+    return (0);
 }

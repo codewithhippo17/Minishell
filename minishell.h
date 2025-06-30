@@ -171,14 +171,18 @@ typedef struct s_minishell
 
 //-------------------**lexing**---------------------//
 
+
+void    append_token(t_token **head, t_token **tail, t_token *new_token);
 void    skip_whitespace(int *i, const char *input);
+t_token *parse_spaces(int *i, char *input);
+t_token *parse_quoted(int *i, char *input, char quote);
+t_token *parse_operator(int *i, char *input);
+t_token *parse_variable(int *i, char *input);
+t_token *parse_word(int *i, char *input);
+
+int     is_space(char c);
 int     is_quote(char c);
 int     is_operator_start(char c);
-t_token *parse_quoted(int *i, char *input, char quote);
-t_token *parse_operator(int *i, const char *input);
-t_token *parse_variable(int *i, const char *input);
-t_token *parse_word(int *i, const char *input);
-void    append_token(t_token **head, t_token **tail, t_token *new_token);
 
 //-------------------**build-in_cmd**-----------//
 
