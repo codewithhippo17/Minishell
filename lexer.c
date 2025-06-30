@@ -36,15 +36,13 @@ char	*ft_strndup(char *s, int len)
 	return (tmp);
 }
 
-t_token *parse_quoted(int *i, char *input)
+t_token *parse_quoted(int *i, char *input, char quote)
 {
     t_token *token;
-    char    quote;
     int     start;
     int     len;
 
     len = 0;
-    quote = input[*i];
     start = ++(*i);
     token = malloc(sizeof(t_token));
     if (!token)
@@ -66,6 +64,30 @@ t_token *parse_quoted(int *i, char *input)
     return (token);
 }
 
+
+t_token *lexer(char *input)
+{
+    int i = 0;
+    t_token *head = NULL;
+    t_token *tail = NULL;
+
+    while (input[i])
+    {
+        skip_whitespace(&i, input);
+        if (input[i] == '\0')
+            break;
+        if (is_quote(input[i]))
+            append_token(&head, &tail, parse_quoted(&i, input, input[i]));
+        else if (is_operator_start(input[i]))
+            append_token(&head, &tail, parse_operator(&i, input));
+        else if (input[i] == '$')
+            append_token(&head, &tail, parse_variable(&i, input));
+        else
+            append_token(&head, &tail, parse_word(&i, input));
+    }
+    return head;
+}
+
 int main()
 {
     int i = 0;
@@ -79,28 +101,3 @@ int main()
         printf("SQS\n"); 
 }
 
-/*t_token *lexer(char *input)
-{
-    int i = 0;
-    t_token *head = NULL;
-    t_token *tail = NULL;
-
-    while (input[i])
-    {
-        skip_whitespace(&i, input);
-
-        if (input[i] == '\0')
-            break;
-
-        if (is_quote(input[i]))
-            append_token(&head, &tail, parse_quoted(&i, input));
-        else if (is_operator_start(input[i]))
-            append_token(&head, &tail, parse_operator(&i, input));
-        else if (input[i] == '$')
-            append_token(&head, &tail, parse_variable(&i, input));
-        else
-            append_token(&head, &tail, parse_word(&i, input));
-    }
-
-    return head;
-}*/

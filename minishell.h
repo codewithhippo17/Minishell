@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "libft/libft.h"
+#include <readline/chardefs.h>
 # include <stdio.h>
 # include </usr/include/readline/history.h>
 # include </usr/include/readline/readline.h>
@@ -47,8 +48,10 @@ typedef enum e_quote_type
 } t_quote_type;
 
 typedef enum e_flag {
+    WORD,         // Word
     CMD,          // Command (first word of a command segment)
     ARG,          // Any argument (e.g., -l, "file", etc.)
+    WS,           // White spaces (e.g., ' ', '\t')
     PIPE,         // |
     LR,           // <
     RR,           // >
@@ -171,7 +174,7 @@ typedef struct s_minishell
 void    skip_whitespace(int *i, const char *input);
 int     is_quote(char c);
 int     is_operator_start(char c);
-t_token *parse_quoted(int *i, char *input);
+t_token *parse_quoted(int *i, char *input, char quote);
 t_token *parse_operator(int *i, const char *input);
 t_token *parse_variable(int *i, const char *input);
 t_token *parse_word(int *i, const char *input);
