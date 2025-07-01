@@ -24,7 +24,7 @@ t_token	*parse_word(int *i, char *input)
 	if (!token)
 		return (NULL);
 	while (input[*i] && !is_space(input[*i]) && !is_quote(input[*i])
-		&& !is_operator_start(input[*i]) && input[*i] != '$')
+		&& !is_operator_start(input[*i]))
 	{
 		(*i)++;
 		len++;

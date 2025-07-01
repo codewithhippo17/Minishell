@@ -114,7 +114,7 @@ int	main(int argc, char *argv[])
 	{
 		input = readline("minishell$");
         t_token *tokens = lexer(input);
-        //print_tokens(tokens);
+        print_tokens(tokens);
         if (checker(tokens) == false)
         {
             printf("\nNNNNNNNNN\n");
