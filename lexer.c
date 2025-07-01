@@ -12,6 +12,7 @@
 
 #include "libft/libft.h"
 #include "minishell.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -90,14 +91,43 @@ int main()
 {
 	int i = 0;
 
-	t_token *token = parse(&i, "\"echokdcs\"kjbsdv", '"');
-	printf("%s\n", token->value);
-	if (token->quote == DQS)
+    char *input = ft_strdup("< <<|||>|>jjkhv");
+    
+	t_token *token = parse_operator(&i, input, input[i]);
+    printf("the original -> %s\n", input);
+	printf("the remainer -> %s\n", &input[i]);
+
+    printf("value    -> %s\n", token->value);
+	printf("quote    -> ");
+    if (token->quote == DQS)
 	{
 		printf("DQS\n");
 	}
+    else if (token->quote == NQS)
+        printf("NQS\n");
 	else
 		printf("SQS\n");
+    printf("operator -> ");
+    if (token->type == PIPE)
+	{
+		printf("PIPE\n");
+	}
+    else if (token->type == DRR)
+	{
+		printf("DRR\n");
+	}
+
+    else if (token->type == DLR)
+	{
+		printf("DLR\n");
+	}
+    else if (token->type == RR)
+	{
+		printf("RR\n");
+	}
+
+	else
+		printf("LR\n");
 }
 
 
