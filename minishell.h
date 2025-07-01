@@ -176,7 +176,7 @@ void    append_token(t_token **head, t_token **tail, t_token *new_token);
 void    skip_whitespace(int *i, const char *input);
 t_token *parse_spaces(int *i, char *input);
 t_token *parse_quoted(int *i, char *input, char quote);
-t_token *parse_operator(int *i, char *input);
+t_token *parse_operator(int *i, char *input, char op);
 t_token *parse_variable(int *i, char *input);
 t_token *parse_word(int *i, char *input);
 

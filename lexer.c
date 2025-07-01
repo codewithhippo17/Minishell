@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "minishell.h"
 #include <stdlib.h>
+#include <time.h>
 
 char	*ft_strndup(char *s, int len)
 {
@@ -30,6 +32,49 @@ char	*ft_strndup(char *s, int len)
 	tmp[i] = '\0';
 	return (tmp);
 }
+
+t_token *parse_spaces(int *i, char *input)
+{
+  t_token *token;
+  
+  token = malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+  while (is_space(input[*i]))
+  {
+    (*i)++;
+  }
+  token->value = ft_strdup(" ");
+  token->quote = NQS;
+  token->type = WS;
+  token->next = NULL;
+  return (token);
+}
+
+void fill_token(t_token **token, char *value, t_flag flag, t_quote_type quote)
+{
+  (*token)->value = ft_strdup(value);
+  (*token)->flag = flag;
+  (*token)->quote = quote;
+  (*token)->next = NULL;
+}
+
+t_token *parse_operator(int *i, char *input, char op)
+{
+  t_token *token;
+  
+  token = malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+  if (expression) {
+  
+  }
+
+
+
+  return (token);
+}
+
 
 t_token	*parse_quoted(int *i, char *input, char quote)
 {
@@ -75,7 +120,7 @@ t_token	*lexer(char *input)
 		else if (is_quote(input[i]))
 			append_token(&head, &tail, parse_quoted(&i, input, input[i]));
 		else if (is_operator_start(input[i]))
-			append_token(&head, &tail, parse_operator(&i, input));
+			append_token(&head, &tail, parse_operator(&i, input, input[i]));
 		else if (input[i] == '$')
 			append_token(&head, &tail, parse_variable(&i, input));
 		else
