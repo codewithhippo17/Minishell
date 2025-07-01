@@ -33,7 +33,7 @@ char	*ft_strndup(char *s, int len)
 	return (tmp);
 }
 
-t_token *parse_spaces(int *i, char *input)
+/*t_token *parse_spaces(int *i, char *input)
 {
   t_token *token;
   
@@ -50,32 +50,58 @@ t_token *parse_spaces(int *i, char *input)
   token->next = NULL;
   return (token);
 }
-
+*/
 void fill_token(t_token **token, char *value, t_flag flag, t_quote_type quote)
 {
   (*token)->value = ft_strdup(value);
-  (*token)->flag = flag;
+  (*token)->type = flag;
   (*token)->quote = quote;
   (*token)->next = NULL;
 }
 
-t_token *parse_operator(int *i, char *input, char op)
+t_token	*parse_operator(int *i, char *input, char op)
 {
-  t_token *token;
-  
-  token = malloc(sizeof(t_token));
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
-  if (expression) {
-  
-  }
+	if (op == '|')
+		fill_token(&token, "|", PIPE, NQS);
+    else if (op == '>' && input[*i + 1] == '>')
+	{
+		fill_token(&token, ">>", DRR, NQS);
+		(*i)++;
+	}
+	else if (op == '>')
+		fill_token(&token, ">", RR, NQS);
+	else if (op == '<' && input[*i + 1] == '<')
+	{
+		fill_token(&token, "<<", DLR, NQS);
+		(*i)++;
+	}
+	else if (op == '<')
+		fill_token(&token, "<", LR, NQS);
+	(*i)++;
+	return (token);
+}
 
+int main()
+{
+	int i = 0;
 
-
-  return (token);
+	t_token *token = parse(&i, "\"echokdcs\"kjbsdv", '"');
+	printf("%s\n", token->value);
+	if (token->quote == DQS)
+	{
+		printf("DQS\n");
+	}
+	else
+		printf("SQS\n");
 }
 
 
+/*
 t_token	*parse_quoted(int *i, char *input, char quote)
 {
 	t_token	*token;
@@ -91,9 +117,12 @@ t_token	*parse_quoted(int *i, char *input, char quote)
 	{
 		(*i)++;
 		len++;
-	}
-	if (input[*i])
+    }
+	if (input[*i] == quote){
 		(*i)++;
+    }
+    else if (input[*i] == '\0')
+        return (free (token), NULL);           // free all and put the exit status to where it belong
 	token->value = ft_strndup(&input[start], len);
 	token->type = ARG;
 	if (quote == '"')
@@ -103,6 +132,7 @@ t_token	*parse_quoted(int *i, char *input, char quote)
 	token->next = NULL;
 	return (token);
 }
+
 
 t_token	*lexer(char *input)
 {
@@ -127,19 +157,7 @@ t_token	*lexer(char *input)
 			append_token(&head, &tail, parse_word(&i, input));
 	}
 	return (head);
-}
-
-/*
-int main()
-{
-	int i = 0;
-
-	t_token *token = parse_quoted(&i, "echo", '"');
-	printf("%s\n", token->value);
-	if (token->quote == DQS)
-	{
-		printf("DQS\n");
-	}
-	else
-		printf("SQS\n");
 }*/
+
+
+

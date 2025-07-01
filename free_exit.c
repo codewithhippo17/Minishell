@@ -31,6 +31,12 @@ void	ft_exit(char *error)
 	exit(1);
 }
 
+void	fiit_exit(char *error, int status)
+{
+	ft_putstr_fd(error, 2);
+	exit(status);
+}
+
 void	ft_exit_status(char *error, int status)
 {
 	perror(error);
