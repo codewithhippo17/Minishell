@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	fill_token(t_token **token, char *value, t_flag flag, t_quote quote)
 {
