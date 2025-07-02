@@ -75,7 +75,7 @@ t_token	*parse_spaces(int *i, char *input)
 		(*i)++;
 	}
 	token->value = ft_strdup(" ");
-	token->type = ES;
+	token->type = WS;
 	token->quote = NQS;
 	token->next = NULL;
 	return (token);

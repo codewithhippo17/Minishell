@@ -37,72 +37,70 @@ t_token	*lexer(char *input)
 	return (head);
 }
 
-void print_tokens(t_token *token) {
-	while (token) {
-		printf("Token: %-10s | Type: %-2d | Quote: %-2d\n", token->value, token->type, token->quote);
+void	print_tokens(t_token *token)
+{
+	t_token	*curr = token;
+
+
+	printf("Lexer Output:\n    ");
+	while (curr)
+	{
+		printf("[%s]", curr->value);
+		if (curr->next)
+			printf("->");
+		curr = curr->next;
+	}
+	printf("\n\n");
+
+	// Summary
+	printf("Summary:\n");
+	while (token)
+	{
+		const char *type_str;
+		const char *quote_str;
+
+		// Token type string representation
+		switch (token->type)
+		{
+			case CMD: type_str = "CMD"; break;
+			case ARG: type_str = "ARG"; break;
+			case VAR: type_str = "VAR"; break;
+			case PIPE: type_str = "PIPE"; break;
+			case RR: type_str = "RR"; break;
+			case DRR: type_str = "DRR"; break;
+			case LR: type_str = "LR"; break;
+			case DLR: type_str = "DLR"; break;
+			case ES: type_str = "ES"; break;
+            case WS: type_str = "WS"; break;
+			case WORD: type_str = "WORD"; break;
+			case ERROR: type_str = "ERROR"; break;
+		}
+
+		// Quote type string representation
+		switch (token->quote)
+		{
+			case NQS: quote_str = "NQS"; break;
+			case SQS: quote_str = "SQS"; break;
+			case DQS: quote_str = "DQS"; break;
+			case UQS: quote_str = "UQS"; break;
+		}
+
+		printf("    [%-12s] → %-10s | %s\n", token->value, type_str, quote_str);
 		token = token->next;
 	}
 }
 
-int main(void) {
-    
-    char *input = ft_strdup("\"echo\" hello | skgbvd$sdfsdhfd>> << |><>>>");
 
-	t_token *tokens = lexer(input);
-	print_tokens(tokens);
+int	main(int argc, char *argv[], char **env)
+{
+    char *input;
+	while (argc == 1 && argv)
+	{
+		input = readline("minishell$");
+        t_token *tokens = lexer(input);
+	    print_tokens(tokens);
+    }
 
-	// Optional: free memory
-	return 0;
+	return (EXIT_SUCCESS);
 }
 
-/*
-#include <stdio.h>
-
-int main()
-{
-	int i = 0;
-
-	char *input = ft_strdup("\"echohello");
-
-	t_token *token = parse_quoted(&i, input, input[i]);
-	printf("the original -> %s\n", input);
-	printf("the remainer -> %s\n", &input[i]);
-
-	printf("value    -> %s\n", token->value);
-	printf("quote    -> ");
-	if (token->quote == DQS)
-	{
-		printf("DQS\n");
-	}
-	else if (token->quote == NQS)
-		printf("NQS\n");
-	else if (token->quote == UQS)
-		printf("UQS\n");
-	else
-		printf("SQS\n");
-	printf("operator -> ");
-	if (token->type == PIPE)
-	{
-		printf("PIPE\n");
-	}
-	else if (token->type == DRR)
-	{
-		printf("DRR\n");
-	}
-
-	else if (token->type == DLR)
-	{
-		printf("DLR\n");
-	}
-	else if (token->type == RR)
-	{
-		printf("RR\n");
-	}
-	else if (token->type == ERROR)
-	{
-		printf("ERROR\n");
-	}
-
-	else
-		printf("LR\n");
-}*/

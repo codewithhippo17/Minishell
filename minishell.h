@@ -59,7 +59,6 @@ typedef enum e_flag {
     DLR,          // <<
     DRR,          // >>
     VAR,          // $VAR
-    ASSIGN,       // VAR=VALUE
     ES,   // $? special variable (handled like VAR but tagged separately)
     ERROR
 } t_flag;
