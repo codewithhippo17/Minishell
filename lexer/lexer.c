@@ -29,8 +29,6 @@ t_token	*lexer(char *input)
 			append_token(&head, &tail, parse_quoted(&i, input, input[i]));
 		else if (is_operator_start(input[i]))
 			append_token(&head, &tail, parse_operator(&i, input, input[i]));
-		//else if (input[i] == '$')
-			//append_token(&head, &tail, parse_variable(&i, input));
 		else
 			append_token(&head, &tail, parse_word(&i, input));
 	}
