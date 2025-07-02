@@ -3,7 +3,7 @@
 char	*ft_strndup(char *s, int len)
 {
 	char	*tmp;
-	int 	i;
+	int		i;
 
 	i = 0;
 	tmp = (char *)malloc(len + 1);

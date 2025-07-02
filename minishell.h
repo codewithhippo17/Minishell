@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/06/12 18:15:39 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/02 18:13:17 by ehamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include "libft/libft.h"
-#include <readline/chardefs.h>
+# include <readline/chardefs.h>
 # include <stdio.h>
 # include </usr/include/readline/history.h>
 # include </usr/include/readline/readline.h>
@@ -40,12 +40,13 @@
 
 //------------- ENUMS --------------//
 
-typedef enum e_quote_type 
+typedef enum e_quote
 {
     NQS, // No quotes (unquoted)
     SQS, // Single quotes ('...')
-    DQS  // Double quotes ("...")
-} t_quote_type;
+    DQS, // Double quotes ("...")
+    UQS  // Unclosed quoted sequence ("... , '...)
+} t_quote;
 
 typedef enum e_flag {
     WORD,         // Word
@@ -59,7 +60,8 @@ typedef enum e_flag {
     DRR,          // >>
     VAR,          // $VAR
     ASSIGN,       // VAR=VALUE
-    EXIT_STATUS   // $? special variable (handled like VAR but tagged separately)
+    ES,   // $? special variable (handled like VAR but tagged separately)
+    ERROR
 } t_flag;
 
 //------- PARSED COMMAND NODE -------//
@@ -68,7 +70,7 @@ typedef struct s_cmd
 {
     char            *arg;         // String value (e.g. "ls", "file.txt", "hello")
     t_flag          arg_type;     // CMD, ARG, PIPE, RR, etc.
-    t_quote_type    word_type;    // Was this word quoted? (affects expansion)
+    t_quote    word_type;    // Was this word quoted? (affects expansion)
     struct s_cmd    *next_cmd;    // Next command in sequence (pipe or redirection)
     struct s_cmd    *next_arg;    // Next argument in current command
 } t_cmd;
@@ -121,7 +123,7 @@ typedef struct s_token
 {
     char            *value;       // The string (e.g. echo, >>, file.txt)
     t_flag          type;         // CMD, ARG, PIPE, RR, etc.
-    t_quote_type    quote;        // Quote context: affects expansion
+    t_quote         quote;        // Quote context: affects expansion
     struct s_token  *next;        // Next token in list
 }   t_token;
 
@@ -171,18 +173,15 @@ typedef struct s_minishell
 
 //-------------------**lexing**---------------------//
 
+void	append_token(t_token **head, t_token **tail, t_token *new_token);
 
-void    append_token(t_token **head, t_token **tail, t_token *new_token);
-void    skip_whitespace(int *i, const char *input);
 t_token *parse_spaces(int *i, char *input);
 t_token *parse_quoted(int *i, char *input, char quote);
 t_token *parse_operator(int *i, char *input, char op);
 t_token *parse_variable(int *i, char *input);
 t_token *parse_word(int *i, char *input);
 
-int     is_space(char c);
-int     is_quote(char c);
-int     is_operator_start(char c);
+void	fill_token(t_token **token, char *value, t_flag flag, t_quote quote);
 
 //-------------------**build-in_cmd**-----------//
 
