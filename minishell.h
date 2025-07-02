@@ -17,6 +17,7 @@
 # include "includes/lexer.h"
 # include "includes/checker.h"
 # include <stddef.h>
+# include <readline/chardefs.h>
 # include <stdio.h>
 # include <readline/chardefs.h>
 # include </usr/include/readline/history.h>
@@ -27,7 +28,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <stdbool.h>
+
 
 typedef struct s_minishell
 {
