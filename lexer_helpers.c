@@ -35,4 +35,3 @@ void	append_token(t_token **head, t_token **tail, t_token *new_token)
 		*tail = new_token;
 	}
 }
-
