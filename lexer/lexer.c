@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdio.h>
 
 t_token	*lexer(char *input)
 {
@@ -64,7 +63,6 @@ void	print_tokens(t_token *token)
 			printf("<-");
 		hhh = hhh->prev;
     }
-
 	printf("\n\n");
 
 	// Summary
