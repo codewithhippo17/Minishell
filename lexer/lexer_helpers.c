@@ -32,6 +32,7 @@ void	append_token(t_token **head, t_token **tail, t_token *new_token)
 	else
 	{
 		(*tail)->next = new_token;
+        new_token->prev = *tail;
 		*tail = new_token;
 	}
 }
