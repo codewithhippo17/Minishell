@@ -10,3 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+# include "../minishell.h"
+
+bool is_op(t_token *token)
+{
+    if (token->type == PIPE || token->type == DLR || token->type == DRR || token->type == RR || token->type == LR)
+    {
+        return (true);
+    }
+}
