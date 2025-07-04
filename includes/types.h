@@ -112,6 +112,7 @@ typedef struct s_token
     t_flag          type;         // CMD, ARG, PIPE, RR, etc.
     t_quote         quote;        // Quote context: affects expansion
     struct s_token  *next;        // Next token in list
+    struct s_token  *prev;
 }   t_token;
 
 //-------------------------- EXAMPLE TOKEN LIST (ASCII) ---------------------------------//

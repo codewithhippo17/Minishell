@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
 
 t_token	*lexer(char *input)
 {
@@ -40,6 +41,7 @@ t_token	*lexer(char *input)
 void	print_tokens(t_token *token)
 {
 	t_token	*curr = token;
+    t_token *hhh = NULL;
 
 
 	printf("Lexer Output:\n    ");
@@ -47,9 +49,22 @@ void	print_tokens(t_token *token)
 	{
 		printf("[%s]", curr->value);
 		if (curr->next)
-			printf("->");
+        {
+    		printf("->");
+        }
+
+            hhh = curr;
 		curr = curr->next;
 	}
+    printf("\nhhhhhhhhh\n");
+    while (hhh)
+    {
+		printf("[%s]", hhh->value);
+		if (hhh->prev)
+			printf("<-");
+		hhh = hhh->prev;
+    }
+
 	printf("\n\n");
 
 	// Summary

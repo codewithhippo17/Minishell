@@ -33,6 +33,7 @@ t_token	*parse_word(int *i, char *input)
 	token->type = WORD;
 	token->quote = NQS;
 	token->next = NULL;
+    token->prev = NULL;
 	return (token);
 }
 
@@ -60,6 +61,7 @@ t_token	*parse_variable(int *i, char *input)
 	token->type = VAR;
 	token->quote = NQS;
 	token->next = NULL;
+    token->prev = NULL;
 	return (token);
 }
 
@@ -78,6 +80,7 @@ t_token	*parse_spaces(int *i, char *input)
 	token->type = WS;
 	token->quote = NQS;
 	token->next = NULL;
+    token->prev = NULL;
 	return (token);
 }
 
@@ -134,5 +137,5 @@ t_token	*parse_quoted(int *i, char *input, char quote)
 		token->quote = DQS;
 	else
 		token->quote = SQS;
-	return (token->next = NULL, token);
+	return (token->prev = NULL, token->next = NULL, token);
 }

@@ -18,6 +18,7 @@ void	fill_token(t_token **token, char *value, t_flag flag, t_quote quote)
 	(*token)->type = flag;
 	(*token)->quote = quote;
 	(*token)->next = NULL;
+    (*token)->prev = NULL;
 }
 
 void	append_token(t_token **head, t_token **tail, t_token *new_token)
