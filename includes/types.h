@@ -13,6 +13,8 @@
 #ifndef TYPES_H
 # define TYPES_H
 
+#include <stddef.h>
+
 /*------------------------------------**the full logic and data structure of the parsser**--------------------------------------*/
 
 /*

@@ -15,6 +15,7 @@
 
 # include "libft/libft.h"
 # include "includes/lexer.h"
+# include "includes/checker.h"
 # include <readline/chardefs.h>
 # include <stdio.h>
 # include </usr/include/readline/history.h>
@@ -26,6 +27,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <stdbool.h>
+
 typedef struct s_minishell
 {
 	char	*input;

@@ -16,7 +16,7 @@
 # define LEXER_H
 
 # include "./types.h"
-
+t_token	*lexer(char *input);
 void	append_token(t_token **head, t_token **tail, t_token *new_token);
 
 t_token *parse_spaces(int *i, char *input);

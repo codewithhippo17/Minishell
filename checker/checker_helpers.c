@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rules.c                                            :+:      :+:    :+:   */
+/*   checker_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/03 00:26:19 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/04 20:57:30 by ehamza           ###   ########.fr       */
+/*   Created: 2025/07/04 22:34:00 by ehamza            #+#    #+#             */
+/*   Updated: 2025/07/04 22:34:04 by ehamza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/checker.h"
 
-bool	is_op(t_token *token)
-{
-	if (token && (token->type == DRR || token->type == DLR
-			|| token->type == RR || token->type == LR))
-	{
-		return (true);
-	}
-	return (false);
-}
 
-bool	is_word(t_token *token)
+bool    check_quote(t_token *token)
 {
-	if (token->type == WORD || token->type == VAR)
-	{
-		return (true);
-	}
-	return (false);
-}
+    t_token *current;
 
+    current = token;
+    while (current)
+    {
+        if (current->quote == UQS)
+            return (false);
+        current = current->next;
+    }
+    return (true);
+}
 

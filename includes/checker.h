@@ -10,3 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef SYNTAX_H
+# define SYNTAX_H
+
+# include "types.h"
+# include <stdbool.h>
+
+bool	is_word(t_token *token);
+bool	is_op(t_token *token);
+bool    check_quote(t_token *token);
+
+#endif
