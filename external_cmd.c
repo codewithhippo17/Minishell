@@ -11,14 +11,18 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 
-static void	child_pr_all(char **cmd, char **env)
+static void	child_pr_all(t_minishell *mini)
 {
 	char	*path;
 
-	path = get_path(cmd[0], env);
-	execve(path, cmd, env);
-	free_split(cmd);
+	path = get_path(mini->cmd_args[0], mini->m_env);
+	execve(path, mini->cmd_args, mini->m_env);
+	free_split(mini->cmd_args);
+	free_split(mini->m_env);
+	free_split(mini->s_env);
+  free(mini);
 	exit(127);
 }
 
@@ -32,7 +36,7 @@ int	ft_exec_all(t_minishell *minishell)
 	if (pid == -1)
 		ft_exit("fork: Error\n");
 	if (pid == 0)
-		child_pr_all(minishell->cmd_args, minishell->m_env);
+		child_pr_all(minishell);
 	else
 	{
 		wait(&status);

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdlib.h>
 
 char	**rm_var(char *var, char **env)
 {
@@ -28,28 +29,28 @@ char	**rm_var(char *var, char **env)
 	new_env = malloc((l) * sizeof(char *));
 	if (!new_env)
 		return (NULL);
-	while (j < l)
+	while (env[j])
 	{
 		split = ft_split(env[j], '=');
 		if (!split)
 			return (NULL);
-		if (env[j] && ft_strncmp(split[0], var, ft_strlen(split[0])) != 0)
+		if (ft_strcmp(split[0], var) != 0)
 		{
 			new_env[i] = ft_strdup(env[j]);
 			if (!new_env[i])
 			{
 				ft_free_tab(split);
 				ft_free_tab(new_env);
-				return (NULL);
+				return (env);
 			}
 			i++;
 		}
+		free_split(split);
 		j++;
 	}
-	while (i < l)
-		new_env[i++] = NULL;
-	ft_free_tab(split);
-	ft_free_tab(env);
+	//printf("[%d], [%d], [%d]\n", i, l, j);
+	new_env[i] = NULL;
+	free_split(env);
 	return (new_env);
 }
 
@@ -66,9 +67,10 @@ int	if_ixist(char *var, char **env)
 			return (0);
 		if (ft_strncmp(split[0], var, ft_strlen(split[0])) == 0)
 		{
-			ft_free_tab(split);
+			free_split(split);
 			return (1);
 		}
+		free_split(split);
 		i++;
 	}
 	return (0);
@@ -76,13 +78,13 @@ int	if_ixist(char *var, char **env)
 
 int	unset_env(char *var, char ***env)
 {
-	char	**temp;
+	char	**tmp;
 
 	if (!if_ixist(var, *env))
 		return (0);
-	temp = rm_var(var, *env);
-	if (!temp)
+	tmp = rm_var(var, *env);
+	if (!(tmp))
 		return (1);
-	*env = temp;
+	*env = tmp;
 	return (0);
 }

@@ -15,19 +15,19 @@
 
 int	is_builtin(char **s)
 {
-	if (ft_strncmp(s[0], "echo", ft_strlen("echo")) == 0)
+	if (ft_strncmp(s[0], "echo", ft_strlen(s[0])) == 0)
 		return (1);
-	else if (ft_strncmp(s[0], "cd", ft_strlen("cd")) == 0)
+	else if (ft_strncmp(s[0], "cd", ft_strlen(s[0])) == 0)
 		return (1);
-	else if (ft_strncmp(s[0], "pwd", ft_strlen("pwd")) == 0)
+	else if (ft_strncmp(s[0], "pwd", ft_strlen(s[0])) == 0)
 		return (1);
-	else if (ft_strncmp(s[0], "env", ft_strlen("env")) == 0)
+	else if (ft_strncmp(s[0], "env", ft_strlen(s[0])) == 0)
 		return (1);
-	else if (ft_strncmp(s[0], "export", ft_strlen("export")) == 0)
+	else if (ft_strncmp(s[0], "export", ft_strlen(s[0])) == 0)
 		return (1);
-	else if (ft_strncmp(s[0], "unset", ft_strlen("unset")) == 0)
+	else if (ft_strncmp(s[0], "unset", ft_strlen(s[0])) == 0)
 		return (1);
-	else if (ft_strncmp(s[0], "exit", ft_strlen("exit")) == 0)
+	else if (ft_strncmp(s[0], "exit", ft_strlen(s[0])) == 0)
 		return (1);
 	return (0);
 }
@@ -80,6 +80,7 @@ char	**set_env_utils(char **env)
 		}
 		i++;
 	}
+  printf("[%d], [%d]\n", l, i);
 	my_env[i] = NULL;
 	return (my_env);
 }
@@ -88,19 +89,13 @@ int	set_env(t_minishell *minishell, char **env)
 {
 	minishell->m_env = set_env_utils(env);
 	if (!minishell->m_env)
-	{
-		free(minishell);
 		return (1);
-	}
 	minishell->s_env = set_env_utils(env);
+  if (!minishell->s_env)
+    return (1);
 	unset_env("_", &(minishell->s_env));
 	if (!minishell->s_env)
-	{
-		free_split(minishell->m_env);
-		free_split(minishell->s_env);
-		free(minishell);
 		return (1);
-	}
 	return (0);
 }
 
@@ -118,8 +113,9 @@ int	main(int argc, char *argv[], char **env)
 	t_minishell	*minishell;
 
 	minishell = malloc(sizeof(t_minishell));
+  minishell->status = 0;
 	if (set_env(minishell, env))
-		return (EXIT_FAILURE);
+    free_exit_failier(minishell, EXIT_FAILURE);
 	while (argc == 1 && argv)
 	{
 		minishell->input = readline("minishell$");

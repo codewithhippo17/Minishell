@@ -29,13 +29,13 @@ char	**add_variable(char **env, const char *new_var, int current_size)
 			(current_size + 2) * sizeof(char *));
 	if (!new_env)
 	{
-		ft_putstr_fd("Memory allocation failed----------------\n", 2);
+		ft_putstr_fd("Memory allocation failed\n", 2);
 		return (env);
 	}
 	new_env[current_size] = ft_strdup(new_var);
 	if (!new_env[current_size])
 	{
-		ft_putstr_fd("Memory allocation failed**************\n", 2);
+		ft_putstr_fd("Memory allocation failed\n", 2);
 		return (env);
 	}
 	new_env[current_size + 1] = NULL;

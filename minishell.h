@@ -6,10 +6,9 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/06/12 18:15:39 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/03 16:52:25 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -204,6 +203,7 @@ int			echo(char *str, int status);
 int			cd(char *str, t_minishell *minishell);
 int			pwd(void);
 int			envierment(char **m_env);
+int	ft_my_exit(t_minishell *minishell);
 
 // int					ft_export(char **av, char **m_env);
 
