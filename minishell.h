@@ -16,8 +16,9 @@
 # include "libft/libft.h"
 # include "includes/lexer.h"
 # include "includes/checker.h"
-# include <readline/chardefs.h>
+# include <stddef.h>
 # include <stdio.h>
+# include <readline/chardefs.h>
 # include </usr/include/readline/history.h>
 # include </usr/include/readline/readline.h>
 # include <fcntl.h>
