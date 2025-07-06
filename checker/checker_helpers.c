@@ -12,7 +12,6 @@
 
 #include "../includes/checker.h"
 
-
 bool    check_quote(t_token *token)
 {
     t_token *current;

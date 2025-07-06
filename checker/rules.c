@@ -24,10 +24,14 @@ bool	is_op(t_token *token)
 
 bool	is_word(t_token *token)
 {
-	if (token->type == WORD || token->type == VAR)
+	if (token->type == WORD)
 	{
 		return (true);
 	}
+    else if (token->next && token->type == WS && token->next->type == WORD)
+    {
+        return (true);
+    }
 	return (false);
 }
 
