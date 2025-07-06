@@ -37,7 +37,7 @@ t_token	*parse_word(int *i, char *input)
 	return (token);
 }
 
-t_token	*parse_variable(int *i, char *input)
+/*t_token	*parse_variable(int *i, char *input)
 {
 	t_token	*token;
 	int		start;
@@ -63,7 +63,7 @@ t_token	*parse_variable(int *i, char *input)
 	token->next = NULL;
     token->prev = NULL;
 	return (token);
-}
+}*/
 
 t_token	*parse_spaces(int *i, char *input)
 {
