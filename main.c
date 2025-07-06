@@ -1,3 +1,5 @@
+#include "minishell.h"
+
 void	print_tokens(t_token *token)
 {
 	t_token	*curr = token;
@@ -64,3 +66,23 @@ void	print_tokens(t_token *token)
 	}
 }
 
+
+int	main(int argc, char *argv[])
+{
+    char *input;
+	while (argc == 1 && argv)
+	{
+		input = readline("minishell$");
+        t_token *tokens = lexer(input);
+        print_tokens(tokens);
+        if (checker(tokens) == false)
+        {
+            printf("\nNNNNNNNNN\n");
+        }
+        else {
+        printf("\nYYYYYYYYYY\n");
+        }
+    }
+
+	return (EXIT_SUCCESS);
+}
