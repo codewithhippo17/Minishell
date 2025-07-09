@@ -18,27 +18,15 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <signal.h>
 
 # define LEN_RANDOM 8
-
-typedef struct s_heredoc
-{
-    int				fd;
-    int             pid;
-    int             status;
-    char            *line;
-    char			*filename;
-    char            *del; // delimiter
-    struct s_heredoc    *prev;
-    struct s_heredoc	*next;
-}	heredoc_t;
-
-static heredoc_t *g_heredoc = NULL;
-
 
 char    *ft_random(void);
 heredoc_t	*init_heredoc(void);
 void    free_heredoc(heredoc_t *hd);
 void    free_heredoc_list(heredoc_t *hd);
-void    add_heredoc(heredoc_t **head, heredoc_t *new);
+void    add_heredoc(heredoc_t **head, heredoc_t *new_hd);
+int heredoc(heredoc_t *hd);
+void ft_heredoc(t_token *token, char *delimiter, t_quote quote);
 #endif

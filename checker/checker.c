@@ -11,14 +11,15 @@
 /* ************************************************************************** */
 
 #include "../includes/checker.h"
+#include "../minishell.h"
 
-bool    checker(t_token *token)
+bool    checker(t_token **token)
 {
-    if (check_quote(token) == false)
+    if (check_quote(*token) == false)
         return (false);
     t_token *current;
 
-    current = token;
+    current = *token;
     while (current)
     {
         if (current->type == PIPE)
@@ -30,11 +31,10 @@ bool    checker(t_token *token)
             if (current->next->type == PIPE || (current->next->type == WS && current->next->next->type == PIPE))
                 return (false);
         }
-        if (is_op(current) == true)
-        {
-            if (!current->next || is_word(current->next) == false)
-                return (false);
-        }
+        if (is_op(current) == true && (!current->next || is_word(current->next) == false))
+            return (false);
+        if (current->type == DLR)
+            ft_heredoc(current, grabdel(current)); // here??
         current = current->next;
     }
     return (true);

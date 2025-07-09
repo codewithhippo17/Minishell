@@ -12,7 +12,9 @@
 
 #include "../includes/heredoc.h"
 #include "../minishell.h"
-#include <signal.h>
+#include <stdio.h>
+
+heredoc_t *g_heredoc = NULL;
 
 static void run_heredoc_child(heredoc_t *hd)
 {
@@ -44,7 +46,9 @@ static int run_heredoc_parent(heredoc_t *hd)
 {
     waitpid(hd->pid, &hd->status, 0);
     if (WIFSIGNALED(hd->status))
-        return (-1);
+        return (perror("heredoc child terminated by signal"), -1);
+    else if (WIFSTOPPED(hd->status))
+        return (perror("heredoc child stopped"), -1);
     else if (WIFEXITED(hd->status) && WEXITSTATUS(hd->status) != 0)
         return (perror("open tmp for reading"), -1);
     hd->fd = open(hd->filename, O_RDONLY);
@@ -53,18 +57,9 @@ static int run_heredoc_parent(heredoc_t *hd)
     return (0);
 }
 
-void handle_sigint(int sig)
-{
-    (void)sig;
-    printf("\n");
-    if (g_heredoc)
-        free_heredoc(g_heredoc);
-    exit(128 + SIGINT);
-}
 
 int heredoc(heredoc_t *hd)
-{
-    signal(SIGINT, handle_sigint);
+{ 
     hd->pid = fork();
     if (hd->pid < 0)
     {
@@ -75,45 +70,3 @@ int heredoc(heredoc_t *hd)
         run_heredoc_child(hd);
     return (run_heredoc_parent(hd));
 }
-
-/*int main(int argc, char **argv)
-{
-    heredoc_t *hd;
-    char *random_str;
-
-    if (argc < 2)
-    {
-        fprintf(stderr, "Usage: %s <delimiter>\n", argv[0]);
-        return EXIT_FAILURE;
-    }
-
-    hd = init_heredoc();
-    if (!hd)
-        return EXIT_FAILURE;
-    
-    g_heredoc = hd;  // Set global for signal handler
-
-    random_str = ft_random();
-    if (!random_str)
-        return free_heredoc(hd), EXIT_FAILURE;
-    
-    hd->filename = ft_strjoin("/tmp/heredoc_", random_str);
-    free(random_str);
-    if (!hd->filename)
-        return free_heredoc(hd), EXIT_FAILURE;
-
-    hd->del = ft_strdup(argv[1]);
-    printf("Delimiter: %s\n", hd->del);
-    if (!hd->del)
-        return free_heredoc(hd), EXIT_FAILURE;
-
-    if (heredoc(hd) < 0)
-        return free_heredoc(hd), EXIT_FAILURE;
-
-    // Do something with hd->fd...
-
-    g_heredoc = NULL;  // Clear global before cleanup
-    free_heredoc(hd);
-    return EXIT_SUCCESS;
-}
-*/

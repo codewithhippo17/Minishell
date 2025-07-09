@@ -16,6 +16,7 @@
 # include "libft/libft.h"
 # include "includes/lexer.h"
 # include "includes/checker.h"
+# include "includes/heredoc.h"
 # include <stddef.h>
 # include <readline/chardefs.h>
 # include <stdio.h>

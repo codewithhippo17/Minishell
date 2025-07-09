@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/checker.h"
+#include "../minishell.h"
 
 bool    check_quote(t_token *token)
 {
@@ -24,5 +25,24 @@ bool    check_quote(t_token *token)
         current = current->next;
     }
     return (true);
+}
+
+char *grabdel(t_token *token)
+{
+    char *delimiter;
+    
+    if (token->next->type == WORD)
+    {
+        delimiter = ft_strdup(token->next->value);
+        if (!delimiter)
+            return (NULL);
+    }
+    else
+    {
+        delimiter = ft_strdup(token->next->next->value);
+        if (!delimiter)
+            return (NULL);
+    }
+    return (delimiter);
 }
 

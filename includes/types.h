@@ -108,11 +108,24 @@ cat (CMD)
 
 //------------------------------ TOKEN STRUCTURE ----------------------------------------//
 
+typedef struct s_heredoc
+{
+    int				fd;
+    int             pid;
+    int             status;
+    char            *line;
+    char			*filename;
+    char            *del; // delimiter
+    struct s_heredoc    *prev;
+    struct s_heredoc	*next;
+}	heredoc_t;
+
 typedef struct s_token
 {
     char            *value;       // The string (e.g. echo, >>, file.txt)
     t_flag          type;         // CMD, ARG, PIPE, RR, etc.
     t_quote         quote;        // Quote context: affects expansion
+    heredoc_t       *hd;          // Pointer to heredoc data 
     struct s_token  *next;        // Next token in list
     struct s_token  *prev;
 }   t_token;
