@@ -13,13 +13,12 @@
 #include "../includes/heredoc.h"
 #include "../minishell.h"
 #include <stdio.h>
-
-heredoc_t *g_heredoc = NULL;
+#include <unistd.h>
 
 static void run_heredoc_child(heredoc_t *hd)
 {
     signal(SIGINT, SIG_DFL);
-    hd->fd = open(hd->filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+    hd->fd = open(hd->filename, O_CREAT | O_WRONLY | O_TRUNC, 0444);
     if (hd->fd < 0)
     {
         perror("open tmp");
@@ -54,6 +53,7 @@ static int run_heredoc_parent(heredoc_t *hd)
     hd->fd = open(hd->filename, O_RDONLY);
     if (hd->fd < 0)
         return (perror("open tmp for reading"), -1);
+    unlink(hd->filename);
     return (0);
 }
 

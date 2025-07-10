@@ -30,19 +30,34 @@ bool    check_quote(t_token *token)
 char *grabdel(t_token *token)
 {
     char *delimiter;
-    
+
     if (token->next->type == WORD)
     {
-        delimiter = ft_strdup(token->next->value);
+        delimiter = token->next->value;
         if (!delimiter)
             return (NULL);
     }
     else
     {
-        delimiter = ft_strdup(token->next->next->value);
+        delimiter = token->next->next->value;
         if (!delimiter)
             return (NULL);
     }
     return (delimiter);
+}
+
+t_quote grabquote(t_token *token)
+{
+    t_quote quote;
+
+    if (token->next->type == WORD)
+    {
+        quote = token->next->quote;
+    }
+    else
+    {
+        quote = token->next->next->quote;
+    }
+    return (quote);
 }
 

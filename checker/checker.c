@@ -34,7 +34,7 @@ bool    checker(t_token **token)
         if (is_op(current) == true && (!current->next || is_word(current->next) == false))
             return (false);
         if (current->type == DLR)
-            ft_heredoc(current, grabdel(current)); // here??
+            ft_heredoc(current, grabdel(current), grabquote(current));
         current = current->next;
     }
     return (true);

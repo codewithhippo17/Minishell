@@ -116,6 +116,7 @@ typedef struct s_heredoc
     char            *line;
     char			*filename;
     char            *del; // delimiter
+    t_quote         quote;
     struct s_heredoc    *prev;
     struct s_heredoc	*next;
 }	heredoc_t;
