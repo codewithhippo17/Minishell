@@ -12,8 +12,9 @@ SRC = minishell.c \
 			build_in_cmd.c \
 			external_cmd.c \
 			minishell_utils.c \
+			minishell_helpre.c \
+			minishell_set_env.c \
 			free_exit.c\
-			pipex.c \
 			$(wildcard ./build_in_cmd_utils/*.c)
 
 OBJ = $(SRC:.c=.o)

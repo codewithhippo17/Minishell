@@ -68,6 +68,6 @@ void	ft_close_wait_exit(int p_fd[], int pid1, int pid2);
 char	*get_path(char *cmd, char **env);
 
 // -----------------ººPIPEXºº------------------ //
-void	pipex(char **av, char **env, int flag);
+void	pipex(char **av, char **env, int l_flag, int flag);
 
 #endif

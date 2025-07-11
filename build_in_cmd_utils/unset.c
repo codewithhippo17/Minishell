@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:13:59 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/06/12 18:13:59 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:16:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@ char	**rm_var(char *var, char **env)
 			new_env[i] = ft_strdup(env[j]);
 			if (!new_env[i])
 			{
-				ft_free_tab(split);
-				ft_free_tab(new_env);
+				free_strings(split);
+				free_strings(new_env);
 				return (env);
 			}
 			i++;
 		}
-		free_split(split);
+		free_strings(split);
 		j++;
 	}
 	//printf("[%d], [%d], [%d]\n", i, l, j);
 	new_env[i] = NULL;
-	free_split(env);
+	free_strings(env);
 	return (new_env);
 }
 
@@ -67,10 +67,10 @@ int	if_ixist(char *var, char **env)
 			return (0);
 		if (ft_strncmp(split[0], var, ft_strlen(split[0])) == 0)
 		{
-			free_split(split);
+			free_strings(split);
 			return (1);
 		}
-		free_split(split);
+		free_strings(split);
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:16:32 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/06/12 18:16:32 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:16:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -65,7 +65,7 @@ int	exports(char *var, char ***env)
 			{
 				if (update_variable(var, *env, i))
 				{
-					free_split(split);
+					free_strings(split);
 					return (1);
 				}
 				found = 1;
@@ -73,7 +73,7 @@ int	exports(char *var, char ***env)
 			}
 			else
 			{
-        ft_free_tab(split);
+        free_strings(split);
 				return (0);
 			}
 		}
@@ -84,11 +84,11 @@ int	exports(char *var, char ***env)
 		temp = add_variable(*env, var, i);
 		if (!temp)
 		{
-			free_split(split);
+			free_strings(split);
 			return (1);
 		}
 		*env = temp;
 	}
-	free_split(split);
+	free_strings(split);
 	return (0);
 }

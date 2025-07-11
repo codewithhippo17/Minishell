@@ -6,158 +6,28 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/03 16:52:25 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/06 19:21:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft/libft.h"
-#include <readline/chardefs.h>
 # include <stdio.h>
+//-----------------------//
+# include "libft/libft.h"
 # include </usr/include/readline/history.h>
 # include </usr/include/readline/readline.h>
+# include <dirent.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <linux/limits.h>
+# include <readline/chardefs.h>
 # include <stdlib.h>
+# include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <unistd.h>
-
-//------------------------------------**the full logic and data structure of the parsser**--------------------------------------//
-
-/*
-    Pipeline overview:
-    ------------------------------------------------------------------------------
-    char *input = readline("> ");               // Step 0: Get input
-    t_token *tokens = lexer(input);             // Step 1: Tokenize into words, operators
-    t_token *expanded = expand(tokens, env);    // Step 2: Expand variables
-    t_cmd   *cmd_tree = parser(expanded);       // Step 3: Parse tokens into t_cmd structure
-    executor(cmd_tree);                         // Step 4: Execute parsed command tree
-    ------------------------------------------------------------------------------
-*/
-
-//------------- ENUMS --------------//
-
-typedef enum e_quote_type 
-{
-    NQS, // No quotes (unquoted)
-    SQS, // Single quotes ('...')
-    DQS  // Double quotes ("...")
-} t_quote_type;
-
-typedef enum e_flag {
-    WORD,         // Word
-    CMD,          // Command (first word of a command segment)
-    ARG,          // Any argument (e.g., -l, "file", etc.)
-    WS,           // White spaces (e.g., ' ', '\t')
-    PIPE,         // |
-    LR,           // <
-    RR,           // >
-    DLR,          // <<
-    DRR,          // >>
-    VAR,          // $VAR
-    ASSIGN,       // VAR=VALUE
-    EXIT_STATUS   // $? special variable (handled like VAR but tagged separately)
-} t_flag;
-
-//------- PARSED COMMAND NODE -------//
-
-typedef struct s_cmd 
-{
-    char            *arg;         // String value (e.g. "ls", "file.txt", "hello")
-    t_flag          arg_type;     // CMD, ARG, PIPE, RR, etc.
-    t_quote_type    word_type;    // Was this word quoted? (affects expansion)
-    struct s_cmd    *next_cmd;    // Next command in sequence (pipe or redirection)
-    struct s_cmd    *next_arg;    // Next argument in current command
-} t_cmd;
-
-//------- EXAMPLE TREE STRUCTURE ------//
-
-/*
-Parsed structure for: cat < infile.txt | grep "hello" > outfile.txt
-
-t_cmd: "cat"     (CMD)
- └── next_arg   → NULL
- └── next_cmd   →
-      " < "     (LR)
-        └── next_arg → "infile.txt" (ARG)
-        └── next_cmd →
-             "|"     (PIPE)
-              └── next_cmd →
-                   "grep" (CMD)
-                    └── next_arg → "hello" (ARG, DQS)
-                    └── next_cmd →
-                         ">" (RR)
-                          └── next_arg → "outfile.txt" (ARG)
-
- Alternative visual representation:
-
-cat (CMD)
- └── < (LR)
-      └── infile.txt (ARG)
-           └── | (PIPE)
-                └── grep (CMD)
-                     └── "hello" (ARG)
-                          └── > (RR)
-                               └── outfile.txt (ARG)
-*/
-
-//------------------------------------**the full logic and data structure of the lexer**------------------------------------------//
-
-/*
-    Lexer Pipeline Overview:
-    ------------------------------------------------------------------------------
-    char *input = readline("> ");        // Step 0: Get input from user
-    t_token *tokens = lexer(input);      // Step 1: Tokenize input into linked list
-    ------------------------------------------------------------------------------
-*/
-
-
-//------------------------------ TOKEN STRUCTURE ----------------------------------------//
-
-typedef struct s_token
-{
-    char            *value;       // The string (e.g. echo, >>, file.txt)
-    t_flag          type;         // CMD, ARG, PIPE, RR, etc.
-    t_quote_type    quote;        // Quote context: affects expansion
-    struct s_token  *next;        // Next token in list
-}   t_token;
-
-//-------------------------- EXAMPLE TOKEN LIST (ASCII) ---------------------------------//
-
-/*
-Input:
-    echo "hello $USER" > out.txt | grep txt | cat << EOF
-
-Lexer Output:
-    [echo] ──▶ ["hello $USER"] ──▶ [>] ──▶ [out.txt] ──▶ [|] ──▶ [grep] ──▶ [txt] ──▶ [|] ──▶ [cat] ──▶ [<<] ──▶ [EOF]
-
-Summary:
-    [echo]          → CMD       | NO_QUOTE
-    ["hello $USER"] → ARG       | DOUBLE_QUOTE
-    [>]             → RR        | NO_QUOTE
-    [out.txt]       → ARG       | NO_QUOTE
-    [|]             → PIPE      | NO_QUOTE
-    [grep]          → CMD       | NO_QUOTE
-    [txt]           → ARG       | NO_QUOTE
-    [|]             → PIPE      | NO_QUOTE
-    [cat]           → CMD       | NO_QUOTE
-    [<<]            → DLR       | NO_QUOTE
-    [EOF]           → ARG       | NO_QUOTE
-*/
-
-typedef struct s_script
-{
-    t_cmd **cmd;
-} t_script;
-
-typedef struct s_var
-{
-  char *var;
-  char *value;
-  struct s_var *next_var;
-} t_var;
 
 typedef struct s_minishell
 {
@@ -168,64 +38,42 @@ typedef struct s_minishell
 	int		status;
 }			t_minishell;
 
-//-------------------**lexing**---------------------//
-
-
-void    append_token(t_token **head, t_token **tail, t_token *new_token);
-void    skip_whitespace(int *i, const char *input);
-t_token *parse_spaces(int *i, char *input);
-t_token *parse_quoted(int *i, char *input, char quote);
-t_token *parse_operator(int *i, char *input, char op);
-t_token *parse_variable(int *i, char *input);
-t_token *parse_word(int *i, char *input);
-
-int     is_space(char c);
-int     is_quote(char c);
-int     is_operator_start(char c);
-
-//-------------------**build-in_cmd**-----------//
-
+//-------------------ººbuild-in_cmdºº-----------//
 int			is_builtin(char **s);
 void		execute_builtin(t_minishell *minishell);
 
-//-------------------**external_cmd**-------------//
-
-int			ft_exec_all(t_minishell *minishell);
-
-//---------------ººfreesplitºº-----------------//
-
-void		free_split(char **s);
-void		ft_exit(char *error);
-
 //----------------ººbuild-in_cmd_utilsºº------------------//
-
 int			echo(char *str, int status);
 int			cd(char *str, t_minishell *minishell);
 int			pwd(void);
 int			envierment(char **m_env);
-int	ft_my_exit(t_minishell *minishell);
-
-// int					ft_export(char **av, char **m_env);
-
-int	update_variable(char *s, char **env, int i);
+int			ft_my_exit(t_minishell *minishell);
+int			update_variable(char *s, char **env, int i);
 int			exports(char *var, char ***env);
 int			exec_export(t_minishell *minishell);
-int	unset_env(char *var, char ***env);
-int	exec_unset(t_minishell *minishell);
+int			unset_env(char *var, char ***env);
+int			exec_unset(t_minishell *minishell);
 
-//-----------------ººminishel_utils.cºº----------------//
+//-------------------ººexternal_cmdºº-------------//
+int			ft_exec_all(t_minishell *minishell);
 
+//---------------ººfree_exitºº-----------------//
+void		free_strings(char **s);
+void		ft_exit(char *error);
+void		free_exit_minishell(t_minishell *minishell, int status);
+
+//-----------------ººminishel_utilsºº----------------//
 char		*my_getenv(char *name, char **env);
 char		*get_path(char *cmd, char **env);
 
-// --------------ººPIPEX_UTILSºº--------------- //
+//-------------ººminishell_helpreºº-------------------//
+int			is_builtin(char **s);
+int			is_piped(char *input);
 
-void		ft_free_tab(char **tab);
-void		ft_exit_status(char *error, int status);
-void		ft_free_exit(char **args, char *erno, int status);
-void		ft_close_wait_exit(int p_fd[], int pid1, int pid2);
+//------------------ºº./minishell_set_envºº------------//
+char		**set_env_utils(char **env);
+int			set_env(t_minishell *minishell, char **env);
 
 // -----------------ººPIPEXºº------------------ //
-void		pipex(t_minishell *minishell);
 
 #endif

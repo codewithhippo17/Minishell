@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:14:12 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/03 16:59:00 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/06 19:21:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	declair_x(char **env)
 			j++;
 		}
 		printf("\"\n");
-		free_split(split);
+		free_strings(split);
 		split = NULL;
 		i++;
 	}

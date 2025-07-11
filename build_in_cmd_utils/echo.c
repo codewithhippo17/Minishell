@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:03:04 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/03 16:58:19 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/06 19:17:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ int	echo(char *str, int status)
 	}
 	if (!chek_flag(s[1]))
 		printf("\n");
-	free_split(s);
+	free_strings(s);
 	return (0);
 }
