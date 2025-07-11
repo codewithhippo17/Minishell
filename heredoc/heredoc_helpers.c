@@ -8,6 +8,7 @@ heredoc_t	*init_heredoc(void)
     if (!new)
         return (perror("malloc"), NULL);
     new->fd = -1;
+    new->tmp_fd = -1;
     new->filename = NULL;
     new->next = NULL;
     new->line = NULL;
