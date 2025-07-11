@@ -19,11 +19,6 @@ SRC = minishell.c \
 
 OBJ = $(SRC:.c=.o)
 
-m: fclean all
-	rm -f $(OBJ)
-	make -C ./libft clean
-	rm -f ./build_in_cmd/*.o
-
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
@@ -31,6 +26,12 @@ $(NAME): $(OBJ) $(LIBFT)
 
 $(LIBFT):
 	make -C ./libft
+
+m: fclean all
+	rm -f $(OBJ)
+	make -C ./libft clean
+	rm -f ./build_in_cmd/*.o
+	rm -f libft/libft.a
 
 clean:
 	rm -f $(OBJ)
