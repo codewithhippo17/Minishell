@@ -6,11 +6,13 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:14:12 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/06/12 18:14:12 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/06 19:21:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "minishell.h"
+#include <stdio.h>
 
 int	is_var(char *str)
 {
@@ -102,7 +104,7 @@ int	declair_x(char **env)
 			j++;
 		}
 		printf("\"\n");
-		free_split(split);
+		free_strings(split);
 		split = NULL;
 		i++;
 	}
@@ -129,30 +131,6 @@ int	exec_export(t_minishell *minishell)
 		status = declair_x(minishell->s_env);
 	}
 	return (status);
-}
-
-int	is_num(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	ft_my_exit(char *e_xit)
-{
-	if (e_xit && is_num(e_xit))
-		exit(ft_atoi(e_xit));
-	else
-		exit(2);
 }
 
 int	exec_unset(t_minishell *minishell)
@@ -196,5 +174,5 @@ void	execute_builtin(t_minishell *minishell)
 		minishell->status = exec_unset(minishell);
 	else if (ft_strncmp(minishell->cmd_args[0], "exit",
 			ft_strlen(minishell->cmd_args[0])) == 0)
-		ft_my_exit(minishell->cmd_args[1]);
+		minishell->status = ft_my_exit(minishell);
 }

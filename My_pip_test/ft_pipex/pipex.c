@@ -11,19 +11,15 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include <string.h>
 
-static void	child_pr(char *infile, char *cmd1, int *p_fd, char **env)
+static void	child_pr(char *cmd1, int *p_fd, char **env)
 {
-	int		in_fd;
 	char	**args;
 	char	*path_1;
 
-	in_fd = open(infile, O_RDONLY);
-	if (in_fd == -1)
-		ft_exit("open", EXIT_FAILURE);
 	close(p_fd[0]);
 	dup2(p_fd[1], STDOUT_FILENO);
-	dup2(in_fd, STDIN_FILENO);
 	args = ft_split(cmd1, ' ');
 	if (!args)
 		ft_exit("ft_split", EXIT_FAILURE);
@@ -39,29 +35,11 @@ static void	child_pr(char *infile, char *cmd1, int *p_fd, char **env)
 		ft_free_exit(args, "execve", 127);
 }
 
-static void	parent_pr(char *cmd2, char *outfile, int *p_fd, int flag,
-		char **env)
+static void	parent_pr(char *cmd2, int *p_fd, char **env)
 {
-	int		out_fd;
 	char	**args;
 	char	*path_2;
 
-	if (flag && outfile)
-	{
-		if (flag == 1)
-		{
-			out_fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (out_fd == -1)
-				ft_exit("open", EXIT_FAILURE);
-		}
-		else
-		{
-			out_fd = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (out_fd == -1)
-				ft_exit("open", EXIT_FAILURE);
-		}
-		dup2(out_fd, STDOUT_FILENO);
-	}
 	close(p_fd[1]);
 	dup2(p_fd[0], STDIN_FILENO);
 	args = ft_split(cmd2, ' ');
@@ -79,7 +57,9 @@ static void	parent_pr(char *cmd2, char *outfile, int *p_fd, int flag,
 		ft_free_exit(args, "execve", 127);
 }
 
-void	pipex(char **av, char **env, int flag)
+
+
+void	pipex(char **av, char **env, int l_flag, int r_flag)
 {
 	int		p_fd[2];
 	pid_t	pid1;
@@ -91,110 +71,31 @@ void	pipex(char **av, char **env, int flag)
 	if (pid1 == -1)
 		ft_exit("fork", EXIT_FAILURE);
 	else if (pid1 == 0)
-		child_pr(av[0], av[1], p_fd, env);
+		child_pr(av[0], p_fd, env);
 	else
 	{
 		pid2 = fork();
 		if (pid2 == -1)
 			ft_exit("fork", EXIT_FAILURE);
 		else if (pid2 == 0)
-			parent_pr(av[2], av[3], p_fd, flag, env);
+			parent_pr(av[2], p_fd, env);
 		else
 			ft_close_wait_exit(p_fd, pid1, pid2);
 	}
 }
 
-void	parcing_pipex(char *input, char **env)
-{
-	int		l;
-	int		i;
-	int		j;
-	int		flag;
-	char	**arr;
-	char	*ar;
-	char	**av;
-	char	*at;
-	char	*tmp;
-	char	*iiin;
 
-	l = 0;
-	i = 0;
-	j = 0;
-	flag = 0;
-	while (input[l])
-		l++;
-	if ((ft_strchr(input, '<') && ft_strchr(input, '>')) && ft_strchr(input,
-			'|'))
-	{
-		ar = malloc(l * sizeof(char));
-		while (i < l)
-		{
-			if (input[i] == '<' || input[i] == '|')
-			{
-				i++;
-			}
-			else if (input[i] == '>' && input[i + 1] != '>')
-			{
-				i++;
-				flag = 1;
-			}
-			else if (input[i] == '>' && input[i + 1] == '>')
-			{
-				i += 2;
-				flag = 2;
-			}
-			else
-			{
-				ar[j++] = input[i];
-			}
-			i++;
-		}
-		printf("%s\n", ar);
-		av = ft_split(ar, ' ');
-		pipex(av, env, flag);
-	}
-	else
-	{
-		i = 1;
-		av = ft_split(input, ' ');
-		tmp = av[0];
-		av[0] = av[1];
-		av[1] = tmp;
-		printf("%s\n", av[0]);
-		at = ft_strjoin(av[0], "");
-		while (av[i])
-		{
-			at = ft_strjoin(at, " ");
-			at = ft_strjoin(at, av[i++]);
-		}
-		printf("%s\n", at);
-		i = 0;
-		j = 0;
-		iiin = malloc(l * sizeof(char));
-		while (i < l)
-		{
-			if (at[i] == '|')
-				i++;
-			else if (at[i] == '>' && at[i + 1] != '>')
-			{
-				i++;
-				flag = 1;
-			}
-			else if (at[i] == '>' && at[i + 1] == '>')
-			{
-				i += 2;
-				flag = 2;
-			}
-			else
-				iiin[j++] = at[i];
-			i++;
-		}
-		printf("%s\n", iiin);
-		arr = ft_split(iiin, ' ');
-		printf("%s\n", arr[3]);
-		pipex(arr, env, flag);
-	}
+void rederection_handler(char *input);
+{
+  char srgs = ft_split(input, '|');
+  int i = 0;
+  while (input[i])
+  {
+    if ()
+  }
 }
+
+
 
 int	main(int ac, char **av, char **env)
 {

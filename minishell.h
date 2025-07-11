@@ -13,6 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+
 # include "libft/libft.h"
 # include "includes/lexer.h"
 # include "includes/checker.h"
@@ -21,13 +22,23 @@
 # include <readline/chardefs.h>
 # include <stdio.h>
 # include <readline/chardefs.h>
+
+# include <stdio.h>
+//-----------------------//
+# include "libft/libft.h"
+
 # include </usr/include/readline/history.h>
 # include </usr/include/readline/readline.h>
+# include <dirent.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <linux/limits.h>
+# include <readline/chardefs.h>
 # include <stdlib.h>
+# include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <unistd.h>
 
 
@@ -40,48 +51,44 @@ typedef struct s_minishell
 	int		status;
 }			t_minishell;
 
-//-------------------**build-in_cmd**-----------//
+
+//-------------------ººbuild-in_cmdºº-----------//
 
 int			is_builtin(char **s);
 void		execute_builtin(t_minishell *minishell);
 
-//-------------------**external_cmd**-------------//
-
-int			ft_exec_all(t_minishell *minishell);
-
-//---------------ººfreesplitºº-----------------//
-
-void		free_split(char **s);
-void		ft_exit(char *error);
-
 //----------------ººbuild-in_cmd_utilsºº------------------//
-
 int			echo(char *str, int status);
 int			cd(char *str, t_minishell *minishell);
 int			pwd(void);
 int			envierment(char **m_env);
-
-// int					ft_export(char **av, char **m_env);
-
-int	update_variable(char *s, char **env, int i);
+int			ft_my_exit(t_minishell *minishell);
+int			update_variable(char *s, char **env, int i);
 int			exports(char *var, char ***env);
 int			exec_export(t_minishell *minishell);
-int	unset_env(char *var, char ***env);
-int	exec_unset(t_minishell *minishell);
+int			unset_env(char *var, char ***env);
+int			exec_unset(t_minishell *minishell);
 
-//-----------------ººminishel_utils.cºº----------------//
+//-------------------ººexternal_cmdºº-------------//
+int			ft_exec_all(t_minishell *minishell);
 
+//---------------ººfree_exitºº-----------------//
+void		free_strings(char **s);
+void		ft_exit(char *error);
+void		free_exit_minishell(t_minishell *minishell, int status);
+
+//-----------------ººminishel_utilsºº----------------//
 char		*my_getenv(char *name, char **env);
 char		*get_path(char *cmd, char **env);
 
-// --------------ººPIPEX_UTILSºº--------------- //
+//-------------ººminishell_helpreºº-------------------//
+int			is_builtin(char **s);
+int			is_piped(char *input);
 
-void		ft_free_tab(char **tab);
-void		ft_exit_status(char *error, int status);
-void		ft_free_exit(char **args, char *erno, int status);
-void		ft_close_wait_exit(int p_fd[], int pid1, int pid2);
+//------------------ºº./minishell_set_envºº------------//
+char		**set_env_utils(char **env);
+int			set_env(t_minishell *minishell, char **env);
 
 // -----------------ººPIPEXºº------------------ //
-void		pipex(t_minishell *minishell);
 
 #endif

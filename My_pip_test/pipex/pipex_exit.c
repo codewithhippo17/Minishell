@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_exit.c                                        :+:      :+:    :+:   */
+/*   pipex_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 18:14:23 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/07 18:22:32 by marvin           ###   ########.fr       */
+/*   Created: 2025/06/02 11:53:32 by marvin            #+#    #+#             */
+/*   Updated: 2025/06/02 11:53:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "pipex.h"
 
-void	free_strings(char **s)
+void	ft_free_tab(char **tab)
 {
-	int	j;
+	size_t	i;
 
-	j = 0;
-	while (s[j])
+	i = 0;
+	while (tab[i])
 	{
-		free(s[j]);
-		j++;
+		free(tab[i]);
+		i++;
 	}
-	free(s);
+	free(tab);
+}
+
+void	ft_exit(char *error, int status)
+{
+	perror(error);
+	exit(status);
+}
+
+void	ft_free_exit(char **args, char *erno, int status)
+{
+	ft_free_tab(args);
+	perror(erno);
+	exit(status);
 }
 
 void	ft_close_wait_exit(int p_fd[], int pid1, int pid2)
@@ -34,13 +47,4 @@ void	ft_close_wait_exit(int p_fd[], int pid1, int pid2)
 	waitpid(pid1, &status, 0);
 	waitpid(pid2, &status, 0);
 	exit(WEXITSTATUS(status));
-}
-
-void	free_exit_minishell(t_minishell *minishell, int status)
-{
-	free_strings(minishell->m_env);
-	free_strings(minishell->s_env);
-	free(minishell->input);
-	free(minishell);
-	exit(status);
 }
