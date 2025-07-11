@@ -111,6 +111,7 @@ cat (CMD)
 typedef struct s_heredoc
 {
     int				fd;
+    int             tmp_fd;
     int             pid;
     int             status;
     char            *line;

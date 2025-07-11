@@ -13,6 +13,28 @@
 #include "../includes/heredoc.h"
 #include "../minishell.h"
 
+#define BUFFER_SIZE 1024
+
+void	write_file_to_stdout(int fd)
+{
+	char	buffer[BUFFER_SIZE];
+	ssize_t	bytes_read;
+
+	while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
+	{
+		if (write(STDOUT_FILENO, buffer, bytes_read) != bytes_read)
+		{
+			perror("write");
+			exit(EXIT_FAILURE);
+		}
+	}
+	if (bytes_read < 0)
+	{
+		perror("read");
+		exit(EXIT_FAILURE);
+	}
+}
+
 void ft_heredoc(t_token *token, char *delimiter, t_quote quote)
 {
     heredoc_t *hd;
@@ -41,6 +63,7 @@ void ft_heredoc(t_token *token, char *delimiter, t_quote quote)
         return ;
     }
     token->hd = hd;
+    write_file_to_stdout(hd->fd);
 }
 
 

@@ -1,0 +1,12 @@
+# Ignore all a.out files
+**/a.out
+
+# Ignore all minishell files
+**/minishell
+
+# Ignore all object files
+**/*.o
+
+# Ignore all archive files
+**/*.a
+
