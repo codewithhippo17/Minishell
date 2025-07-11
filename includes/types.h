@@ -155,4 +155,14 @@ Summary:
     [EOF]           → ARG       | NO_QUOTE
 */
 
+typedef struct s_minishell
+{
+	char	*input;
+	char	**m_env;
+	char	**s_env;
+	char	**cmd_args;
+	int		status;
+}			t_minishell;
+
+
 #endif

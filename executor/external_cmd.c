@@ -10,11 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "minishell.h"
-#include <dirent.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "../minishell.h"
 
 static void	printerror(char *cmd, char *err)
 {

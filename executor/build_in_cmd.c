@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "minishell.h"
-#include <stdio.h>
+#include "../minishell.h"
 
 int	is_var(char *str)
 {

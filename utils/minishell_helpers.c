@@ -1,5 +1,4 @@
-#include "minishell.h"
-#include <string.h>
+#include "../minishell.h"
 
 int	is_builtin(char **s)
 {

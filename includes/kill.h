@@ -1,38 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsing.c                                       :+:      :+:    :+:   */
+/*   kill.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 18:14:27 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/06/12 18:14:27 by ybelghad         ###   ########.fr       */
+/*   Created: 2025/07/11 20:30:58 by ybelghad          #+#    #+#             */
+/*   Updated: 2025/07/11 20:30:58 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <stdio.h>
+#ifndef KILL_H
+# define KILL_H
 
-int nb_cmds(char *str)
-{
-    int nb;
+//---------------ººfree_exitºº-----------------//
+void	free_strings(char **s);
+void	ft_close_wait_exit(int p_fd[], int pid1, int pid2);
+void	free_exit_minishell(t_minishell *minishell, int status);
 
-    nb = 0;
-    while (*str)
-    {
-        if (*str == '|')
-            nb++;
-        str++;
-    }
-    return (nb);
-}
-
-int main()
-{
-    printf("%d\n", nb_cmds("<< del cat -e | grep hippo | tr 'p' 's' | cat | wc -l > out.txt"));
-}
-
-/*char	**ft_parsing(t_script *script)
-{
-}*/
-
+#endif // !KILL_H

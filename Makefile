@@ -8,14 +8,17 @@ INCLUDES = -I/usr/include/readline -I./libft
 
 LIBFT = ./libft/libft.a
 
-SRC = minishell.c \
-			build_in_cmd.c \
-			external_cmd.c \
-			minishell_utils.c \
-			minishell_helpre.c \
-			minishell_set_env.c \
-			free_exit.c\
-			$(wildcard ./build_in_cmd_utils/*.c)
+
+
+SRC = builtins/cd.c builtins/echo.c builtins/env.c \
+			builtins/exit.c builtins/export.c builtins/pwd.c \
+			builtins/unset.c \
+			executor/build_in_cmd.c executor/external_cmd.c \
+			kill/free_exit.c \
+			utils/minishell_helpers.c utils/minishell_set_env.c  utils/minishell_utils.c \
+			minishell.c
+
+
 
 OBJ = $(SRC:.c=.o)
 
