@@ -13,7 +13,7 @@
 #include "../includes/checker.h"
 #include "../minishell.h"
 
-bool    checker(t_token **token)
+bool    checker(t_token **token, t_minishell *minishell)
 {
     if (check_quote(*token) == false)
         return (false);
@@ -34,7 +34,7 @@ bool    checker(t_token **token)
         if (is_op(current) == true && (!current->next || is_word(current->next) == false))
             return (false);
         if (current->type == DLR)
-            ft_heredoc(current, grabdel(current), grabquote(current));
+            ft_heredoc(current, grabdel(current), grabquote(current), minishell);
         current = current->next;
     }
     return (true);

@@ -18,7 +18,7 @@
 
 
 
-static void run_heredoc_child(heredoc_t *hd)
+static void run_heredoc_child(heredoc_t *hd, t_minishell *minishell)
 {
     signal(SIGINT, SIG_DFL);
     while (1)
@@ -26,6 +26,10 @@ static void run_heredoc_child(heredoc_t *hd)
         hd->line = readline("> ");
         if (!hd->line || strcmp(hd->line, hd->del) == 0)
             break;
+        if (hd->quote == NQS)
+        {
+            expander(&(hd->line), minishell->m_env);
+        }
         write(hd->tmp_fd, hd->line, ft_strlen(hd->line));
         write(hd->tmp_fd, "\n", 1);
         free(hd->line);
@@ -50,7 +54,7 @@ static int run_heredoc_parent(heredoc_t *hd)
 }
 
 
-int heredoc(heredoc_t *hd)
+int heredoc(heredoc_t *hd, t_minishell *minishell)
 {
     hd->tmp_fd = open(hd->filename, O_CREAT | O_WRONLY , 0600);
     hd->fd = open(hd->filename, O_RDONLY, 0600);
@@ -62,7 +66,7 @@ int heredoc(heredoc_t *hd)
         return -1;
     }
     if (hd->pid == 0)
-        run_heredoc_child(hd);
+        run_heredoc_child(hd, minishell);
     else
         run_heredoc_parent(hd);
     return (0);

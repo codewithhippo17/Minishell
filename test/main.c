@@ -31,8 +31,15 @@ void ft_free(t_token *token)
 
 
 
-int	main(int argc, char *argv[])
+int	main(int argc, char *argv[], char **env)
 {
+    t_minishell	*minishell;
+    (void)argc;
+    (void)argv;
+	minishell = malloc(sizeof(t_minishell));
+	minishell->status = 0;
+	if (set_env(minishell, env))
+		free_exit_minishell(minishell, EXIT_FAILURE);
     char *input;
     
     // Set up signal handling for main shell
@@ -64,7 +71,7 @@ int	main(int argc, char *argv[])
             t_token *tokens = lexer(input);
 
             
-            if (checker(&tokens) == false)
+            if (checker(&tokens, minishell) == false)
             {
                 printf("\nNNNNNNNNN\n");
             }

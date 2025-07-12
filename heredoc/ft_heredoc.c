@@ -35,7 +35,7 @@ void	write_file_to_stdout(int fd)
 	}
 }
 
-void ft_heredoc(t_token *token, char *delimiter, t_quote quote)
+void ft_heredoc(t_token *token, char *delimiter, t_quote quote, t_minishell *minishell)
 {
     heredoc_t *hd;
     int result;
@@ -56,7 +56,7 @@ void ft_heredoc(t_token *token, char *delimiter, t_quote quote)
         free_heredoc(hd);
         return ;
     }
-    result = heredoc(hd);
+    result = heredoc(hd, minishell);
     if (result == -1)
     {
         free_heredoc(hd);

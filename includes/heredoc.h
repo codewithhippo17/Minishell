@@ -27,7 +27,7 @@ heredoc_t	*init_heredoc(void);
 void    free_heredoc(heredoc_t *hd);
 void    free_heredoc_list(heredoc_t *hd);
 void    add_heredoc(heredoc_t **head, heredoc_t *new_hd);
-int heredoc(heredoc_t *hd);
-void ft_heredoc(t_token *token, char *delimiter, t_quote quote);
+int heredoc(heredoc_t *hd, t_minishell *minishell);
+void ft_heredoc(t_token *token, char *delimiter, t_quote quote, t_minishell *minishell);
 void	write_file_to_stdout(int fd);
 #endif

@@ -18,6 +18,7 @@
 # include "includes/heredoc.h"
 # include "includes/kill.h"
 # include "includes/lexer.h"
+# include "includes/expand.h"
 # include "libft/libft.h"
 # include </usr/include/readline/history.h>
 # include </usr/include/readline/readline.h>

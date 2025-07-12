@@ -10,24 +10,27 @@ READLINE_FLAGS = -lreadline
 LEXER_DIR = ../lexer
 CHECKER_DIR = ../checker
 HEREDOC_DIR = ../heredoc
-
+EXPAND_DIR = ../expander
 # Source files
-LEXER_SRCS = $(LEXER_DIR)/lexer.c \
-	         $(LEXER_DIR)/lexer_utils.c \
-	         $(LEXER_DIR)/lexer_helpers.c
+LEXER_SRCS =	$(LEXER_DIR)/lexer.c \
+	        	$(LEXER_DIR)/lexer_utils.c \
+	        	$(LEXER_DIR)/lexer_helpers.c
 
-CHECKER_SRCS = $(CHECKER_DIR)/checker.c \
-	           $(CHECKER_DIR)/checker_helpers.c \
-	           $(CHECKER_DIR)/rules.c
+CHECKER_SRCS =	$(CHECKER_DIR)/checker.c \
+	        	$(CHECKER_DIR)/checker_helpers.c \
+	        	$(CHECKER_DIR)/rules.c
 
-HEREDOC_SRCS = $(HEREDOC_DIR)/heredoc.c \
-	           $(HEREDOC_DIR)/heredoc_helpers.c \
-	           $(HEREDOC_DIR)/random.c \
-	           $(HEREDOC_DIR)/ft_heredoc.c
+HEREDOC_SRCS =	$(HEREDOC_DIR)/heredoc.c \
+	        	$(HEREDOC_DIR)/heredoc_helpers.c \
+	        	$(HEREDOC_DIR)/random.c \
+	        	$(HEREDOC_DIR)/ft_heredoc.c
+EXPAND_SRC =	$(EXPAND_DIR)/expand_helpers.c
+MINI = 	../kill/free_exit.c \
+		../utils/minishell_helpers.c ../utils/minishell_set_env.c  ../utils/minishell_utils.c ../builtins/unset.c
 MAIN_SRCS = main.c
 
 # All source files
-SRCS = $(LEXER_SRCS) $(CHECKER_SRCS) $(HEREDOC_SRCS) $(MAIN_SRCS)
+SRCS = $(LEXER_SRCS) $(CHECKER_SRCS) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(MAIN_SRCS)
 
 # Object files
 OBJS = $(SRCS:.c=.o)

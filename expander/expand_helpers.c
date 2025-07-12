@@ -56,4 +56,3 @@ void	expander(char **string, char **env)
 	free(*string);
 	*string = result;
 }
-
