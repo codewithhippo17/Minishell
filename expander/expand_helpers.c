@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../minishell.h"
+
 static void expander(char **str)
 {
     char *dolar;
-    char 
     int i = 0;
 
     dolar = ft_strchr(*str, '$');
