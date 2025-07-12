@@ -12,26 +12,48 @@
 
 #include "../minishell.h"
 
-static void expander(char **str)
+static int	is_var_char(char c)
 {
-    char *dolar;
-    int i = 0;
-
-    dolar = ft_strchr(*str, '$');
-    while (dolar != NULL)
-    {
-        while(dolar[i] != ' ')
-        {
-            dolar[i] =  'A';
-            i++;
-        }
-        dolar = ft_strchr(*str, '$');
-    }
+	return (ft_isalnum(c) || c == '_');
 }
 
-int main()
+void	expander(char **string, char **env)
 {
-    char *str = ft_strdup("cdschsdc$HOME clkdsc $KFD :DFFDKFDF");
-    expander(&str);
-    printf("%s\n", str);
+	char	*src = *string;
+	char	*result = ft_strdup("");  // Will build the new string here
+	int		i = 0;
+
+	while (src[i])
+	{
+		if (src[i] == '$')
+		{
+			i++;
+			int	start = i;
+			while (is_var_char(src[i]))
+				i++;
+			char	*var_name = ft_substr(src, start, i - start);
+			char	*var_value = my_getenv(var_name, env);
+			free(var_name);
+			if (var_value)
+			{
+				char *tmp = ft_strjoin(result, var_value);
+				free(result);
+				result = tmp;
+			}
+		}
+		else
+		{
+			int start = i;
+			while (src[i] && src[i] != '$')
+				i++;
+			char *chunk = ft_substr(src, start, i - start);
+			char *tmp = ft_strjoin(result, chunk);
+			free(result);
+			free(chunk);
+			result = tmp;
+		}
+	}
+	free(*string);
+	*string = result;
 }
+
