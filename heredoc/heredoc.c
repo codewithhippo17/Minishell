@@ -16,6 +16,31 @@
 #include <stdio.h>
 #include <unistd.h>
 
+static void expander(char **str)
+{
+    char *dolar;
+    char 
+    int i = 0;
+
+    dolar = ft_strchr(*str, '$');
+    while (dolar != NULL)
+    {
+        while(dolar[i] != ' ')
+        {
+            dolar[i] =  'A';
+            i++;
+        }
+        dolar = ft_strchr(*str, '$');
+    }
+}
+
+int main()
+{
+    char *str = ft_strdup("cdschsdc$HOME clkdsc $KFD :DFFDKFDF");
+    expander(&str);
+    printf("%s\n", str);
+}
+/*
 static void run_heredoc_child(heredoc_t *hd)
 {
     signal(SIGINT, SIG_DFL);
@@ -64,4 +89,4 @@ int heredoc(heredoc_t *hd)
     else
         run_heredoc_parent(hd);
     return (0);
-}
+}*/
