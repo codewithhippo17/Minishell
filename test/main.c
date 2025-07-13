@@ -29,7 +29,7 @@ void ft_free(t_token *token)
     }
 }
 
-int main(int argc, char *argv[], char **env)
+/* int main(int argc, char *argv[], char **env)
 {
     t_minishell	*minishell;
     (void)argc;
@@ -46,9 +46,9 @@ int main(int argc, char *argv[], char **env)
     free(str);
     free(minishell);
     return (EXIT_SUCCESS);
-}
+} */
 
-/* int	main(int argc, char *argv[], char **env)
+int	main(int argc, char *argv[], char **env)
 {
     t_minishell	*minishell;
     (void)argc;
@@ -108,7 +108,7 @@ int main(int argc, char *argv[], char **env)
 }
 
 
-* void	print_tokens(t_token *token)
+/*void	print_tokens(t_token *token)
 {
 	t_token	*curr = token;
     t_token *hhh = NULL;

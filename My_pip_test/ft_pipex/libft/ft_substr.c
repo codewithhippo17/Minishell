@@ -30,3 +30,22 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ft_strlcpy(st, s + start, len + 1);
 	return (st);
 }
+
+#include <stdio.h>
+
+int main(void)
+{
+    // Example usage of ft_substr
+    char *str = "Hello, World!";
+    char *substr = ft_substr(str, 7, 5);
+    if (substr)
+    {
+        printf("Substring: %s\n", substr); // Should print "World"
+        free(substr);
+    }
+    else
+    {
+        printf("Memory allocation failed\n");
+    }
+    return 0;
+}
