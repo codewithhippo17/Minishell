@@ -29,9 +29,26 @@ void ft_free(t_token *token)
     }
 }
 
+int main(int argc, char *argv[], char **env)
+{
+    t_minishell	*minishell;
+    (void)argc;
+    (void)argv;
+    minishell = malloc(sizeof(t_minishell));
+    minishell->status = 0;
+    if (set_env(minishell, env))
+        free_exit_minishell(minishell, EXIT_FAILURE);
+    
+    char *str = ft_strdup("$HOME_ $PWD $HHH $45dsdsd dscscsdc sdvvdsvv$ scsdc");
+    printf("Before expansion: %s\n", str);
+    expander(&str, minishell->m_env);
+    printf("After expansion: %s\n", str);
+    free(str);
+    free(minishell);
+    return (EXIT_SUCCESS);
+}
 
-
-int	main(int argc, char *argv[], char **env)
+/* int	main(int argc, char *argv[], char **env)
 {
     t_minishell	*minishell;
     (void)argc;
@@ -90,7 +107,7 @@ int	main(int argc, char *argv[], char **env)
     return (EXIT_SUCCESS);
 }
 
-/*
+
 * void	print_tokens(t_token *token)
 {
 	t_token	*curr = token;
@@ -157,3 +174,4 @@ int	main(int argc, char *argv[], char **env)
 	}
 }
 */
+
