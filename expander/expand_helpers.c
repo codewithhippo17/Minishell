@@ -36,6 +36,29 @@ static int	getnon_var_len(const char *str)
     return len;
 }
 
+char	*ft_join1(char *s1, char *s2)
+{
+	char	*res;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	res = (char *)malloc((strlen(s1) + strlen(s2) + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
+	while (s1[i])
+		res[j++] = s1[i++];
+	i = 0;
+	while (s2[i])
+		res[j++] = s2[i++];
+	res[j] = '\0';
+	if (s2)
+	{
+		free(s2);
+	}
+	return (res);
+}
 
 void	expander(char **string, char **env)
 {
@@ -52,10 +75,19 @@ void	expander(char **string, char **env)
         if ((*string)[i] == '$' && is_var_char((*string)[i + 1]))
         {
             len = get_var_len((*string) + i + 1);
-            var_name = ft_substr(*string, i + 1, len);
-            var_value = my_getenv(var_name, env);
-            expanded = ft_join(expanded, var_value ? var_value : "");
-            i += len + 1;  // +1 for the '$'
+            if (len > 0)
+            {
+                var_name = ft_substr((*string), i + 1, len);
+                if (*var_name)
+                    var_value = my_getenv(var_name, env);
+            }
+            if (var_value)
+            {
+                expanded = ft_join1(ft_substr(*string, 0, ), var_value);
+                i += len + 1;
+            }
+            else
+                expanded = ft_join1(expanded, ft_strdup(""));
         }
         else
         {

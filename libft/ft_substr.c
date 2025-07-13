@@ -30,3 +30,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ft_strlcpy(st, s + start, len + 1);
 	return (st);
 }
+
+
+#include <stdio.h>
+
+int main()
+{
+    printf("%s", ft_substr("", 5, 0));
+}
