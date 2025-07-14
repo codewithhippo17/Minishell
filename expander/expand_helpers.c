@@ -89,7 +89,13 @@ void	expander(char **string, char **env)
         }
         else if ((*string)[i] == '$' && !is_var_char((*string)[i + 1]))
         {
-            expanded = ft_join(expanded, ft_strdup("$"));
+            if ((*string)[i + 1] == '?')
+            {
+                expanded = ft_join(expanded, ft_strdup("127"));
+                i++;
+            }
+            else
+                expanded = ft_join(expanded, ft_strdup("$"));
             i++;
         }
         else
