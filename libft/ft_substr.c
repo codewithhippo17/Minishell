@@ -32,9 +32,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 }
 
 
-#include <stdio.h>
+/* #include <stdio.h>
 
 int main()
 {
-    printf("%s", ft_substr("", 5, 0));
-}
+    char *s = ft_substr("", 5, 0);
+    printf("AAA%sAAA", s);
+    free(s);
+} */

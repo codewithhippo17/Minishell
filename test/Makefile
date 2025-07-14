@@ -27,7 +27,7 @@ HEREDOC_SRCS =	$(HEREDOC_DIR)/heredoc.c \
 EXPAND_SRC =	$(EXPAND_DIR)/expand_helpers.c
 MINI = 	../kill/free_exit.c \
 		../utils/minishell_helpers.c ../utils/minishell_set_env.c  ../utils/minishell_utils.c ../builtins/unset.c
-MAIN_SRCS = exp.c
+MAIN_SRCS = main.c
 
 # All source files
 SRCS = $(LEXER_SRCS) $(CHECKER_SRCS) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(MAIN_SRCS)

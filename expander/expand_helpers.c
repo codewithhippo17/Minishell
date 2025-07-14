@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 static int	is_var_char(char c)
 {
@@ -53,10 +55,6 @@ char	*ft_join1(char *s1, char *s2)
 	while (s2[i])
 		res[j++] = s2[i++];
 	res[j] = '\0';
-	if (s2)
-	{
-		free(s2);
-	}
 	return (res);
 }
 
@@ -66,6 +64,7 @@ void	expander(char **string, char **env)
     char    *var_name;
     char    *var_value;
     char    *non_var_part;
+
     int     i = 0;
     int     len;
 
@@ -80,14 +79,18 @@ void	expander(char **string, char **env)
                 var_name = ft_substr((*string), i + 1, len);
                 if (*var_name)
                     var_value = my_getenv(var_name, env);
+                free(var_name);
+                if (var_value)
+                {
+                    expanded = ft_join1(expanded, var_value);
+                }
+            i += len +1;
             }
-            if (var_value)
-            {
-                expanded = ft_join1(ft_substr(*string, 0, ), var_value);
-                i += len + 1;
-            }
-            else
-                expanded = ft_join1(expanded, ft_strdup(""));
+        }
+        else if ((*string)[i] == '$' && !is_var_char((*string)[i + 1]))
+        {
+            expanded = ft_join(expanded, ft_strdup("$"));
+            i++;
         }
         else
         {
