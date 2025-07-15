@@ -46,22 +46,21 @@ void ft_heredoc(t_token *token, char *delimiter, t_quote quote, t_minishell *min
     hd->del = ft_strdup(delimiter);
     hd->quote = quote;
     if (!hd->del)
-    {
         return ;
-    }
     hd->filename = ft_strjoin("/tmp/heredoc", ft_random());
     if (!hd->filename)
-    {
         return ;
-    }
     result = heredoc(hd, minishell);
     if (result == -1)
-    {
         return ;
-    }
     token->hd = hd;
-    /* write_file_to_stdout(hd->fd); */
+    token->type = HEREDOC;
+    if (token->next->type == WORD)
+    {
+        token->next = token->next->next;
+    }
+    else
+    {
+        token->next = token->next->next->next;
+    }
 }
-
-
-

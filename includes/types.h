@@ -48,6 +48,7 @@ typedef enum e_flag {
     RR,           // >
     DLR,          // <<
     DRR,          // >>
+    HEREDOC,
     VAR,          // $VAR
     ES,           // $? special variable (handled like VAR but tagged separately)
     ERROR

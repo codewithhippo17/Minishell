@@ -16,87 +16,7 @@ void handle_main_signal(int sig)
     }
 }
 
-
-void ft_free(t_token *token)
-{
-    t_token *tmp;
-    while (token)
-    {
-        tmp = token;
-        token = token->next;
-        free(tmp->value);
-        free(tmp);
-    }
-}
-
-/* int main(int argc, char *argv[], char **env)
-{
-    t_minishell	*minishell;
-    (void)argc;
-    (void)argv;
-    minishell = malloc(sizeof(t_minishell));
-    minishell->status = 0;
-    if (set_env(minishell, env))
-        free_exit_minishell(minishell, EXIT_FAILURE);
-    
-    char *str = ft_strdup("$HOME_ $PWD $HHH $45dsdsd dscscsdc sdvvdsvv$ scsdc");
-    printf("Before expansion: %s\n", str);
-    expander(&str, minishell->m_env);
-    printf("After expansion: %s\n", str);
-    free(str);
-    free(minishell);
-    return (EXIT_SUCCESS);
-} */
-
-int	main(int argc, char *argv[], char **env)
-{
-    t_minishell	*minishell;
-    (void)argc;
-    (void)argv;
-	minishell = malloc(sizeof(t_minishell));
-	minishell->status = 0;
-	if (set_env(minishell, env))
-		free_exit_minishell(minishell, EXIT_FAILURE);
-    char *input;
-    
-    // Set up signal handling for main shell
-    signal(SIGINT, handle_main_signal);
-    signal(SIGQUIT, SIG_IGN);  // Ignore Ctrl+\ in interactive mode
-    
-    while (argc == 1 && argv)
-    {
-        g_signal_received = 0;  // Reset signal flag
-        
-        input = readline("minishell$> ");
-        if (!input)  // Ctrl+D
-        {
-            printf("exit\n");
-            break;
-        }
-        
-        // Check if signal was received during readline
-        if (g_signal_received == SIGINT)
-        {
-            free(input);
-            continue;  // Go to next prompt
-        }
-        
-        if (*input)
-        {
-            add_history(input);
-            
-            t_token *tokens = lexer(input);
-            checker(&tokens, minishell);
-            ft_free(tokens);
-        }
-        free(input);
-    }
-    
-    return (EXIT_SUCCESS);
-}
-
-
-/*void	print_tokens(t_token *token)
+void	print_tokens(t_token *token)
 {
 	t_token	*curr = token;
     t_token *hhh = NULL;
@@ -146,10 +66,9 @@ int	main(int argc, char *argv[], char **env)
             case WS: type_str = "WS"; break;
 			case WORD: type_str = "WORD"; break;
 			case ERROR: type_str = "ERROR"; break;
+            case HEREDOC: type_str = "HEREDOC"; break;
 		}
-
-		// Quote type string representation
-		switch (token->quote)
+	    switch (token->quote)
 		{
 			case NQS: quote_str = "NQS"; break;
 			case SQS: quote_str = "SQS"; break;
@@ -161,5 +80,48 @@ int	main(int argc, char *argv[], char **env)
 		token = token->next;
 	}
 }
-*/
+
+
+int	main(int argc, char *argv[], char **env)
+{
+    t_minishell	*minishell;
+    (void)argc;
+    (void)argv;
+	minishell = malloc(sizeof(t_minishell));
+	minishell->status = 0;
+	if (set_env(minishell, env))
+		free_exit_minishell(minishell, EXIT_FAILURE);
+    char *input;
+    signal(SIGINT, handle_main_signal);
+    signal(SIGQUIT, SIG_IGN);  // Ignore Ctrl+\ in interactive mode
+    while (argc == 1 && argv)
+    {
+        g_signal_received = 0;  // Reset signal flag
+        input = readline("minishell$> ");
+        if (!input)  // Ctrl+D
+        {
+            printf("exit\n");
+            break;
+        }
+        if (g_signal_received == SIGINT)
+        {
+            free(input);
+            continue;  // Go to next prompt
+        }
+        if (*input)
+        {
+            add_history(input);
+            t_token *tokens = lexer(input);
+            if (checker(&tokens, minishell) == true)
+                print_tokens(tokens);
+            else
+            {
+                printf("syntax error");
+            }
+        }
+    }
+    return (EXIT_SUCCESS);
+}
+
+
 
