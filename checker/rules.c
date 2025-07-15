@@ -14,8 +14,8 @@
 
 bool	is_op(t_token *token)
 {
-	if (token && (token->type == DRR || token->type == DLR
-			|| token->type == RR || token->type == LR))
+	if (token && (token->type == DRR || token->type == DLR || token->type == RR
+			|| token->type == LR))
 	{
 		return (true);
 	}
@@ -28,11 +28,9 @@ bool	is_word(t_token *token)
 	{
 		return (true);
 	}
-    else if (token->next && token->type == WS && token->next->type == WORD)
-    {
-        return (true);
-    }
+	else if (token->next && token->type == WS && token->next->type == WORD)
+	{
+		return (true);
+	}
 	return (false);
 }
-
-

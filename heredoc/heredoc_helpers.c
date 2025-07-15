@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc_helpers.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/15 10:50:54 by elhaiba hamza     #+#    #+#             */
+/*   Updated: 2025/07/15 11:03:02 by elhaiba hamza    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/heredoc.h"
 
-heredoc_t	*init_heredoc(void)
+t_heredoc	*init_heredoc(void)
 {
-    heredoc_t	*new;
+	t_heredoc	*new;
 
-    new = malloc(sizeof(heredoc_t));
-    if (!new)
-        return (perror("malloc"), NULL);
-    new->fd = -1;
-    new->tmp_fd = -1;
-    new->filename = NULL;
-    new->line = NULL;
-    new->del = NULL;
-    return (new);
+	new = malloc(sizeof(t_heredoc));
+	if (!new)
+		return (perror("malloc"), NULL);
+	new->fd = -1;
+	new->tmp_fd = -1;
+	new->filename = NULL;
+	new->line = NULL;
+	new->del = NULL;
+	return (new);
 }

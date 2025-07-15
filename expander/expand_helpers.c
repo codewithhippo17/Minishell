@@ -19,23 +19,24 @@ static int	is_var_char(char c)
 	return (ft_isalnum(c) || c == '_');
 }
 
-
 static int	get_var_len(const char *str)
 {
-    int len = 0;
+	int	len;
 
-    while (str[len] && is_var_char(str[len]))
-        len++;
-    return len;
+	len = 0;
+	while (str[len] && is_var_char(str[len]))
+		len++;
+	return (len);
 }
 
 static int	getnon_var_len(const char *str)
 {
-    int len = 0;
+	int	len;
 
-    while (str[len] && str[len] != '$')
-        len++;
-    return len;
+	len = 0;
+	while (str[len] && str[len] != '$')
+		len++;
+	return (len);
 }
 
 char	*ft_join1(char *s1, char *s2)
@@ -60,53 +61,52 @@ char	*ft_join1(char *s1, char *s2)
 
 void	expander(char **string, char **env)
 {
-    char    *expanded;
-    char    *var_name;
-    char    *var_value;
-    char    *non_var_part;
+	char	*expanded;
+	char	*var_name;
+	char	*var_value;
+	char	*non_var_part;
+	int		i;
+	int		len;
 
-    int     i = 0;
-    int     len;
-
-    expanded = ft_strdup("");
-    while ((*string)[i])
-    {
-        if ((*string)[i] == '$' && is_var_char((*string)[i + 1]))
-        {
-            len = get_var_len((*string) + i + 1);
-            if (len > 0)
-            {
-                var_name = ft_substr((*string), i + 1, len);
-                if (*var_name)
-                    var_value = my_getenv(var_name, env);
-                free(var_name);
-                if (var_value)
-                {
-                    expanded = ft_join1(expanded, var_value);
-                }
-            i += len +1;
-            }
-        }
-        else if ((*string)[i] == '$' && !is_var_char((*string)[i + 1]))
-        {
-            if ((*string)[i + 1] == '?')
-            {
-                expanded = ft_join(expanded, ft_strdup("127"));
-                i++;
-            }
-            else
-                expanded = ft_join(expanded, ft_strdup("$"));
-            i++;
-        }
-        else
-        {
-            len = getnon_var_len((*string) + i);
-            non_var_part = ft_substr(*string, i, len);
-            expanded = ft_join(expanded, non_var_part);
-            i += len;
-        }
-    }
-    free(*string);
-    *string = expanded;
+	i = 0;
+	expanded = ft_strdup("");
+	while ((*string)[i])
+	{
+		if ((*string)[i] == '$' && is_var_char((*string)[i + 1]))
+		{
+			len = get_var_len((*string) + i + 1);
+			if (len > 0)
+			{
+				var_name = ft_substr((*string), i + 1, len);
+				if (*var_name)
+					var_value = my_getenv(var_name, env);
+				free(var_name);
+				if (var_value)
+				{
+					expanded = ft_join1(expanded, var_value);
+				}
+				i += len + 1;
+			}
+		}
+		else if ((*string)[i] == '$' && !is_var_char((*string)[i + 1]))
+		{
+			if ((*string)[i + 1] == '?')
+			{
+				expanded = ft_join(expanded, ft_strdup("127"));
+				i++;
+			}
+			else
+				expanded = ft_join(expanded, ft_strdup("$"));
+			i++;
+		}
+		else
+		{
+			len = getnon_var_len((*string) + i);
+			non_var_part = ft_substr(*string, i, len);
+			expanded = ft_join(expanded, non_var_part);
+			i += len;
+		}
+	}
+	free(*string);
+	*string = expanded;
 }
-

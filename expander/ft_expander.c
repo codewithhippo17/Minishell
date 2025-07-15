@@ -1,18 +1,11 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.h                                           :+:      :+:    :+:   */
+/*   ft_expander.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/12 15:38:02 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/15 10:52:26 by elhaiba hamza    ###   ########.fr       */
+/*   Created: 2025/07/15 09:04:18 by elhaiba hamza     #+#    #+#             */
+/*   Updated: 2025/07/15 10:11:43 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#ifndef EXPAND_H
-# define EXPAND_H
-
-void	expander(char **string, char **env);
-
-#endif

@@ -6,12 +6,14 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 20:30:58 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/11 20:30:58 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/15 10:55:33 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KILL_H
 # define KILL_H
+
+# include "types.h"
 
 //---------------ººfree_exitºº-----------------//
 void	free_strings(char **s);
