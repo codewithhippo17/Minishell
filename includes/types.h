@@ -118,8 +118,8 @@ typedef struct s_heredoc
     char			*filename;
     char            *del; // delimiter
     t_quote         quote;
-    struct s_heredoc    *prev;
-    struct s_heredoc	*next;
+/*     struct s_heredoc    *prev;
+    struct s_heredoc	*next; */
 }	heredoc_t;
 
 typedef struct s_token

@@ -86,21 +86,9 @@ int	main(int argc, char *argv[], char **env)
             add_history(input);
             
             t_token *tokens = lexer(input);
-
-            
-            if (checker(&tokens, minishell) == false)
-            {
-                printf("\nNNNNNNNNN\n");
-            }
-            else 
-            {
-                printf("\nYYYYYYYYYY\n");
-                // Execute commands here
-            }
-            
+            checker(&tokens, minishell);
             ft_free(tokens);
         }
-        
         free(input);
     }
     

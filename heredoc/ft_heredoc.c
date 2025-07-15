@@ -47,23 +47,20 @@ void ft_heredoc(t_token *token, char *delimiter, t_quote quote, t_minishell *min
     hd->quote = quote;
     if (!hd->del)
     {
-        free_heredoc(hd);
         return ;
     }
     hd->filename = ft_strjoin("/tmp/heredoc", ft_random());
     if (!hd->filename)
     {
-        free_heredoc(hd);
         return ;
     }
     result = heredoc(hd, minishell);
     if (result == -1)
     {
-        free_heredoc(hd);
         return ;
     }
     token->hd = hd;
-    write_file_to_stdout(hd->fd);
+    /* write_file_to_stdout(hd->fd); */
 }
 
 
