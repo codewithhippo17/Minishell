@@ -17,9 +17,9 @@ void	fill_token(t_token **token, char *value, t_flag flag, t_quote quote)
 	(*token)->value = ft_strdup(value);
 	(*token)->type = flag;
 	(*token)->quote = quote;
-    (*token)->hd = NULL;
+	(*token)->hd = NULL;
 	(*token)->next = NULL;
-    (*token)->prev = NULL;
+	(*token)->prev = NULL;
 }
 
 void	append_token(t_token **head, t_token **tail, t_token *new_token)
@@ -34,7 +34,7 @@ void	append_token(t_token **head, t_token **tail, t_token *new_token)
 	else
 	{
 		(*tail)->next = new_token;
-        new_token->prev = *tail;
+		new_token->prev = *tail;
 		*tail = new_token;
 	}
 }

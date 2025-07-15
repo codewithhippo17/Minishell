@@ -33,37 +33,9 @@ t_token	*parse_word(int *i, char *input)
 	token->type = WORD;
 	token->quote = NQS;
 	token->next = NULL;
-    token->prev = NULL;
+	token->prev = NULL;
 	return (token);
 }
-
-/*t_token	*parse_variable(int *i, char *input)
-{
-	t_token	*token;
-	int		start;
-	int		len;
-
-	start = ++(*i);
-	len = 0;
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	if (input[start] == '?')
-		return ((*i)++, fill_token(&token, "?", ES, NQS), token);
-	while (input[*i] && (ft_isalnum(input[*i]) || input[*i] == '_'))
-	{
-		(*i)++;
-		len++;
-	}
-	if (len == 0)
-		return (fill_token(&token, "$", WORD, NQS), token);
-	token->value = ft_strndup(&input[start], len);
-	token->type = VAR;
-	token->quote = NQS;
-	token->next = NULL;
-    token->prev = NULL;
-	return (token);
-}*/
 
 t_token	*parse_spaces(int *i, char *input)
 {
@@ -80,7 +52,7 @@ t_token	*parse_spaces(int *i, char *input)
 	token->type = WS;
 	token->quote = NQS;
 	token->next = NULL;
-    token->prev = NULL;
+	token->prev = NULL;
 	return (token);
 }
 
