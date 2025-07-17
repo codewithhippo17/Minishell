@@ -13,6 +13,8 @@
 #ifndef EXPAND_H
 # define EXPAND_H
 
-void	expander(char **string, char **env);
+# include "types.h"
 
+void	expander(char **string, char **env);
+t_splited	*ft_spliter(char *word);
 #endif

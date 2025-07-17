@@ -51,6 +51,16 @@ const char *quote_to_string(t_quote quote)
     return flag_names[quote];
 }
 
+const char *join_to_string(t_join join)
+{
+    static const char *flag_names[] = {
+        	"J", "JL", "JR", "NJ"
+    };
+        if (join < 0 || join > NJ)
+            return "UNKNOWN";
+    return flag_names[join];
+}
+
 void print_tokens(t_token *token)
 {
     t_token *curr = token;
@@ -67,11 +77,27 @@ void print_tokens(t_token *token)
 }
 
 
+void print_token(t_token *token)
+{
+    t_token *curr = token;
+
+    printf("Lexer Output:\n    ");
+    while (curr)
+    {
+        printf("[\e[1;34m{\"%s\"}\e[0m:  (%s)]", curr->value, join_to_string(curr->join));
+        if (curr->next)
+            printf("\033[32;1m---->\033[0m");
+        curr = curr->next;
+    }
+    printf("\n\n");
+}
+
+
 int	main(int argc, char *argv[], char **env)
 {
 	t_minishell	*minishell;
 	char		*input;
-	t_token		*tokens;
+	t_splited		*tokens;
 
 	(void)argc;
 	(void)argv;
@@ -98,9 +124,11 @@ int	main(int argc, char *argv[], char **env)
 		if (*input)
 		{
 			add_history(input);
-			tokens = lexer(input);
-			checker(&tokens, minishell);
-            print_tokens(tokens);
+/* 			tokens = lexer(input);
+			checker(&tokens, minishell); */
+            tokens = ft_spliter(input);
+            printf("$%s$\n", input);
+            print_token(tokens->head);
 		}
 	}
 	return (EXIT_SUCCESS);

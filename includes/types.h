@@ -15,6 +15,15 @@
 
 # include <stddef.h>
 
+typedef enum e_join
+{
+    J,
+    JL,
+    JR,
+    NJ
+}   t_join;
+
+
 typedef enum e_quote
 {
 	NQS,
@@ -39,6 +48,8 @@ typedef enum e_flag
 	ES,
 	ERROR
 }					t_flag;
+
+
 
 typedef struct s_cmd
 {
@@ -66,10 +77,19 @@ typedef struct s_token
 	char			*value;
 	t_flag			type;
 	t_quote			quote;
+    t_join          join;
 	t_heredoc		*hd;
 	struct s_token	*next;
 	struct s_token	*prev;
 }					t_token;
+
+typedef struct s_splited
+{
+	t_token	*head;
+	t_token	*tail;
+	char	**split;
+	int		len;
+} t_splited;
 
 typedef struct s_minishell
 {

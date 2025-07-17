@@ -24,7 +24,8 @@ HEREDOC_SRCS =	$(HEREDOC_DIR)/heredoc.c \
 	        	$(HEREDOC_DIR)/heredoc_helpers.c \
 	        	$(HEREDOC_DIR)/random.c \
 	        	$(HEREDOC_DIR)/ft_heredoc.c
-EXPAND_SRC =	$(EXPAND_DIR)/expand_helpers.c
+EXPAND_SRC =	$(EXPAND_DIR)/expand_helpers.c \
+				$(EXPAND_DIR)/ft_expander.c
 MINI = 	../kill/free_exit.c \
 		../utils/minishell_helpers.c ../utils/minishell_set_env.c  ../utils/minishell_utils.c ../builtins/unset.c
 MAIN_SRCS = main.c
