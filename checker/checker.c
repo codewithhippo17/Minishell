@@ -13,6 +13,21 @@
 #include "../includes/checker.h"
 #include "../minishell.h"
 
+bool	is_vpipe(t_token *token)
+{
+	if (token->type == PIPE)
+	{
+		if (!token->prev || (token->prev->type == WS && !token->prev->prev))
+			return (false);
+		if (!token->next || (token->next->type == WS && !token->next->next))
+			return (false);
+		if (token->next->type == PIPE || (token->next->type == WS
+				&& token->next->next->type == PIPE))
+			return (false);
+	}
+	return (true);
+}
+
 bool	checker(t_token **token, t_minishell *minishell)
 {
 	t_token	*c;
@@ -24,12 +39,7 @@ bool	checker(t_token **token, t_minishell *minishell)
 	{
 		if (c->type == PIPE)
 		{
-			if (!c->prev || (c->prev->type == WS && !c->prev->prev))
-				return (false);
-			if (!c->next || (c->next->type == WS && !c->next->next))
-				return (false);
-			if (c->next->type == PIPE || (c->next->type == WS
-					&& c->next->next->type == PIPE))
+			if (is_vpipe(c))
 				return (false);
 		}
 		if (is_op(c) == true && (!c->next || is_word(c->next) == false))

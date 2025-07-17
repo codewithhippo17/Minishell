@@ -6,9 +6,8 @@ echo $a
 
 ["echo", "a", "b", "c", "d"]
 
-
 [{"echo"}]---->[{" "}]---->[{"a"}]---->[{"b"}]---->[{"c"}]---->[{"d"}]----->{NULL}
-                        <can not be merged                can be merged>
+                        <can not be joined>                can be joined>
                         ________________________________________
 
 export a="     a    b     c    d"
@@ -20,7 +19,7 @@ echo "$a"
 ["echo", "     a    b     c    d"]
 
 [{"echo"}]---->[{" "}]---->[{"     a    b     c    d"}]---->{NULL}
-                                    <can be merged>
+                                    <can be joined>
                         _______________________________________
 
 export a="     a    b     c    d"
@@ -32,7 +31,7 @@ echo ok$a
 ["echo", "ok", "a", "b", "c", "d"]
 
 [{"echo"}]---->[{" "}]---->[{"ok"}]---->[{"a"}]---->[{"b"}]---->[{"c"}]---->[{"d"}]----->{NULL}
-                                                                          can be merged>
+                                                                          can be joined>
                         _________________________________________
 
 export a="     a    b     c    d"
