@@ -12,7 +12,16 @@
 
 #include "../minishell.h"
 
-void    ft_expander()
+t_token    *ft_spliter(char *word)
 {
-    
+    int i;
+
+    i = 0;
+    while (word[i])
+    {
+        if ()
+        {
+
+        }
+    }
 }
