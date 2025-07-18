@@ -15,6 +15,7 @@
 
 # include "types.h"
 
+void	ft_expander(t_token **token, t_minishell *minishell);
 void	expander(char **string, char **env);
 t_splited	*ft_spliter(char *word);
 int	ft_len_split(char **split);

@@ -68,7 +68,7 @@ void print_tokens(t_token *token)
     printf("Lexer Output:\n    ");
     while (curr)
     {
-        printf("[\e[1;34m{\"%s\"}\e[0m: (%s) (%s)]", curr->value, flag_to_string(curr->type), quote_to_string(curr->quote));
+        printf("[\e[1;34m{\"%s\"}\e[0m: (%s) (%s) (%s)]", curr->value, flag_to_string(curr->type), quote_to_string(curr->quote), join_to_string(curr->join));
         if (curr->next)
             printf("\033[32;1m---->\033[0m");
         curr = curr->next;
@@ -97,7 +97,7 @@ int	main(int argc, char *argv[], char **env)
 {
 	t_minishell	*minishell;
 	char		*input;
-	t_splited		*tokens;
+	t_token     *tokens;
 
 	(void)argc;
 	(void)argv;
@@ -124,11 +124,12 @@ int	main(int argc, char *argv[], char **env)
 		if (*input)
 		{
 			add_history(input);
-/* 			tokens = lexer(input);
-			checker(&tokens, minishell); */
-            tokens = ft_spliter(input);
+			tokens = lexer(input);
+			checker(&tokens, minishell);
+            /* tokens = ft_spliter(input); */
+            ft_expander(&tokens, minishell);
             printf("\033[31m$\033[0m%s\033[31m$\033[0m\n", input);
-            print_token(tokens->head);
+            print_tokens(tokens);
 		}
 	}
 	return (EXIT_SUCCESS);

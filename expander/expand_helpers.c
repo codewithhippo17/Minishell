@@ -35,11 +35,8 @@ void	expander(char **string, char **env)
 				var_name = ft_substr((*string), i + 1, len);
 				if (*var_name)
 					var_value = my_getenv(var_name, env);
-				free(var_name);
 				if (var_value)
-				{
 					expanded = ft_strjoin(expanded, var_value);
-				}
 				i += len + 1;
 			}
 		}
