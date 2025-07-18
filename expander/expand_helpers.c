@@ -6,58 +6,13 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 14:44:00 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/12 14:44:01 by ehamza           ###   ########.fr       */
+/*   Updated: 2025/07/18 14:05:05 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-static int	is_var_char(char c)
-{
-	return (ft_isalnum(c) || c == '_');
-}
-
-static int	get_var_len(const char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len] && is_var_char(str[len]))
-		len++;
-	return (len);
-}
-
-static int	getnon_var_len(const char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len] && str[len] != '$')
-		len++;
-	return (len);
-}
-
-char	*ft_join1(char *s1, char *s2)
-{
-	char	*res;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	res = (char *)malloc((strlen(s1) + strlen(s2) + 1) * sizeof(char));
-	if (!res)
-		return (NULL);
-	while (s1[i])
-		res[j++] = s1[i++];
-	i = 0;
-	while (s2[i])
-		res[j++] = s2[i++];
-	res[j] = '\0';
-	return (res);
-}
 
 void	expander(char **string, char **env)
 {
@@ -83,7 +38,7 @@ void	expander(char **string, char **env)
 				free(var_name);
 				if (var_value)
 				{
-					expanded = ft_join1(expanded, var_value);
+					expanded = ft_strjoin(expanded, var_value);
 				}
 				i += len + 1;
 			}
@@ -92,18 +47,18 @@ void	expander(char **string, char **env)
 		{
 			if ((*string)[i + 1] == '?')
 			{
-				expanded = ft_join(expanded, ft_strdup("127"));
+				expanded = ft_strjoin(expanded, ft_strdup("127"));
 				i++;
 			}
 			else
-				expanded = ft_join(expanded, ft_strdup("$"));
+				expanded = ft_strjoin(expanded, ft_strdup("$"));
 			i++;
 		}
 		else
 		{
 			len = getnon_var_len((*string) + i);
 			non_var_part = ft_substr(*string, i, len);
-			expanded = ft_join(expanded, non_var_part);
+			expanded = ft_strjoin(expanded, non_var_part);
 			i += len;
 		}
 	}
