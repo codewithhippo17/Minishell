@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 11:11:49 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/15 11:13:55 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/18 14:42:20 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	main(int argc, char *argv[], char **env)
 /* 			tokens = lexer(input);
 			checker(&tokens, minishell); */
             tokens = ft_spliter(input);
-            printf("$%s$\n", input);
+            printf("\033[31m$\033[0m%s\033[31m$\033[0m\n", input);
             print_token(tokens->head);
 		}
 	}
