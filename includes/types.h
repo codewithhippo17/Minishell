@@ -20,7 +20,8 @@ typedef enum e_join
     J,
     JL,
     JR,
-    NJ
+    NJ,
+    NONE
 }   t_join;
 
 

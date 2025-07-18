@@ -54,9 +54,9 @@ const char *quote_to_string(t_quote quote)
 const char *join_to_string(t_join join)
 {
     static const char *flag_names[] = {
-        	"J", "JL", "JR", "NJ"
+        	"J", "JL", "JR", "NJ" , "NONE"
     };
-        if (join < 0 || join > NJ)
+        if (join < 0 || join > NONE)
             return "UNKNOWN";
     return flag_names[join];
 }
