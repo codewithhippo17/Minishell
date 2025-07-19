@@ -57,6 +57,8 @@ int			is_piped(char *input);
 //------------------ºº./minishell_set_envºº------------//
 char		**set_env_utils(char **env);
 int			set_env(t_minishell *minishell, char **env);
+void print_tokens(t_token *token);
+
 
 // -----------------ººPIPEXºº------------------ //
 

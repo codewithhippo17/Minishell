@@ -68,9 +68,9 @@ void print_tokens(t_token *token)
     printf("Lexer Output:\n    ");
     while (curr)
     {
-        printf("[\e[1;34m{\"%s\"}\e[0m: (%s) (%s) (%s)]", curr->value, flag_to_string(curr->type), quote_to_string(curr->quote), join_to_string(curr->join));
+        printf("[\e[1;34m{\"%s\"}\e[0m: \033[31m%s-%s-%s\033[0m]", curr->value, flag_to_string(curr->type), quote_to_string(curr->quote), join_to_string(curr->join));
         if (curr->next)
-            printf("\033[32;1m---->\033[0m");
+            printf("\033[32;1m🠒\033[0m");
         curr = curr->next;
     }
     printf("\n\n");
