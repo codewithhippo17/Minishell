@@ -61,29 +61,34 @@ char *char_to_str(char c)
 t_token	*nonvar_parser(char *str, int *i)
 {
 	char	*tmp;
-    if (!str || !str[*i])
+    int idx;
+
+    idx = 0;
+    if (!str || !str[idx])
         return NULL;
     tmp = ft_strdup("");
-    while (str[*i])
+    while (str[idx])
     {
-        if (str[*i] == '$')
+        if (str[idx] == '$')
         {
-            if (str[*i] && str[*i + 1] == '?')
+            if (str[idx] && str[idx + 1] && str[idx + 1] == '?')
             {
                 tmp = ft_strjoin(tmp, ft_strdup("127"));
-                (*i) += 2; // Skip the $? part
+                idx += 2; // Skip the $? part
             }
             else if (str[*i] && ft_isdigit(str[*i + 1]))
             {
                 tmp = ft_strjoin(tmp, ft_substr(str, *i, 2));
-                (*i)++;
+                idx++;
             }
+            else
+                break; // Stop if we encounter a variable
         }
         else
         {
-            tmp = ft_strjoin(tmp, char_to_str(str[*i]));
+            tmp = ft_strjoin(tmp, char_to_str(str[idx]));
         }
-        (*i)++;
+        idx++;
     }
     t_token *token = malloc(sizeof(t_token));
     token->value = tmp;
@@ -93,6 +98,7 @@ t_token	*nonvar_parser(char *str, int *i)
     token->next = NULL;
     token->prev = NULL;
     token->hd = NULL;
+    *i += idx; // Update index to skip processed characters
     return token;
 }
 
@@ -101,13 +107,13 @@ char	*get_varname(char *str, int *i)
     int		len;
     char	*varname;
 
-    len = get_var_len(&str[*i + 1]);
+    len = get_var_len(&str[1]);
     if (len == 0)
         return (NULL);
     varname = malloc(len + 1);
     if (!varname)
         return (NULL);
-    ft_strlcpy(varname, &str[*i + 1], len + 1);
+    ft_strlcpy(varname, &str[1], len + 1);
     *i += len + 1; // Move index past the variable name
     return (varname);
 }
@@ -140,7 +146,7 @@ void	ft_exspliter(t_token **token, char *str, int idx,
             inner_tail = splited->tail;
         }
 	}
-    print_tokens(splited->head);
+    print_tokens(inner_head);
 }
 
 void	ft_expander(t_token **token, t_minishell *minishell)

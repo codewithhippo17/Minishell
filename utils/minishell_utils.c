@@ -33,7 +33,7 @@ char	*my_getenv(char *name, char **env)
 		free(sub);
 		i++;
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 char	*get_path(char *cmd, char **env)
