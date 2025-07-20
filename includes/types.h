@@ -50,17 +50,6 @@ typedef enum e_flag
 	ERROR
 }					t_flag;
 
-
-
-typedef struct s_cmd
-{
-	char			*arg;
-	t_flag			arg_type;
-	t_quote			word_type;
-	struct s_cmd	*next_cmd;
-	struct s_cmd	*next_arg;
-}					t_cmd;
-
 typedef struct s_heredoc
 {
 	int				fd;
@@ -91,6 +80,13 @@ typedef struct s_splited
 	char	**split;
 	int		len;
 } t_splited;
+
+typedef struct s_cmd
+{
+    t_token     *cmd_head;
+    t_heredoc   *red;
+    struct s_cmd *next_cmd;
+} t_cmd;
 
 typedef struct s_minishell
 {
