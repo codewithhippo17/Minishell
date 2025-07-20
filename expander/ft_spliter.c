@@ -55,7 +55,7 @@ t_splited	*ft_spliter(char *word)
 	sp = init_splited();
 	sp->split = ft_split(word, ' ');
 	sp->len = ft_len_split(sp->split);
-	while (sp->split[++i])
+	while (sp->split && sp->split[++i])
 	{
 		if (i == 0 && is_space(word[0]) && ((last_space(word) && sp->len == 1)
 				|| sp->len > 1))

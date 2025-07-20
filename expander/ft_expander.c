@@ -143,9 +143,11 @@ void	ft_exspliter(t_token **token, char *str, int idx,
 			splited = ft_spliter(my_getenv(get_varname(&str[i], &i),
 						minishell->m_env));
 			append_token(&inner_head, &inner_tail, splited->head);
-			inner_tail = splited->tail;
+			if (splited->tail)
+                inner_tail = splited->tail;
 		}
 	}
+    print_tokens(inner_head); // Debugging line to print tokens
 }
 
 void	ft_expander(t_token **token, t_minishell *minishell)
