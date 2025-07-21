@@ -60,6 +60,21 @@ char	*char_to_str(char c)
 	return (str);
 }
 
+static t_token	*fill_var_token(char *varname)
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	token->value = varname;
+	token->type = WORD;
+	token->quote = NQS;
+	token->join = J;
+	token->next = NULL;
+	token->prev = NULL;
+	token->hd = NULL;
+	return (token);
+}
+
 t_token	*nonvar_parser(char *str, int *i)
 {
 	char	*tmp;
@@ -74,12 +89,7 @@ t_token	*nonvar_parser(char *str, int *i)
 	{
 		if (str[idx] == '$')
 		{
-			if (str[idx] && str[idx + 1] && str[idx + 1] == '?')
-			{
-				tmp = ft_strjoin(tmp, ft_strdup("127"));
-				idx += 2;
-			}
-			else if (str[*i] && ft_isdigit(str[*i + 1]))
+			if (str[*i] && ft_isdigit(str[*i + 1]))
 			{
 				tmp = ft_strjoin(tmp, ft_substr(str, *i, 2));
 				idx++;
@@ -91,16 +101,7 @@ t_token	*nonvar_parser(char *str, int *i)
 			tmp = ft_strjoin(tmp, char_to_str(str[idx]));
 		idx++;
 	}
-	token = malloc(sizeof(t_token));
-	token->value = tmp;
-	token->type = WORD;
-	token->quote = NQS;
-	token->join = J;
-	token->next = NULL;
-	token->prev = NULL;
-	token->hd = NULL;
-	*i += idx;
-	return (token);
+	return (*i += idx, token = fill_var_token(tmp), token);
 }
 
 char	*get_varname(char *str, int *i)
@@ -144,10 +145,9 @@ void	ft_exspliter(t_token **token, char *str, int idx,
 						minishell->m_env));
 			append_token(&inner_head, &inner_tail, splited->head);
 			if (splited->tail)
-                inner_tail = splited->tail;
+				inner_tail = splited->tail;
 		}
 	}
-    print_tokens(inner_head); // Debugging line to print tokens
 }
 
 void	ft_expander(t_token **token, t_minishell *minishell)

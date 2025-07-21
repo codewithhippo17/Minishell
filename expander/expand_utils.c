@@ -17,6 +17,10 @@ int	ft_len_split(char **split)
 	int	i;
 
 	i = 0;
+    if (!split)
+    {
+         return (0);
+    }
 	while (split[i])
 	{
 		i++;

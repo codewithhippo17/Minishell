@@ -102,3 +102,79 @@ echo ok$WS#
 
 
 
+
+
+
+ a="   a   b  c    " b="   1    2   3" c="e   f   g" d="asdf" e="     " f= g
+
+ minishell$> echo a$a#
+Lexer Output:
+    [{"a"}: WORD-NQS-J]🠒[{"a"}: ARG-NQS-NJ]🠒[{"b"}: ARG-NQS-NJ]🠒[{"c"}: ARG-NQS-NJ]🠒[{"#"}: WORD-NQS-J]
+
+$echo a$a#$
+Lexer Output:
+    [{"echo"}: WORD-NQS-NJ]🠒[{" "}: WS-NQS-NONE]🠒[{"a$a#"}: WORD-NQS-NJ]
+
+minishell$> echo b$b#
+Lexer Output:
+    [{"b"}: WORD-NQS-J]🠒[{"1"}: ARG-NQS-NJ]🠒[{"2"}: ARG-NQS-NJ]🠒[{"3"}: WORD-NQS-JR]🠒[{"#"}: WORD-NQS-J]
+
+$echo b$b#$
+Lexer Output:
+    [{"echo"}: WORD-NQS-NJ]🠒[{" "}: WS-NQS-NONE]🠒[{"b$b#"}: WORD-NQS-NJ]
+
+minishell$> echo c$c#
+Lexer Output:
+    [{"c"}: WORD-NQS-J]🠒[{"e"}: WORD-NQS-JL]🠒[{"f"}: ARG-NQS-NJ]🠒[{"g"}: WORD-NQS-JR]🠒[{"#"}: WORD-NQS-J]
+
+$echo c$c#$
+Lexer Output:
+    [{"echo"}: WORD-NQS-NJ]🠒[{" "}: WS-NQS-NONE]🠒[{"c$c#"}: WORD-NQS-NJ]
+
+minishell$> echo d$d#
+Lexer Output:
+    [{"d"}: WORD-NQS-J]🠒[{"asdf"}: WORD-NQS-J]🠒[{"#"}: WORD-NQS-J]
+
+$echo d$d#$
+Lexer Output:
+    [{"echo"}: WORD-NQS-NJ]🠒[{" "}: WS-NQS-NONE]🠒[{"d$d#"}: WORD-NQS-NJ]
+
+minishell$> echo e$e#
+Lexer Output:
+    [{"e"}: WORD-NQS-J]🠒[{" "}: WS-NQS-NONE]🠒[{"#"}: WORD-NQS-J]
+
+$echo e$e#$
+Lexer Output:
+    [{"echo"}: WORD-NQS-NJ]🠒[{" "}: WS-NQS-NONE]🠒[{"e$e#"}: WORD-NQS-NJ]
+
+minishell$> echo f$f#
+Lexer Output:
+    [{"f"}: WORD-NQS-J]🠒[{" "}: WS-NQS-NONE]🠒[{"#"}: WORD-NQS-J]
+
+$echo f$f#$
+Lexer Output:
+    [{"echo"}: WORD-NQS-NJ]🠒[{" "}: WS-NQS-NONE]🠒[{"f$f#"}: WORD-NQS-NJ]
+
+minishell$> echo g$g#
+Lexer Output:
+    [{"g"}: WORD-NQS-J]🠒[{"#"}: WORD-NQS-J]
+
+$echo g$g#$
+Lexer Output:
+    [{"echo"}: WORD-NQS-NJ]🠒[{" "}: WS-NQS-NONE]🠒[{"g$g#"}: WORD-NQS-NJ]
+
+
+execve("/usr/bin/echo", ["echo", "a", "a", "b", "c", "#"], 0x7ffe4ec08ba8 /* 63 vars */) = 0
+ehamza@c1r3p9:~$ s echo b$b#
+execve("/usr/bin/echo", ["echo", "b", "1", "2", "3#"], 0x7fffee71c0b0 /* 63 vars */) = 0
+ehamza@c1r3p9:~$ s echo c$c#
+execve("/usr/bin/echo", ["echo", "ce", "f", "g#"], 0x7ffdf0371a58 /* 63 vars */) = 0
+ehamza@c1r3p9:~$ s echo d$d#
+execve("/usr/bin/echo", ["echo", "dasdf#"], 0x7fffaf8979c8 /* 63 vars */) = 0
+ehamza@c1r3p9:~$ s echo e$e#
+execve("/usr/bin/echo", ["echo", "e", "#"], 0x7fff2d5a7440 /* 63 vars */) = 0
+ehamza@c1r3p9:~$ s echo f$f#
+execve("/usr/bin/echo", ["echo", "f#"], 0x7ffe380c7e28 /* 63 vars */) = 0
+ehamza@c1r3p9:~$ s echo g$g#
+execve("/usr/bin/echo", ["echo", "g#"], 0x7ffd9baac368 /* 63 vars */) = 0
+

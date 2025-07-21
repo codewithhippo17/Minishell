@@ -12,20 +12,6 @@
 
 #include "../minishell.h"
 
-static t_splited	*init_splited(void)
-{
-	t_splited	*sp;
-
-	sp = malloc(sizeof(t_splited));
-	if (!sp)
-		return (NULL);
-	sp->len = 0;
-	sp->head = NULL;
-	sp->tail = NULL;
-	sp->split = NULL;
-	return (sp);
-}
-
 static t_token	*fill_splited(char *snip, t_join join)
 {
 	t_token	*token;
@@ -41,9 +27,40 @@ static t_token	*fill_splited(char *snip, t_join join)
 	token->quote = NQS;
 	if (join == NJ)
 		token->type = ARG;
+	else if (join == NONE)
+		token->type = WS;
 	else
 		token->type = WORD;
 	return (token);
+}
+
+bool	is_all_space(char *word)
+{
+	if (!word || !*word)
+		return (false);
+	while (*word)
+	{
+		if (*word != ' ')
+			return (false);
+		word++;
+	}
+	return (true);
+}
+
+static t_splited	*init_splited(char *word)
+{
+	t_splited	*sp;
+
+	sp = malloc(sizeof(t_splited));
+	if (!sp)
+		return (NULL);
+	sp->len = 0;
+	sp->split = ft_split(word, ' ');
+	sp->len = ft_len_split(sp->split);
+	sp->head = NULL;
+	sp->tail = NULL;
+	sp->split = NULL;
+	return (sp);
 }
 
 t_splited	*ft_spliter(char *word)
@@ -52,9 +69,10 @@ t_splited	*ft_spliter(char *word)
 	int			i;
 
 	i = -1;
-	sp = init_splited();
-	sp->split = ft_split(word, ' ');
-	sp->len = ft_len_split(sp->split);
+	sp = init_splited(word);
+	if (is_all_space(word))
+		return (append_token(&sp->head, &sp->tail, fill_splited(" ", NONE)),
+			sp);
 	while (sp->split && sp->split[++i])
 	{
 		if (i == 0 && is_space(word[0]) && ((last_space(word) && sp->len == 1)
