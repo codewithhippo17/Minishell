@@ -178,3 +178,5 @@ execve("/usr/bin/echo", ["echo", "f#"], 0x7ffe380c7e28 /* 63 vars */) = 0
 ehamza@c1r3p9:~$ s echo g$g#
 execve("/usr/bin/echo", ["echo", "g#"], 0x7ffd9baac368 /* 63 vars */) = 0
 
+
+export a="   a   b   c  " b="e   f   g" c="         " d="" e

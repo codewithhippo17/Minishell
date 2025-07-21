@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:04:18 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/18 14:01:05 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/21 06:32:47 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,66 +14,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-static void	flag_join(t_token *c)
-{
-	if (c->prev == NULL || (c->prev && c->prev->type != WORD))
-	{
-		if (c->next == NULL || (c->next != NULL && c->next->type != WORD))
-			c->join = NJ;
-		else if (c->next && c->next->type == WORD)
-			c->join = JR;
-	}
-	else if (c->next == NULL || (c->next && c->next->type != WORD))
-	{
-		if (c->prev && c->prev->type == WORD)
-			c->join = JL;
-	}
-	else if (c->prev && c->next && c->prev->type == WORD
-		&& c->next->type == WORD)
-	{
-		c->join = J;
-	}
-}
-
-static bool	no_var(char *value)
-{
-	if (!value || !*value)
-		return (false);
-	while (*value)
-	{
-		if (*value == '$')
-			return (false);
-		value++;
-	}
-	return (true);
-}
-
-char	*char_to_str(char c)
-{
-	char	*str;
-
-	str = malloc(2);
-	if (!str)
-		return (NULL);
-	str[0] = c;
-	str[1] = '\0';
-	return (str);
-}
-
-static t_token	*fill_var_token(char *varname)
-{
-	t_token	*token;
-
-	token = malloc(sizeof(t_token));
-	token->value = varname;
-	token->type = WORD;
-	token->quote = NQS;
-	token->join = J;
-	token->next = NULL;
-	token->prev = NULL;
-	token->hd = NULL;
-	return (token);
-}
 
 t_token	*nonvar_parser(char *str, int *i)
 {
@@ -120,35 +60,38 @@ char	*get_varname(char *str, int *i)
 	return (varname);
 }
 
-void	ft_exspliter(t_token **token, char *str, int idx,
+t_splited	*ft_exspliter(t_token **token, char *str, int idx,
 		t_minishell *minishell)
 {
 	t_splited	*splited;
-	t_token		*inner_head;
-	t_token		*inner_tail;
+    t_splited   *tmp;
 	int			i;
 	t_token		*c;
 
 	i = 0;
 	c = *token;
-	inner_head = NULL;
-	inner_tail = NULL;
+    tmp = init_inner();
 	while (idx-- > 0)
 		c = c->next;
 	while (str[i])
 	{
 		if (str[i] != '$')
-			append_token(&inner_head, &inner_tail, nonvar_parser(&str[i], &i));
+			append_token(&tmp->head, &tmp->tail, nonvar_parser(&str[i], &i));
 		else
 		{
 			splited = ft_spliter(my_getenv(get_varname(&str[i], &i),
 						minishell->m_env));
-			append_token(&inner_head, &inner_tail, splited->head);
+			append_token(&tmp->head, &tmp->tail, splited->head);
 			if (splited->tail)
-				inner_tail = splited->tail;
+                tmp->tail = splited->tail;
 		}
 	}
+    return (tmp);
 }
+
+// here a function that inserts the splited tokens into the original token list
+// if the token does not have a next token, it will be inserted at the end
+// if the token has a next token, it will be inserted before the next token 
 
 void	ft_expander(t_token **token, t_minishell *minishell)
 {

@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 13:57:19 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/18 14:01:21 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/21 06:13:37 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static t_splited	*init_splited(char *word)
 	sp->len = ft_len_split(sp->split);
 	sp->head = NULL;
 	sp->tail = NULL;
-	sp->split = NULL;
 	return (sp);
 }
 

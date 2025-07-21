@@ -23,4 +23,9 @@ int	is_var_char(char c);
 bool	last_space(char *str);
 int	get_var_len(const char *str);
 int	getnon_var_len(const char *str);
+void	flag_join(t_token *c);
+bool	no_var(char *value);
+char	*char_to_str(char c);
+t_token	*fill_var_token(char *varname);
+t_splited   *init_inner(void);
 #endif
