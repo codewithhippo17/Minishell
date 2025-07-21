@@ -17,13 +17,12 @@
 
 typedef enum e_join
 {
-    J,
-    JL,
-    JR,
-    NJ,
-    NONE
-}   t_join;
-
+	J,
+	JL,
+	JR,
+	NJ,
+	NONE
+}					t_join;
 
 typedef enum e_quote
 {
@@ -52,9 +51,9 @@ typedef enum e_flag
 
 typedef enum e_ambg
 {
-    AMBG,
-    OBVIOUS,
-} t_ambg;
+	AMBG,
+	OBVIOUS,
+}					t_ambg;
 
 typedef struct s_cmd
 {
@@ -82,8 +81,8 @@ typedef struct s_token
 	char			*value;
 	t_flag			type;
 	t_quote			quote;
-    t_join          join;
-    t_ambg          ambg;
+	t_join			join;
+	t_ambg			ambg;
 	t_heredoc		*hd;
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -91,11 +90,11 @@ typedef struct s_token
 
 typedef struct s_splited
 {
-	t_token	*head;
-	t_token	*tail;
-	char	**split;
-	int		len;
-} t_splited;
+	t_token			*head;
+	t_token			*tail;
+	char			**split;
+	int				len;
+}					t_splited;
 
 typedef struct s_minishell
 {

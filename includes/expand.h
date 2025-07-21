@@ -15,18 +15,18 @@
 
 # include "types.h"
 
-void	ft_expander(t_token **token, t_minishell *minishell);
-void	expander(char **string, char **env);
+void		ft_expander(t_token **token, t_minishell *minishell);
+void		expander(char **string, char **env);
 t_splited	*ft_spliter(char *word);
-int	ft_len_split(char **split);
-int	is_var_char(char c);
-bool	last_space(char *str);
-int	get_var_len(const char *str);
-int	getnon_var_len(const char *str);
-void	flag_join(t_token *c);
-bool	no_var(char *value);
-char	*char_to_str(char c);
-t_token	*fill_var_token(char *varname);
-t_splited   *init_inner(void);
-void flag_ambg(t_token *token);
+int			ft_len_split(char **split);
+int			is_var_char(char c);
+bool		last_space(char *str);
+int			get_var_len(const char *str);
+int			getnon_var_len(const char *str);
+void		flag_join(t_token *c);
+bool		no_var(char *value);
+char		*char_to_str(char c);
+t_token		*fill_var_token(char *varname);
+t_splited	*init_inner(void);
+void		flag_ambg(t_token *token);
 #endif
