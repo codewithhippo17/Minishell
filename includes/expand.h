@@ -28,4 +28,5 @@ bool	no_var(char *value);
 char	*char_to_str(char c);
 t_token	*fill_var_token(char *varname);
 t_splited   *init_inner(void);
+void flag_ambg(t_token *token);
 #endif

@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 11:11:49 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/18 14:42:20 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/22 00:12:17 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,17 @@ const char *quote_to_string(t_quote quote)
     return flag_names[quote];
 }
 
+const char *ambg_to_string(t_ambg quote) 
+{ 
+    static const char *flag_names[] = {
+        	"AMBG", "OBVIOUS"
+    };
+        if (quote < 0 || quote > OBVIOUS)
+            return "UNKNOWN";
+    return flag_names[quote];
+}
+
+
 const char *join_to_string(t_join join)
 {
     static const char *flag_names[] = {
@@ -68,7 +79,7 @@ void print_tokens(t_token *token)
     printf("Lexer Output:\n    ");
     while (curr)
     {
-        printf("[\e[1;34m{\"%s\"}\e[0m: \033[31m%s-%s-%s\033[0m]", curr->value, flag_to_string(curr->type), quote_to_string(curr->quote), join_to_string(curr->join));
+        printf("[\e[1;34m{\"%s\"}\e[0m: \033[31m%s-%s-%s-%s\033[0m]", curr->value, flag_to_string(curr->type), quote_to_string(curr->quote), join_to_string(curr->join), ambg_to_string(curr->ambg));
         if (curr->next)
             printf("\033[32;1m🠒\033[0m");
         curr = curr->next;
@@ -128,7 +139,7 @@ int	main(int argc, char *argv[], char **env)
 			checker(&tokens, minishell);
             /* tokens = ft_spliter(input); */
             ft_expander(&tokens, minishell);
-            printf("\033[31m$\033[0m%s\033[31m$\033[0m\n", input);
+            /* printf("\033[31m$\033[0m%s\033[31m$\033[0m\n", input); */
             print_tokens(tokens);
 		}
 	}

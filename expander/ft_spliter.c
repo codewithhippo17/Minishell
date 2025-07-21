@@ -22,6 +22,7 @@ static t_token	*fill_splited(char *snip, t_join join)
 	token->value = ft_strdup(snip);
 	token->join = join;
 	token->hd = NULL;
+	token->ambg = OBVIOUS;
 	token->next = NULL;
 	token->prev = NULL;
 	token->quote = NQS;

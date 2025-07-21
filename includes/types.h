@@ -50,7 +50,11 @@ typedef enum e_flag
 	ERROR
 }					t_flag;
 
-
+typedef enum e_ambg
+{
+    AMBG,
+    OBVIOUS,
+} t_ambg;
 
 typedef struct s_cmd
 {
@@ -79,6 +83,7 @@ typedef struct s_token
 	t_flag			type;
 	t_quote			quote;
     t_join          join;
+    t_ambg          ambg;
 	t_heredoc		*hd;
 	struct s_token	*next;
 	struct s_token	*prev;

@@ -17,7 +17,8 @@ void	fill_token(t_token **token, char *value, t_flag flag, t_quote quote)
 	(*token)->value = ft_strdup(value);
 	(*token)->type = flag;
 	(*token)->quote = quote;
-    (*token)->join = NJ;
+	(*token)->join = NJ;
+	(*token)->ambg = OBVIOUS;
 	(*token)->hd = NULL;
 	(*token)->next = NULL;
 	(*token)->prev = NULL;

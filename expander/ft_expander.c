@@ -86,12 +86,26 @@ t_splited	*ft_exspliter(t_token **token, char *str, int idx,
                 tmp->tail = splited->tail;
 		}
 	}
+    flag_ambg(tmp->head);
+    print_tokens(tmp->head);
     return (tmp);
 }
 
+
+
+
+
+
 // here a function that inserts the splited tokens into the original token list
 // if the token does not have a next token, it will be inserted at the end
-// if the token has a next token, it will be inserted before the next token 
+// if the token has a next token, it will be inserted in the place of the original token
+// if the toke ha no prev token, it will be inserted at the beginning
+
+/* 
+void	insert_token(t_token **head, t_token **tail, t_splited *splited, int idx)
+{
+
+} */
 
 void	ft_expander(t_token **token, t_minishell *minishell)
 {

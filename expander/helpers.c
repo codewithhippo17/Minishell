@@ -66,6 +66,7 @@ t_token	*fill_var_token(char *varname)
 	token->value = varname;
 	token->type = WORD;
 	token->quote = NQS;
+    token->ambg = OBVIOUS;
 	token->join = J;
 	token->next = NULL;
 	token->prev = NULL;
