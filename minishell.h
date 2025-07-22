@@ -63,5 +63,8 @@ int		pipex(int ac, t_minishell *mini);
 
 //-----------------ººREVAMPºº-------------------/
 //t_minishell	*shell(t_minishell *mini);
+t_token	*token_init(void);
+t_red	*red_init(void);
+void	mini_update(t_minishell *mini, t_token *token);
 
 #endif

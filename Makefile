@@ -13,7 +13,7 @@ LIBFT = ./libft/libft.a
 SRC = builtins/cd.c builtins/echo.c builtins/env.c \
 			builtins/exit.c builtins/export.c builtins/pwd.c \
 			builtins/unset.c \
-			executor/build_in_cmd.c executor/external_cmd.c \
+			executor/build_in_cmd.c executor/external_cmd.c executor/token_to_arr.c\
 			kill/free_exit.c \
 			pipex/pipex.c \
 			pipex/pipex_utils.c \

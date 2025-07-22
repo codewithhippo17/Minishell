@@ -73,6 +73,7 @@ typedef struct s_red
 	char				*path;
 	t_flag				type;
 	t_ambg				ambg;
+	struct s_red		*next;
 }						t_red;
 
 typedef struct s_token
@@ -109,7 +110,7 @@ typedef struct s_minishell
 	char				**s_env;
 	char				**cmd_args;
 	int					status;
-	t_heredoc			*red;
+	t_red				*red;
 	struct s_minishell	*next;
 }						t_minishell;
 
