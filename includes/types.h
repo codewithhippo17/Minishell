@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:58:26 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/15 11:03:48 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/21 02:49:11 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ typedef struct s_minishell
 	char			**s_env;
 	char			**cmd_args;
 	int				status;
+  t_heredoc *red;
+  struct s_minishell *next;
 }					t_minishell;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:03:04 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/06 19:17:41 by marvin           ###   ########.fr       */
+/*   Updated: 2025/07/21 02:49:02 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	echo(char *str, int status)
 	}
 	while (s[i] && chek_flag(s[i]))
 		i++;
-	if (s[i] && ft_strncmp(s[i], "$?", ft_strlen("$?")) == 0)
+	if (s[i] && ft_strcmp(s[i], "$?") == 0)
 		printf("%d", status);
 	else
 	{

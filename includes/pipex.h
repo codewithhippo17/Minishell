@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/02 11:10:09 by marvin            #+#    #+#             */
-/*   Updated: 2025/06/02 11:10:09 by marvin           ###   ########.fr       */
+/*   Created: 2025/07/21 02:47:05 by ybelghad          #+#    #+#             */
+/*   Updated: 2025/07/21 02:50:32 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PIPEX_H
+# define PIPEX_H
 
-int	ft_isalnum(int c)
-{
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (1);
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
+# include "./types.h"
+
+void	ft_perror(char *str, int ex_st);
+void	setup_input(int p);
+void	setup_output(int *fd, int i, int ac);
+int		wait_for_children(int *pid, int ac);
+
+#endif // !PIPEX_H
