@@ -35,7 +35,6 @@ void	write_file_to_stdout(int fd)
 	}
 }
 
-
 void	ft_heredoc(t_token *token, char *del, t_quote quote,
 		t_minishell *minishell)
 {
@@ -63,8 +62,5 @@ void	ft_heredoc(t_token *token, char *del, t_quote quote,
 	{
 		token->next = token->next->next->next;
 	}
-    write_file_to_stdout(hd->fd);
+	write_file_to_stdout(hd->fd);
 }
-
-
-

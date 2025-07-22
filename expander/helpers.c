@@ -66,7 +66,7 @@ t_token	*fill_var_token(char *varname)
 	token->value = varname;
 	token->type = WORD;
 	token->quote = NQS;
-    token->ambg = OBVIOUS;
+	token->ambg = OBVIOUS;
 	token->join = J;
 	token->next = NULL;
 	token->prev = NULL;
@@ -74,15 +74,16 @@ t_token	*fill_var_token(char *varname)
 	return (token);
 }
 
-t_splited   *init_inner(void)
+t_splited	*init_inner(void)
 {
-    t_splited   *splited;
-    splited = malloc(sizeof(t_splited));
-    if (!splited)
-        return (NULL);
-    splited->split = NULL;
-    splited->head = NULL;
-    splited->tail = NULL;
-    splited->len = 0;
-    return splited;
+	t_splited	*splited;
+
+	splited = malloc(sizeof(t_splited));
+	if (!splited)
+		return (NULL);
+	splited->split = NULL;
+	splited->head = NULL;
+	splited->tail = NULL;
+	splited->len = 0;
+	return (splited);
 }

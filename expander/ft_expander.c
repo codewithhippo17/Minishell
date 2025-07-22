@@ -14,7 +14,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-
 t_token	*nonvar_parser(char *str, int *i)
 {
 	char	*tmp;
@@ -64,13 +63,13 @@ t_splited	*ft_exspliter(t_token **token, char *str, int idx,
 		t_minishell *minishell)
 {
 	t_splited	*splited;
-    t_splited   *tmp;
+	t_splited	*tmp;
 	int			i;
 	t_token		*c;
 
 	i = 0;
 	c = *token;
-    tmp = init_inner();
+	tmp = init_inner();
 	while (idx-- > 0)
 		c = c->next;
 	while (str[i])
@@ -83,34 +82,37 @@ t_splited	*ft_exspliter(t_token **token, char *str, int idx,
 						minishell->m_env));
 			append_token(&tmp->head, &tmp->tail, splited->head);
 			if (splited->tail)
-                tmp->tail = splited->tail;
+				tmp->tail = splited->tail;
 		}
 	}
-    flag_ambg(tmp->head);
-    print_tokens(tmp->head);
-    return (tmp);
+	flag_ambg(tmp->head);
+	return (tmp);
 }
 
-
-
-
-
-
-// here a function that inserts the splited tokens into the original token list
-// if the token does not have a next token, it will be inserted at the end
-// if the token has a next token, it will be inserted in the place of the original token
-// if the toke ha no prev token, it will be inserted at the beginning
-
-/* 
-void	insert_token(t_token **head, t_token **tail, t_splited *splited, int idx)
+void	insert_token(t_token **head, t_token *current, t_splited *splited)
 {
+	t_token	*prev;
+	t_token	*next;
 
-} */
+	prev = current->prev;
+	next = current->next;
+	if (prev)
+		prev->next = splited->head;
+	else
+		*head = splited->head;
+	if (splited->head)
+		splited->head->prev = prev;
+	if (splited->tail)
+		splited->tail->next = next;
+	if (next)
+		next->prev = splited->tail;
+}
 
 void	ft_expander(t_token **token, t_minishell *minishell)
 {
-	t_token	*c;
-	int		idx;
+	t_token		*c;
+	t_splited	*splited;
+	int			idx;
 
 	idx = 0;
 	c = *token;
@@ -127,7 +129,8 @@ void	ft_expander(t_token **token, t_minishell *minishell)
 		}
 		else if (!no_var(c->value))
 		{
-			ft_exspliter(token, c->value, idx, minishell);
+			splited = ft_exspliter(token, c->value, idx, minishell);
+			insert_token(token, c, splited);
 		}
 		idx++;
 		c = c->next;
