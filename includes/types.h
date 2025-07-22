@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:58:26 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/21 02:49:11 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/22 04:27:57 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef enum e_flag
 	DRR,
 	HEREDOC,
 	VAR,
-	ES,
 	ERROR
 }						t_flag;
 
@@ -65,7 +64,16 @@ typedef struct s_heredoc
 	char				*filename;
 	char				*del;
 	t_quote				quote;
+	t_ambg				ambg;
 }						t_heredoc;
+
+typedef struct s_red
+{
+	int					fd;
+	char				*path;
+	t_flag				type;
+	t_ambg				ambg;
+}						t_red;
 
 typedef struct s_token
 {
