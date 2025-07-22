@@ -15,6 +15,8 @@ SRC = builtins/cd.c builtins/echo.c builtins/env.c \
 			builtins/unset.c \
 			executor/build_in_cmd.c executor/external_cmd.c \
 			kill/free_exit.c \
+			pipex/pipex.c \
+			pipex/pipex_utils.c \
 			utils/minishell_helpers.c utils/minishell_set_env.c  utils/minishell_utils.c \
 			minishell.c
 
@@ -46,5 +48,8 @@ fclean: clean
 	make -C ./libft fclean
 
 re: fclean all
+
+valgrind: all clean
+	valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp --gen-suppressions=all  --track-fds=all ./minishell
 
 .PHONY: all clean fclean re

@@ -52,7 +52,7 @@ char	*get_path(char *cmd, char **env)
 		path_part = ft_strjoin(allpath[i], "/");
 		exec = ft_strjoin(path_part, s_cmd[0]);
 		free(path_part);
-		if (access(exec, F_OK | X_OK) == 0)
+		if (access(exec, F_OK) == 0)
 		{
 			free_strings(s_cmd);
 			return (exec);
