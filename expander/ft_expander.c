@@ -6,11 +6,12 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:04:18 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/21 06:32:47 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/22 06:45:55 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
 
 t_token	*nonvar_parser(char *str, int *i)
 {
@@ -87,11 +88,32 @@ t_splited	*ft_exspliter(t_token **token, char *str, int idx,
 	return (tmp);
 }
 
+t_token	*fill_empty_splited(void)
+{
+    t_token	*token;
+
+    token = malloc(sizeof(t_token));
+    if (!token)
+        return (NULL);
+    token->join = NJ;
+    token->ambg = AMBG;
+    token->hd = NULL;
+    token->next = NULL;
+    token->prev = NULL;
+    return (token);
+}
+
+
 void	insert_token(t_token **head, t_token *current, t_splited *splited)
 {
 	t_token	*prev;
 	t_token	*next;
 
+    if (!splited->head)
+    {
+        splited->head = fill_empty_splited();
+        splited->tail = splited->head;
+    }
 	prev = current->prev;
 	next = current->next;
 	if (prev)

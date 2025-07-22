@@ -6,12 +6,13 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 11:11:49 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/22 00:12:17 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/22 05:45:00 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <signal.h>
+#include <stdio.h>
 
 // This is the ONLY global variable allowed
 int		g_signal_received = 0;
@@ -79,7 +80,13 @@ void print_tokens(t_token *token)
     printf("Lexer Output:\n    ");
     while (curr)
     {
-        printf("[\e[1;34m{\"%s\"}\e[0m: \033[31m%s-%s-%s-%s\033[0m]", curr->value, flag_to_string(curr->type), quote_to_string(curr->quote), join_to_string(curr->join), ambg_to_string(curr->ambg));
+        if (curr->type == PIPE)
+        {
+            printf("\n");
+            curr = curr->next;
+            continue ;
+        }
+        printf("[\e[1;34m{\"%s\"}\e[0m: \033[31m%s-%s\033[0m]", curr->value,  join_to_string(curr->join), ambg_to_string(curr->ambg));
         if (curr->next)
             printf("\033[32;1m🠒\033[0m");
         curr = curr->next;
@@ -87,17 +94,16 @@ void print_tokens(t_token *token)
     printf("\n\n");
 }
 
-
-void print_token(t_token *token)
+void print_redirections(t_red *red)
 {
-    t_token *curr = token;
+    t_red *curr = red;
 
-    printf("Lexer Output:\n    ");
+    printf("Redirections:\n");
     while (curr)
     {
-        printf("[\e[1;34m{\"%s\"}\e[0m:  (%s)]", curr->value, join_to_string(curr->join));
+        printf("  [\e[1;34m{\"path: %s\"}\e[0m: \033[31m%s-%s fd: %d\033[0m]", curr->path, flag_to_string(curr->type), ambg_to_string(curr->ambg), curr->fd);
         if (curr->next)
-            printf("\033[32;1m---->\033[0m");
+            printf("\033[32;1m🠒\033[0m");
         curr = curr->next;
     }
     printf("\n\n");
@@ -139,8 +145,12 @@ int	main(int argc, char *argv[], char **env)
 			checker(&tokens, minishell);
             /* tokens = ft_spliter(input); */
             ft_expander(&tokens, minishell);
-            /* printf("\033[31m$\033[0m%s\033[31m$\033[0m\n", input); */
+            t_red *red = sub_red(tokens);
             print_tokens(tokens);
+            print_redirections(red);
+            
+            /* printf("\033[31m$\033[0m%s\033[31m$\033[0m\n", input); */
+            
 		}
 	}
 	return (EXIT_SUCCESS);

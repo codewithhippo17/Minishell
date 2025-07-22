@@ -11,6 +11,7 @@ LEXER_DIR = ../lexer
 CHECKER_DIR = ../checker
 HEREDOC_DIR = ../heredoc
 EXPAND_DIR = ../expander
+AST_DIR = ../ast
 # Source files
 LEXER_SRCS =	$(LEXER_DIR)/lexer.c \
 	        	$(LEXER_DIR)/lexer_utils.c \
@@ -30,12 +31,15 @@ EXPAND_SRC =	$(EXPAND_DIR)/expand_helpers.c \
 				$(EXPAND_DIR)/ft_spliter.c \
 				$(EXPAND_DIR)/helpers.c \
 				$(EXPAND_DIR)/utils.c 
+
+AST_SRCS =	$(AST_DIR)/red.c
+
 MINI = 	../kill/free_exit.c \
 		../utils/minishell_helpers.c ../utils/minishell_set_env.c  ../utils/minishell_utils.c ../builtins/unset.c
 MAIN_SRCS = main.c
 
 # All source files
-SRCS = $(LEXER_SRCS) $(CHECKER_SRCS) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(MAIN_SRCS)
+SRCS = $(LEXER_SRCS) $(CHECKER_SRCS) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(AST_SRCS) $(MAIN_SRCS)
 
 # Object files
 OBJS = $(SRCS:.c=.o)

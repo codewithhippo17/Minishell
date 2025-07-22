@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:58:26 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/22 04:27:57 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/22 05:35:45 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_red
 	char				*path;
 	t_flag				type;
 	t_ambg				ambg;
+    struct s_red        *next;
 }						t_red;
 
 typedef struct s_token

@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 13:57:19 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/21 06:13:37 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/22 06:53:19 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,18 @@ static t_token	*fill_splited(char *snip, t_join join)
 	token->value = ft_strdup(snip);
 	token->join = join;
 	token->hd = NULL;
-	token->ambg = OBVIOUS;
+	if (ft_memcmp(snip, " ", 1) == 0)
+	{
+		token->ambg = AMBG;
+	}
+	else
+	{
+		token->ambg = OBVIOUS;
+	}
 	token->next = NULL;
 	token->prev = NULL;
 	token->quote = NQS;
-	if (join == NJ)
-		token->type = ARG;
-	else if (join == NONE)
+    if (join == NONE)
 		token->type = WS;
 	else
 		token->type = WORD;
