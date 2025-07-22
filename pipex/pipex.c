@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 00:21:45 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/21 02:48:52 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/22 03:20:54 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,14 @@ static void	child_pr_all(t_minishell *mini, char **args)
 
 int	pipex(int ac, t_minishell *mini)
 {
-	int		exit_status;
-	pid_t	pids[ac];
+	pid_t		pids[ac];
 	t_minishell	*curent;
 
-	int(p), (i), (fd[2]);
+	int (p), (i), (fd[2]);
 	p = -1;
-	i = 0;
+	i = -1;
 	curent = mini;
-	while (i < ac)
+	while (++i < ac)
 	{
 		if (pipe(fd) == -1)
 			ft_perror("pipe", 1);
@@ -74,9 +73,6 @@ int	pipex(int ac, t_minishell *mini)
 		p = fd[0];
 		close(fd[1]);
 		curent = curent->next;
-		i++;
 	}
-	close(p);
-	exit_status = wait_for_children(pids, ac);
-	return (exit_status);
+	return (close(p), wait_for_children(pids, ac));
 }

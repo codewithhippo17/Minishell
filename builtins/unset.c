@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:13:59 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/07 18:16:09 by marvin           ###   ########.fr       */
+/*   Updated: 2025/07/22 03:10:12 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	**rm_var(char *var, char **env)
 		free_strings(split);
 		j++;
 	}
-	//printf("[%d], [%d], [%d]\n", i, l, j);
 	new_env[i] = NULL;
 	free_strings(env);
 	return (new_env);

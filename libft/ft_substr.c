@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:21:03 by ybelghad          #+#    #+#             */
-/*   Updated: 2024/11/04 10:02:48 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/22 02:54:12 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (st);
 }
 
-
 /* #include <stdio.h>
 
-int main()
+int	main(void)
 {
-    char *s = ft_substr("", 5, 0);
-    printf("AAA%sAAA", s);
-    free(s);
+	char *s = ft_substr("", 5, 0);
+	printf("AAA%sAAA", s);
+	free(s);
 } */

@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:38:14 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/06 19:17:42 by marvin           ###   ########.fr       */
+/*   Updated: 2025/07/22 03:08:49 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ static int	is_num(char *str)
 	return (1);
 }
 
-void free_befor_exit(t_minishell *minishell)
+void	free_befor_exit(t_minishell *minishell)
 {
-  	free(minishell->input);
-		free_strings(minishell->cmd_args);
-		free_strings(minishell->m_env);
-		free_strings(minishell->s_env);
-    free(minishell);
+	free(minishell->input);
+	free_strings(minishell->cmd_args);
+	free_strings(minishell->m_env);
+	free_strings(minishell->s_env);
+	free(minishell);
 }
 
 int	ft_my_exit(t_minishell *minishell)
@@ -49,7 +49,7 @@ int	ft_my_exit(t_minishell *minishell)
 	printf("exit\n");
 	if (str[1] && !str[2] && is_num(str[1]))
 	{
-    free_befor_exit(minishell);
+		free_befor_exit(minishell);
 		exit(i);
 	}
 	else if (str[1] && !is_num(str[1]))
@@ -57,17 +57,14 @@ int	ft_my_exit(t_minishell *minishell)
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(str[1], 2);
 		ft_putstr_fd(": numeric argument required", 2);
-    free_befor_exit(minishell);
+		free_befor_exit(minishell);
 		exit(2);
 	}
 	else if (str[1] && str[2])
-	{
-		ft_putstr_fd("minishell: exit: too many arguments", 2);
-		return (1);
-	}
+		return (ft_putstr_fd("minishell: exit: too many arguments", 2), 1);
 	else
 	{
-    free_befor_exit(minishell);
+		free_befor_exit(minishell);
 		exit(0);
 	}
 	return (0);

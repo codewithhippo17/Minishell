@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:47:31 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/02 18:07:56 by ehamza           ###   ########.fr       */
+/*   Updated: 2025/07/22 02:53:50 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int		ft_atoi(const char *str);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(const char *s);
 char	*ft_strndup(char *s, int len);
-
 
 //  Part 2 - Additional functions-----
 

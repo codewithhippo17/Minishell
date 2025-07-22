@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdbool.h>
-#include <stdio.h>
 
 t_token	*nonvar_parser(char *str, int *i)
 {

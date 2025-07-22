@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_set_env.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/22 03:22:19 by elhaiba hamza     #+#    #+#             */
+/*   Updated: 2025/07/22 03:23:57 by elhaiba hamza    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	**set_env_utils(char **env)
@@ -12,11 +24,8 @@ char	**set_env_utils(char **env)
 		l++;
 	my_env = malloc((l + 1) * sizeof(char *));
 	if (!my_env)
-	{
-		ft_putstr_fd("Memory allocation failed\n", 2);
-		free_strings(my_env);
-		return (NULL);
-	}
+		return (ft_putstr_fd("Memory allocation failed\n", 2),
+			free_strings(my_env), NULL);
 	while (env[i])
 	{
 		my_env[i] = ft_strdup(env[i]);

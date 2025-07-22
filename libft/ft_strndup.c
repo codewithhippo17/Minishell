@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/22 02:53:21 by elhaiba hamza     #+#    #+#             */
+/*   Updated: 2025/07/22 02:53:23 by elhaiba hamza    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 char	*ft_strndup(char *s, int len)
@@ -20,8 +32,9 @@ char	*ft_strndup(char *s, int len)
 
 /*
 #include <stdio.h>
-int main()
+
+int	main(void)
 {
-    printf("%s\n", ft_strndup("abcdef", 6));
+	printf("%s\n", ft_strndup("abcdef", 6));
 }
 */

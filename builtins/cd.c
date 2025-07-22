@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:02:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/06/12 18:02:39 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/22 03:03:38 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ int	cd(char *str, t_minishell *minishell)
 	char	*prev_dir;
 
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
-	{
-		perror("getcwd(): error");
-		return (1);
-	}
+		return (perror("getcwd(): error"), 1);
 	if (str == NULL || *str == '\0' || ft_strncmp(str, "~",
 			ft_strlen("~")) == 0)
 	{
@@ -72,14 +69,10 @@ int	cd(char *str, t_minishell *minishell)
 			return (1);
 	}
 	else if (chdir(str) != 0)
-	{
-		perror("cd error");
-		return (1);
-	}
+		return (perror("cd error"), 1);
 	prev_dir = ft_strjoin("OLDPWD=", current_dir);
 	exports(prev_dir, &(minishell->m_env));
 	exports(prev_dir, &(minishell->s_env));
-	free(prev_dir);
-	prev_dir = NULL;
-	return (0);
+	exports(ft_strjoin("PWD=", current_dir), &(minishell->m_env));
+	return (free(prev_dir), prev_dir = NULL, 0);
 }

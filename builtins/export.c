@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:16:32 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/07 18:16:08 by marvin           ###   ########.fr       */
+/*   Updated: 2025/07/22 03:09:20 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -73,7 +73,7 @@ int	exports(char *var, char ***env)
 			}
 			else
 			{
-        free_strings(split);
+				free_strings(split);
 				return (0);
 			}
 		}

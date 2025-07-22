@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 15:32:57 by ybelghad          #+#    #+#             */
-/*   Updated: 2024/11/07 02:30:31 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/22 02:53:37 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,13 @@ char	**ft_split(char const *s, char c)
 /*
 #include <stdio.h>
 
-int main()
+int	main(void)
 {
-    int i = 0;
-    char **split = ft_split("<< del cat -e | grep hippo | tr 'p' 's' | cat | wc -l > out.txt", '|');
-    while (split[i] != NULL) {
-    printf("%s\n", split[i]);
-        i++;
-    }
+	int i = 0;
+	char **split = ft_split("<< del cat -e | grep hippo | tr 'p' 's' | cat | wc
+			-l > out.txt", '|');
+	while (split[i] != NULL) {
+	printf("%s\n", split[i]);
+		i++;
+	}
 }*/

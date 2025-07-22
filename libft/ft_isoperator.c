@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int is_operator_start(char c)
+int	is_operator_start(char c)
 {
-    if (c == '|' || c == '<' || c == '>')
-        return (1);
-    return (0);
+	if (c == '|' || c == '<' || c == '>')
+		return (1);
+	return (0);
 }
