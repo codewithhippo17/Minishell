@@ -27,35 +27,19 @@ t_token	*nonvar_parser(char *str, int *i)
 	{
 		if (str[idx] == '$')
 		{
-			if (str[*i] && ft_isdigit(str[*i + 1]))
-			{
-				tmp = ft_strjoin(tmp, ft_substr(str, *i, 2));
-				idx++;
-			}
+			if (str[idx] && ft_isdigit(str[idx + 1]))
+				tmp = ft_strjoin(tmp, ft_substr(str, idx, 2));
 			else
 				break ;
+			idx += 1;
 		}
 		else
+		{
 			tmp = ft_strjoin(tmp, char_to_str(str[idx]));
-		idx++;
+			idx++;
+		}
 	}
 	return (*i += idx, token = fill_var_token(tmp), token);
-}
-
-char	*get_varname(char *str, int *i)
-{
-	int		len;
-	char	*varname;
-
-	len = get_var_len(&str[1]);
-	if (len == 0)
-		return (NULL);
-	varname = malloc(len + 1);
-	if (!varname)
-		return (NULL);
-	ft_strlcpy(varname, &str[1], len + 1);
-	*i += len + 1;
-	return (varname);
 }
 
 t_splited	*ft_exspliter(t_token **token, char *str, int idx,
@@ -73,7 +57,7 @@ t_splited	*ft_exspliter(t_token **token, char *str, int idx,
 		c = c->next;
 	while (str[i])
 	{
-		if (str[i] != '$')
+		if (str[i] != '$' || (str[i] == '$' && !is_var_start(str[i + 1])))
 			append_token(&tmp->head, &tmp->tail, nonvar_parser(&str[i], &i));
 		else
 		{
@@ -90,30 +74,29 @@ t_splited	*ft_exspliter(t_token **token, char *str, int idx,
 
 t_token	*fill_empty_splited(void)
 {
-    t_token	*token;
+	t_token	*token;
 
-    token = malloc(sizeof(t_token));
-    if (!token)
-        return (NULL);
-    token->join = NJ;
-    token->ambg = AMBG;
-    token->hd = NULL;
-    token->next = NULL;
-    token->prev = NULL;
-    return (token);
+	token = malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->join = NJ;
+	token->ambg = AMBG;
+	token->hd = NULL;
+	token->next = NULL;
+	token->prev = NULL;
+	return (token);
 }
-
 
 void	insert_token(t_token **head, t_token *current, t_splited *splited)
 {
 	t_token	*prev;
 	t_token	*next;
 
-    if (!splited->head)
-    {
-        splited->head = fill_empty_splited();
-        splited->tail = splited->head;
-    }
+	if (!splited->head)
+	{
+		splited->head = fill_empty_splited();
+		splited->tail = splited->head;
+	}
 	prev = current->prev;
 	next = current->next;
 	if (prev)

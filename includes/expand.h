@@ -29,4 +29,7 @@ char		*char_to_str(char c);
 t_token		*fill_var_token(char *varname);
 t_splited	*init_inner(void);
 void		flag_ambg(t_token *token);
+int			is_var_start(char c);
+char		*get_varname(char *str, int *i);
+
 #endif

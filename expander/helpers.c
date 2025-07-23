@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <ctype.h>
 
 void	flag_join(t_token *c)
 {
@@ -39,8 +40,10 @@ bool	no_var(char *value)
 		return (false);
 	while (*value)
 	{
-		if (*value == '$')
+		if (*value == '$' && (isalpha(*(value + 1)) || *(value + 1) == '_'))
+		{
 			return (false);
+		}
 		value++;
 	}
 	return (true);
