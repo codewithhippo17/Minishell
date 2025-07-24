@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <fcntl.h>
+#include <unistd.h>
 
 static void	printerror(t_minishell *mini, char *err, int exinum)
 {
@@ -42,6 +44,8 @@ static void	child_pr_all(t_minishell *mini)
 		if (!path)
 			printerror(mini, ": command not found\n", 127);
 	}
+	int fd = open(mini->red->path, O_RDONLY);
+	dup2(fd, 0);
 	execve(path, mini->cmd_args, mini->m_env);
 	free(path);
 	printerror(mini, ": Permission denied\n", 126);

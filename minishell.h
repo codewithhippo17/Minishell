@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/21 02:48:57 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/22 11:19:23 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	print_tokens(t_token *token);
 int		pipex(int ac, t_minishell *mini);
 
 //-----------------ººREVAMPºº-------------------/
-//t_minishell	*shell(t_minishell *mini);
+// t_minishell	*shell(t_minishell *mini);
 t_token	*token_init(void);
 t_red	*red_init(void);
 void	mini_update(t_minishell *mini, t_token *token);

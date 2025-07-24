@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_to_arr.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/22 11:19:14 by ybelghad          #+#    #+#             */
+/*   Updated: 2025/07/22 11:19:14 by ybelghad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 t_token	*token_init(void)
@@ -53,6 +65,7 @@ char	**token_to_arr(t_token *token)
 		current = current->next;
 		i++;
 	}
+	cmd[i] = NULL;
 	return (cmd);
 }
 
