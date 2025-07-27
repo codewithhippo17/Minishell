@@ -76,8 +76,9 @@ const char *join_to_string(t_join join)
 void print_tokens(t_token *token)
 {
     t_token *curr = token;
+    static int i;
 
-    printf("Lexer Output:\n    ");
+    printf("command number: %d\n    ->", ++i);
     while (curr)
     {
         if (curr->type == PIPE)
@@ -146,19 +147,21 @@ int	main(int argc, char *argv[], char **env)
 			add_history(input);
 			tokens = lexer(input);
 			checker(&tokens, minishell);
+            
             ft_expander(&tokens, minishell);
+
             ft_join_tokens(&tokens);
-            print_tokens(tokens);
+
             t_red *red = sub_red(tokens);
-            printf("cmd\n");
+            
+            printf("cmds\n");
             t_token *cmd = grep_tokens(&tokens);
             while (cmd)
             {
                 print_tokens(cmd);
                 cmd = grep_tokens(&tokens);
             }
-            printf("next tokens\n");
-            print_tokens(tokens);
+
             print_redirections(red);
 		}
 	}

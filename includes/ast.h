@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef AST_H
 # define AST_H
 # include "types.h"
 
-void delete_token(t_token **head, t_token **token);
-t_token *grep_tokens(t_token **tokens);
+void	delete_token(t_token **head, t_token **token);
+t_token	*grep_tokens(t_token **tokens);
 
 #endif

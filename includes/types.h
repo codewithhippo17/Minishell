@@ -73,7 +73,7 @@ typedef struct s_red
 	char				*path;
 	t_flag				type;
 	t_ambg				ambg;
-    struct s_red        *next;
+	struct s_red		*next;
 }						t_red;
 
 typedef struct s_token

@@ -33,7 +33,7 @@ static t_token	*fill_splited(char *snip, t_join join)
 	token->next = NULL;
 	token->prev = NULL;
 	token->quote = NQS;
-    if (join == NONE)
+	if (join == NONE)
 		token->type = WS;
 	else
 		token->type = WORD;
