@@ -31,13 +31,15 @@ EXPAND_SRC =	$(EXPAND_DIR)/expand_helpers.c \
 				$(EXPAND_DIR)/expand_utils.c \
 				$(EXPAND_DIR)/ft_spliter.c \
 				$(EXPAND_DIR)/helpers.c \
-				$(EXPAND_DIR)/utils.c 
+				$(EXPAND_DIR)/utils.c
 
 AST_SRCS =	$(AST_DIR)/red.c \
-			$(AST_DIR)/join.c
+			$(AST_DIR)/join.c \
+			$(AST_DIR)/tokens.c
 
 MINI = 	../kill/free_exit.c \
 		../utils/minishell_helpers.c ../utils/minishell_set_env.c  ../utils/minishell_utils.c ../builtins/unset.c
+
 MAIN_SRCS = main.c
 
 # All source files

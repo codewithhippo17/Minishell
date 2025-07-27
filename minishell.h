@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/21 02:48:57 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/27 03:43:07 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "includes/kill.h"
 # include "includes/lexer.h"
 # include "includes/pipex.h"
+# include "includes/ast.h"
 # include "libft/libft.h"
 # include </usr/include/readline/history.h>
 # include </usr/include/readline/readline.h>
