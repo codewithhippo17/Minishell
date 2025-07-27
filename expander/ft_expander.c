@@ -25,19 +25,14 @@ t_token	*nonvar_parser(char *str, int *i)
 	tmp = ft_strdup("");
 	while (str[idx])
 	{
-		if (str[idx] == '$')
-		{
-			if (str[idx] && ft_isdigit(str[idx + 1]))
-				tmp = ft_strjoin(tmp, ft_substr(str, idx, 2));
-			else
-				break ;
-			idx += 1;
-		}
+		if (str[idx] == '$' && str[idx + 1] && !is_var_start(str[idx + 1]))
+			tmp = ft_strjoin(tmp, char_to_str(str[idx++]));
+		else if (str[idx] == '$' && !str[idx + 1])
+			tmp = ft_strjoin(tmp, char_to_str(str[idx++]));
+		else if (str[idx] && str[idx] != '$')
+			tmp = ft_strjoin(tmp, char_to_str(str[idx++]));
 		else
-		{
-			tmp = ft_strjoin(tmp, char_to_str(str[idx]));
-			idx++;
-		}
+			break ;
 	}
 	return (*i += idx, token = fill_var_token(tmp), token);
 }
@@ -62,7 +57,7 @@ t_splited	*ft_exspliter(t_token **token, char *str, int idx,
 		else
 		{
 			splited = ft_spliter(my_getenv(get_varname(&str[i], &i),
-						minishell->m_env));
+						minishell->s_env));
 			append_token(&tmp->head, &tmp->tail, splited->head);
 			if (splited->tail)
 				tmp->tail = splited->tail;

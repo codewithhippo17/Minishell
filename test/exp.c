@@ -24,10 +24,8 @@ int	main(int argc, char *argv[], char **env)
 	minishell->status = 0;
 	if (set_env(minishell, env))
 		free_exit_minishell(minishell, EXIT_FAILURE);
-	str = ft_strdup("$HOME $PWD $HH@scdsdc");
-	printf("%s\n", str);
-	expander(&str, minishell->m_env);
-	printf("%s\n", str);
+    str = my_getenv("i", minishell->m_env);
+	printf("a%sb\n", str);
 	free(minishell);
 	return (EXIT_SUCCESS);
 }

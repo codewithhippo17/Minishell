@@ -180,3 +180,4 @@ execve("/usr/bin/echo", ["echo", "g#"], 0x7ffd9baac368 /* 63 vars */) = 0
 
 
 export a="   a   b   c  " b="efg" c="         " d="" e
+

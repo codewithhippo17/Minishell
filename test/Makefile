@@ -12,6 +12,7 @@ CHECKER_DIR = ../checker
 HEREDOC_DIR = ../heredoc
 EXPAND_DIR = ../expander
 AST_DIR = ../ast
+
 # Source files
 LEXER_SRCS =	$(LEXER_DIR)/lexer.c \
 	        	$(LEXER_DIR)/lexer_utils.c \
@@ -32,7 +33,8 @@ EXPAND_SRC =	$(EXPAND_DIR)/expand_helpers.c \
 				$(EXPAND_DIR)/helpers.c \
 				$(EXPAND_DIR)/utils.c 
 
-AST_SRCS =	$(AST_DIR)/red.c
+AST_SRCS =	$(AST_DIR)/red.c \
+			$(AST_DIR)/join.c
 
 MINI = 	../kill/free_exit.c \
 		../utils/minishell_helpers.c ../utils/minishell_set_env.c  ../utils/minishell_utils.c ../builtins/unset.c

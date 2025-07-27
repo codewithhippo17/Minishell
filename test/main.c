@@ -86,7 +86,10 @@ void print_tokens(t_token *token)
             curr = curr->next;
             continue ;
         }
-        printf("[\e[1;34m{\"%s\"}\e[0m: \033[31m%s-%s\033[0m]", curr->value,  join_to_string(curr->join), ambg_to_string(curr->ambg));
+        if (curr->value)
+            printf("[\e[1;34m{\"%s\"}\e[0m: \033[31m%s-%s-%s\033[0m]", curr->value, flag_to_string(curr->type), join_to_string(curr->join), ambg_to_string(curr->ambg));
+        else if (!curr->value)
+            printf("[\e[1;34m{\"null\"}\e[0m: \033[31m %s-%s-%s\033[0m]", flag_to_string(curr->type), join_to_string(curr->join), ambg_to_string(curr->ambg));
         if (curr->next)
             printf("\033[32;1m🠒\033[0m");
         curr = curr->next;
@@ -101,7 +104,7 @@ void print_redirections(t_red *red)
     printf("Redirections:\n");
     while (curr)
     {
-        printf("  [\e[1;34m{\"path: %s\"}\e[0m: \033[31m%s-%s fd: %d\033[0m]", curr->path, flag_to_string(curr->type), ambg_to_string(curr->ambg), curr->fd);
+        printf("[\e[1;34m{\"path: %s\"}\e[0m: \033[31m%s-%s fd: %d\033[0m]", curr->path, flag_to_string(curr->type), ambg_to_string(curr->ambg), curr->fd);
         if (curr->next)
             printf("\033[32;1m🠒\033[0m");
         curr = curr->next;
@@ -143,12 +146,15 @@ int	main(int argc, char *argv[], char **env)
 			add_history(input);
 			tokens = lexer(input);
 			checker(&tokens, minishell);
-            /* tokens = ft_spliter(input); */
             ft_expander(&tokens, minishell);
+            printf("before join");
+            //print_tokens(tokens);
+            ft_join_tokens(&tokens);
             t_red *red = sub_red(tokens);
             print_tokens(tokens);
             print_redirections(red);
             
+
             /* printf("\033[31m$\033[0m%s\033[31m$\033[0m\n", input); */
             
 		}
