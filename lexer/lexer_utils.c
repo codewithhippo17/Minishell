@@ -33,7 +33,7 @@ t_token	*parse_word(int *i, char *input)
 	token->type = WORD;
 	token->quote = NQS;
 	token->join = NJ;
-	token->ambg = OBVIOUS;
+	token->ambg = OBV;
 	token->hd = NULL;
 	token->next = NULL;
 	token->prev = NULL;
@@ -55,7 +55,7 @@ t_token	*parse_spaces(int *i, char *input)
 	token->type = WS;
 	token->quote = NQS;
 	token->join = NJ;
-	token->ambg = OBVIOUS;
+	token->ambg = OBV;
 	token->hd = NULL;
 	token->next = NULL;
 	token->prev = NULL;
@@ -113,7 +113,7 @@ t_token	*parse_quoted(int *i, char *input, char quote)
 		fill_token(&token, ft_strndup(&input[start], len), WORD, DQS);
 	else
 		fill_token(&token, ft_strndup(&input[start], len), WORD, SQS);
-	token->ambg = OBVIOUS;
+	token->ambg = OBV;
 	token->join = NJ;
 	return (token->prev = NULL, token->next = NULL, token);
 }

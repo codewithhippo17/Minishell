@@ -14,7 +14,7 @@
 
 /*
 	function loop to traverse the token linked list and grab
-    all the redirection tokens
+	all the redirection tokens
 	and create a new linked list of redirection tokens.
 
  * typedef struct s_red
@@ -29,7 +29,7 @@
 
 */
 
-t_red	*create_red(int fd, t_flag type, t_ambg ambg, char *path)
+t_red	*red(int fd, t_flag type, t_ambg ambg, char *path)
 {
 	t_red	*red;
 
@@ -37,10 +37,10 @@ t_red	*create_red(int fd, t_flag type, t_ambg ambg, char *path)
 	if (!red)
 		return (NULL);
 	red->fd = fd;
-	red->path = path; // Default value for path
-	red->type = type; // Default type
-	red->ambg = ambg; // Default ambiguity
-	red->next = NULL; // Initialize next pointer to NULL
+	red->path = path;
+	red->type = type;
+	red->ambg = ambg;
+	red->next = NULL;
 	return (red);
 }
 
@@ -62,12 +62,12 @@ static void	append_red(t_red **head, t_red **tail, t_red *new_red)
 
 t_red	*sub_red(t_token *token)
 {
-	t_red	*red_head;
-	t_red	*red_tail;
+	t_red	*head;
+	t_red	*tail;
 	t_token	*c;
 
-	red_head = NULL;
-	red_tail = NULL;
+	head = NULL;
+	tail = NULL;
 	c = token;
 	while (c && c->type != PIPE)
 	{
@@ -75,19 +75,16 @@ t_red	*sub_red(t_token *token)
 		{
 			if (c->next->ambg == AMBG || (c->next->type == WS
 					&& c->next->next->ambg == AMBG))
-				append_red(&red_head, &red_tail, create_red(-1, c->type, AMBG,
-						NULL));
+				append_red(&head, &tail, red(-1, c->type, AMBG, NULL));
 			else if (c->next->type != WS)
-				append_red(&red_head, &red_tail, create_red(-1, c->type,
-						OBVIOUS, c->next->value));
+				append_red(&head, &tail, red(-1, c->type, OBV, c->next->value));
 			else if (c->next->type == WS)
-				append_red(&red_head, &red_tail, create_red(-1, c->type,
-						OBVIOUS, c->next->next->value));
+				append_red(&head, &tail, red(-1, c->type, OBV,
+						c->next->next->value));
 		}
 		else if (c->type == HEREDOC)
-			append_red(&red_head, &red_tail, create_red(c->hd->fd, c->type,
-					OBVIOUS, NULL));
+			append_red(&head, &tail, red(c->hd->fd, c->type, OBV, NULL));
 		c = c->next;
 	}
-	return (red_head);
+	return (head);
 }

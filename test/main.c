@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 11:11:49 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/22 05:45:00 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/27 05:11:44 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ const char *ambg_to_string(t_ambg quote)
     static const char *flag_names[] = {
         	"AMBG", "OBVIOUS"
     };
-        if (quote < 0 || quote > OBVIOUS)
+        if (quote < 0 || quote > OBV)
             return "UNKNOWN";
     return flag_names[quote];
 }
@@ -147,16 +147,19 @@ int	main(int argc, char *argv[], char **env)
 			tokens = lexer(input);
 			checker(&tokens, minishell);
             ft_expander(&tokens, minishell);
-            printf("before join");
-            //print_tokens(tokens);
             ft_join_tokens(&tokens);
+            print_tokens(tokens);
             t_red *red = sub_red(tokens);
+            printf("cmd\n");
+            t_token *cmd = grep_tokens(&tokens);
+            while (cmd)
+            {
+                print_tokens(cmd);
+                cmd = grep_tokens(&tokens);
+            }
+            printf("next tokens\n");
             print_tokens(tokens);
             print_redirections(red);
-            
-
-            /* printf("\033[31m$\033[0m%s\033[31m$\033[0m\n", input); */
-            
 		}
 	}
 	return (EXIT_SUCCESS);

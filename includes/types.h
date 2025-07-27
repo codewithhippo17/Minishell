@@ -51,7 +51,7 @@ typedef enum e_flag
 typedef enum e_ambg
 {
 	AMBG,
-	OBVIOUS,
+	OBV,
 }						t_ambg;
 
 typedef struct s_heredoc

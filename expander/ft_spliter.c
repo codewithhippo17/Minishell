@@ -28,7 +28,7 @@ static t_token	*fill_splited(char *snip, t_join join)
 	}
 	else
 	{
-		token->ambg = OBVIOUS;
+		token->ambg = OBV;
 	}
 	token->next = NULL;
 	token->prev = NULL;
