@@ -12,6 +12,12 @@ CHECKER_DIR = ../checker
 HEREDOC_DIR = ../heredoc
 EXPAND_DIR = ../expander
 AST_DIR = ../ast
+BULTINS_DIR = ../builtins
+KILL_DIR = ../kill
+EXEC_DIR = ../executor
+PIPE_DIR = ../pipex
+UTILS_DIR = ../utils
+
 
 # Source files
 LEXER_SRCS =	$(LEXER_DIR)/lexer.c \
@@ -26,6 +32,7 @@ HEREDOC_SRCS =	$(HEREDOC_DIR)/heredoc.c \
 	        	$(HEREDOC_DIR)/heredoc_helpers.c \
 	        	$(HEREDOC_DIR)/random.c \
 	        	$(HEREDOC_DIR)/ft_heredoc.c
+
 EXPAND_SRC =	$(EXPAND_DIR)/expand_helpers.c \
 				$(EXPAND_DIR)/ft_expander.c \
 				$(EXPAND_DIR)/expand_utils.c \
@@ -33,17 +40,38 @@ EXPAND_SRC =	$(EXPAND_DIR)/expand_helpers.c \
 				$(EXPAND_DIR)/helpers.c \
 				$(EXPAND_DIR)/utils.c
 
-AST_SRCS =	$(AST_DIR)/red.c \
-			$(AST_DIR)/join.c \
-			$(AST_DIR)/tokens.c
+AST_SRCS =		$(AST_DIR)/red.c \
+				$(AST_DIR)/join.c \
+				$(AST_DIR)/tokens.c
 
-MINI = 	../kill/free_exit.c \
-		../utils/minishell_helpers.c ../utils/minishell_set_env.c  ../utils/minishell_utils.c ../builtins/unset.c
+BULTINS_SRC =	$(BULTINS_DIR)/cd.c \
+				$(BULTINS_DIR)/echo.c \
+				$(BULTINS_DIR)/env.c \
+				$(BULTINS_DIR)/exit.c \
+				$(BULTINS_DIR)/export.c \
+				$(BULTINS_DIR)/pwd.c \
+				$(BULTINS_DIR)/unset.c
 
-MAIN_SRCS = main.c
+PIPE_SRC =		$(PIPE_DIR)/pipex.c \
+				$(PIPE_DIR)/pipex_utils.c
+
+EXEC_SRC =		$(EXEC_DIR)/build_in_cmd.c \
+				$(EXEC_DIR)/external_cmd.c \
+				$(EXEC_DIR)/redirection.c
+
+KILL_SRC =		$(KILL_DIR)/free_exit.c
+
+UTILS_SRC =		$(UTILS_DIR)/minishell_helpers.c \
+				$(UTILS_DIR)/minishell_set_env.c \
+				$(UTILS_DIR)/minishell_utils.c \
+				$(UTILS_DIR)/export_utils.c
+
+MAIN_SRCS = minishell.c
 
 # All source files
-SRCS = $(LEXER_SRCS) $(CHECKER_SRCS) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(AST_SRCS) $(MAIN_SRCS)
+SRCS =		$(LEXER_SRCS) $(CHECKER_SRCS) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(AST_SRCS) \
+			$(BULTINS_SRC) $(PIPE_SRC) $(EXEC_SRC) $(KILL_SRC) $(UTILS_SRC) \
+			$(MAIN_SRCS) 
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -73,14 +101,7 @@ fclean: clean
 
 re: fclean all
 
-# Individual module rules (optional)
-lexer: $(LEXER_SRCS:.c=.o)
-	$(CC) $(CFLAGS) $(INCLUDES) $(LEXER_SRCS:.c=.o) -o test_lexer
-
-checker: $(CHECKER_SRCS:.c=.o)
-	$(CC) $(CFLAGS) $(INCLUDES) $(CHECKER_SRCS:.c=.o) -o test_checker
-
-heredoc: $(HEREDOC_SRCS:.c=.o) $(LIBFT)
-	$(CC) $(CFLAGS) $(INCLUDES) $(HEREDOC_SRCS:.c=.o) $(LIBFT) $(READLINE_FLAGS) -o test_heredoc
+valgrind: all clean
+	valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp --gen-suppressions=all  --track-fds=all ./minishell
 
 .PHONY: all clean fclean re lexer checker heredoc

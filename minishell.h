@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/28 04:47:39 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/28 06:00:23 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "includes/lexer.h"
 # include "includes/pipex.h"
 # include "includes/redirection.h"
+# include "includes/executor.h"
 # include "libft/libft.h"
 # include </usr/include/readline/history.h>
 # include </usr/include/readline/readline.h>
@@ -32,6 +33,7 @@
 # include <readline/chardefs.h>
 # include <stddef.h>
 # include <stdio.h>
+# include <signal.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/stat.h>

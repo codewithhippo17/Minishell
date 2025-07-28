@@ -1,56 +1,106 @@
+# Variables
 NAME = minishell
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g
+LIBFT_DIR = ./libft
+LIBFT = $(LIBFT_DIR)/libft.a
+READLINE_FLAGS = -lreadline
 
-CC = gcc -g
+# Source directories
+LEXER_DIR = ./lexer
+CHECKER_DIR = ./checker
+HEREDOC_DIR = ./heredoc
+EXPAND_DIR = ./expander
+AST_DIR = ./ast
+BULTINS_DIR = ./builtins
+KILL_DIR = ./kill
+EXEC_DIR = ./executor
+PIPE_DIR = ./pipex
+UTILS_DIR = ./utils
 
-CFLAGS = -Wall -Wextra -Werror
+# Source files
+LEXER_SRCS =	$(LEXER_DIR)/lexer.c \
+	        	$(LEXER_DIR)/lexer_utils.c \
+	        	$(LEXER_DIR)/lexer_helpers.c
 
-INCLUDES = -I/usr/include/readline -I./libft
+CHECKER_SRCS =	$(CHECKER_DIR)/checker.c \
+	        	$(CHECKER_DIR)/checker_helpers.c \
+	        	$(CHECKER_DIR)/rules.c
 
-LIBFT = ./libft/libft.a
+HEREDOC_SRCS =	$(HEREDOC_DIR)/heredoc.c \
+	        	$(HEREDOC_DIR)/heredoc_helpers.c \
+	        	$(HEREDOC_DIR)/random.c \
+	        	$(HEREDOC_DIR)/ft_heredoc.c
 
+EXPAND_SRC =	$(EXPAND_DIR)/expand_helpers.c \
+				$(EXPAND_DIR)/ft_expander.c \
+				$(EXPAND_DIR)/expand_utils.c \
+				$(EXPAND_DIR)/ft_spliter.c \
+				$(EXPAND_DIR)/helpers.c \
+				$(EXPAND_DIR)/utils.c
 
+AST_SRCS =		$(AST_DIR)/red.c \
+				$(AST_DIR)/join.c \
+				$(AST_DIR)/tokens.c
 
-SRC = builtins/cd.c builtins/echo.c builtins/env.c \
-			builtins/exit.c builtins/export.c builtins/pwd.c \
-			builtins/unset.c \
-			executor/build_in_cmd.c executor/external_cmd.c executor/redirection.c \
-			kill/free_exit.c \
-			pipex/pipex.c \
-			pipex/pipex_utils.c \
-			utils/minishell_helpers.c utils/minishell_set_env.c \
-			utils/minishell_utils.c utils/export_utils.c \
-			minishell.c
+BULTINS_SRC =	$(BULTINS_DIR)/cd.c \
+				$(BULTINS_DIR)/echo.c \
+				$(BULTINS_DIR)/env.c \
+				$(BULTINS_DIR)/exit.c \
+				$(BULTINS_DIR)/export.c \
+				$(BULTINS_DIR)/pwd.c \
+				$(BULTINS_DIR)/unset.c
 
+PIPE_SRC =		$(PIPE_DIR)/pipex.c \
+				$(PIPE_DIR)/pipex_utils.c
 
+EXEC_SRC =		$(EXEC_DIR)/build_in_cmd.c \
+				$(EXEC_DIR)/external_cmd.c \
+				$(EXEC_DIR)/redirection.c
 
-OBJ = $(SRC:.c=.o)
+KILL_SRC =		$(KILL_DIR)/free_exit.c
 
-all: $(NAME)
+UTILS_SRC =		$(UTILS_DIR)/minishell_helpers.c \
+				$(UTILS_DIR)/minishell_set_env.c \
+				$(UTILS_DIR)/minishell_utils.c \
+				$(UTILS_DIR)/export_utils.c
 
-$(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ -lreadline
+MAIN_SRCS = minishell.c
+
+# All source files
+SRCS =		$(LEXER_SRCS) $(CHECKER_SRCS) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(AST_SRCS) \
+			$(BULTINS_SRC) $(PIPE_SRC) $(EXEC_SRC) $(KILL_SRC) $(UTILS_SRC) \
+			$(MAIN_SRCS) 
+
+# Object files
+OBJS = $(SRCS:.c=.o)
+
+# Header dependencies
+INCLUDES = -I ../includes -I $(LIBFT_DIR)
+
+# Rules
+all: $(LIBFT) $(NAME)
+
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(READLINE_FLAGS) -o $(NAME)
 
 $(LIBFT):
-	make -C ./libft
+	make -C $(LIBFT_DIR)
 
-m: fclean all
-	rm -f $(OBJ)
-	make -C ./libft clean
-	rm -f ./build_in_cmd/*.o
-	rm -f libft/libft.a
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
-	make -C ./libft clean
-	rm -f ./build_in_cmd/*.o
+	rm -f $(OBJS)
+	make -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
-	make -C ./libft fclean
+	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
 valgrind: all clean
 	valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp --gen-suppressions=all  --track-fds=all ./minishell
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re lexer checker heredoc

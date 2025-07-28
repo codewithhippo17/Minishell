@@ -102,6 +102,8 @@ typedef struct s_script
 {
 	t_token				*cmd_head;
 	t_red				*red;
+    char				**cmd_args;
+    int                 exit_status;
 	struct s_script		*next_cmd;
 }						t_script;
 
@@ -110,9 +112,8 @@ typedef struct s_minishell
 	char				*input;
 	char				**m_env;
 	char				**s_env;
-	char				**cmd_args;
 	int					status;
-	t_red				*red;
+    t_script            *script;
 	struct s_minishell	*next;
 }						t_minishell;
 
