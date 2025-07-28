@@ -41,7 +41,8 @@ EXPAND_SRC =	$(EXPAND_DIR)/expand_helpers.c \
 
 AST_SRCS =		$(AST_DIR)/red.c \
 				$(AST_DIR)/join.c \
-				$(AST_DIR)/tokens.c
+				$(AST_DIR)/tokens.c \
+				$(AST_DIR)/syntax_tree.c
 
 BULTINS_SRC =	$(BULTINS_DIR)/cd.c \
 				$(BULTINS_DIR)/echo.c \
@@ -65,12 +66,19 @@ UTILS_SRC =		$(UTILS_DIR)/minishell_helpers.c \
 				$(UTILS_DIR)/minishell_utils.c \
 				$(UTILS_DIR)/export_utils.c
 
+TEST = 			./test/test.c
+
 MAIN_SRCS = minishell.c
 
 # All source files
+p_SRCS =		$(LEXER_SRCS) $(CHECKER_SRCS) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(AST_SRCS) \
+				$(BULTINS_SRC) $(PIPE_SRC) $(EXEC_SRC) $(KILL_SRC) $(UTILS_SRC) \
+				$(MAIN_SRCS)
+
 SRCS =		$(LEXER_SRCS) $(CHECKER_SRCS) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(AST_SRCS) \
-			$(BULTINS_SRC) $(PIPE_SRC) $(EXEC_SRC) $(KILL_SRC) $(UTILS_SRC) \
-			$(MAIN_SRCS) 
+			$(UTILS_SRC) \
+			$(MAIN_SRCS)
+
 
 # Object files
 OBJS = $(SRCS:.c=.o)

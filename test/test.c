@@ -88,3 +88,18 @@ void print_redirections(t_red *red)
     printf("\n\n");
 }
 
+void print_script(t_script *script)
+{
+    t_script *current;
+
+    int i = 0;
+    current = script;
+    while (current)
+    {
+        print_tokens(script->cmd_head, i);
+		print_redirections(script->red);
+        current = current->next_cmd;
+        i++;
+    }
+}
+

@@ -61,8 +61,7 @@ int		is_piped(char *input);
 int		is_var(char *str);
 char	**set_env_utils(char **env);
 int		set_env(t_minishell *minishell, char **env);
-void	print_tokens(t_token *token, int i);
-void	print_redirections(t_red *red);
+void print_script(t_script *script);
 
 // -----------------ººPIPEXºº------------------ //
 int		pipex(int ac, t_minishell *mini);

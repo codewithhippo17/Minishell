@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "includes/ast.h"
 
 int		g_signal_received = 0;
 
@@ -33,26 +32,27 @@ int	main(int argc, char *argv[], char **env)
 
 	minishell = malloc(sizeof(t_minishell));
 	minishell->status = 0;
-	if (set_env(minishell, env))
-		free_exit_minishell(minishell, EXIT_FAILURE);
+	set_env(minishell, env);
+	// 	free_exit_minishell(minishell, EXIT_FAILURE);
   	signal(SIGINT, handle_main_signal);
 	signal(SIGQUIT, SIG_IGN);
 	while (argc == 1 && argv)
 	{
 		minishell->input = readline("minishell$ ");
 		add_history(minishell->input);
-		if (minishell->input == NULL)
-			free_exit_minishell(minishell, EXIT_SUCCESS);
+		// if (minishell->input == NULL)
+		// 	free_exit_minishell(minishell, EXIT_SUCCESS);
         minishell->script = ft_parrsing(minishell);
+        print_script(minishell->script);
         if (g_signal_received == SIGINT)
 		{
 			free(minishell->input);
 			continue ; 
 		}
-        extract_args(minishell);
+/*         extract_args(minishell);
 		handle_command(minishell);
 		printf("%d\n", minishell->status);
-        free(minishell->input);
+        free(minishell->input); */
 	}
 	free(minishell);
 	return (EXIT_SUCCESS);

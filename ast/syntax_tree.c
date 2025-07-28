@@ -29,7 +29,7 @@ void	append_script(t_script **head, t_script **tail, t_script *new_token)
 	}
 }
 
-t_script	*init_script(t_token *cmd, t_red *red, t_minishell *minishell)
+t_script	*init_script(t_token *cmd, t_red *red)
 {
 	t_script	*script;
 
@@ -49,9 +49,7 @@ t_script	*ft_parrsing(t_minishell *minishell)
 	t_script	*script_head;
 	t_script	*script_tail;
 	t_red		*red;
-	int			i;
 
-	i = 0;
 	script_head = NULL;
 	script_tail = NULL;
 	tokens = lexer(minishell->input);
@@ -64,13 +62,9 @@ t_script	*ft_parrsing(t_minishell *minishell)
 	cmd = grep_tokens(&tokens);
 	while (cmd)
 	{
-		print_tokens(cmd, i);
-		print_redirections(red);
-		append_script(&script_head, &script_tail, init_script(cmd, red,
-				minishell));
+		append_script(&script_head, &script_tail, init_script(cmd, red));
 		red = sub_red(tokens);
 		cmd = grep_tokens(&tokens);
-		i++;
 	}
-	return (script_head);
+	return (script_tail->next_cmd = NULL, script_head);
 }
