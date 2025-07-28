@@ -70,6 +70,8 @@ typedef struct s_heredoc
 typedef struct s_red
 {
 	int					fd;
+  int         saved_stdin;
+  int         saved_stdout;
 	char				*path;
 	t_flag				type;
 	t_ambg				ambg;
@@ -110,7 +112,7 @@ typedef struct s_minishell
 	char				**s_env;
 	char				**cmd_args;
 	int					status;
-	t_heredoc			*red;
+	t_red				*red;
 	struct s_minishell	*next;
 }						t_minishell;
 

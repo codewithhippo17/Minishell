@@ -49,8 +49,5 @@ int	set_env(t_minishell *minishell, char **env)
 	minishell->s_env = set_env_utils(env);
 	if (!minishell->s_env)
 		return (1);
-	unset_env("_", &(minishell->s_env));
-	if (!minishell->s_env)
-		return (1);
 	return (0);
 }
