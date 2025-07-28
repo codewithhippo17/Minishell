@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/27 03:43:07 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/28 04:47:39 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int		is_piped(char *input);
 //------------------ºº./minishell_set_envºº------------//
 char	**set_env_utils(char **env);
 int		set_env(t_minishell *minishell, char **env);
-void	print_tokens(t_token *token);
+void	print_tokens(t_token *token, int i);
+void print_redirections(t_red *red);
 
 // -----------------ººPIPEXºº------------------ //
 int		pipex(int ac, t_minishell *mini);
