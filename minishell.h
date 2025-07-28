@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/22 11:19:23 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/28 01:49:53 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "includes/bultins.h"
+# include "includes/redirection.h"
 # include "includes/checker.h"
 # include "includes/expand.h"
 # include "includes/heredoc.h"
@@ -54,6 +55,7 @@ int		is_builtin(char **s);
 int		is_piped(char *input);
 
 //------------------ºº./minishell_set_envºº------------//
+int	is_var(char *str);
 char	**set_env_utils(char **env);
 int		set_env(t_minishell *minishell, char **env);
 void	print_tokens(t_token *token);

@@ -58,7 +58,9 @@ char	**token_to_arr(t_token *token)
 	i = 0;
 	current = token;
 	l = ft_structlen(token);
-	cmd = malloc(l * (sizeof(char *)));
+	cmd = malloc((l + 1) * (sizeof(char *)));
+    if (!cmd)
+        return (NULL);
 	while (current)
 	{
 		cmd[i] = ft_strdup(current->value);
@@ -79,6 +81,7 @@ void	mini_update(t_minishell *mini, t_token *token)
 	while (current)
 	{
 		current->cmd_args = token_to_arr(head);
+        current->red = head;
 		current = current->next;
 		head = head->next;
 	}

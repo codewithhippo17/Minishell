@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 00:21:45 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/22 03:20:54 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/28 04:57:27 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,13 @@ static void	child_pr_all(t_minishell *mini, char **args)
 
 int	pipex(int ac, t_minishell *mini)
 {
-	pid_t		pids[ac];
+	pid_t		*pids;
 	t_minishell	*curent;
 
 	int (p), (i), (fd[2]);
 	p = -1;
 	i = -1;
+  pids = malloc(sizeof(int) * ac);
 	curent = mini;
 	while (++i < ac)
 	{
@@ -66,7 +67,10 @@ int	pipex(int ac, t_minishell *mini)
 		{
 			setup_input(p);
 			setup_output(fd, i, ac);
-			child_pr_all(mini, curent->cmd_args);
+      if (is_builtin(curent->cmd_args))        
+        execute_builtin(curent);
+      else
+			  child_pr_all(mini, curent->cmd_args);
 		}
 		if (p != -1)
 			close(p);

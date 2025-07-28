@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:14:19 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/22 04:27:28 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/28 01:48:49 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,12 @@ static void	child_pr_all(t_minishell *mini)
 		if (!path)
 			printerror(mini, ": command not found\n", 127);
 	}
-	int fd = open(mini->red->path, O_RDONLY);
-	dup2(fd, 0);
-	execve(path, mini->cmd_args, mini->m_env);
+    if (mini->red)
+    {
+        if (redirection(mini->red) == -1)
+            printerror(mini, "Error: Redirection failed", 1);
+    }
+    execve(path, mini->cmd_args, mini->m_env);
 	free(path);
 	printerror(mini, ": Permission denied\n", 126);
 }

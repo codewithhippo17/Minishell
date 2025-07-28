@@ -70,6 +70,8 @@ typedef struct s_heredoc
 typedef struct s_red
 {
 	int					fd;
+  int         saved_stdin;
+  int         saved_stdout;
 	char				*path;
 	t_flag				type;
 	t_ambg				ambg;

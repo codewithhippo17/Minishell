@@ -6,14 +6,11 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:35 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/21 02:49:00 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/28 04:46:40 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/kill.h"
-#include "includes/types.h"
 #include "minishell.h"
-#include <stdlib.h>
 
 int	calcule_cmd(char **cmd)
 {
@@ -89,7 +86,7 @@ void	handle_command(t_minishell *minishell)
 int	main(int argc, char *argv[], char **env)
 {
 	t_minishell	*minishell;
-	t_token		*token;
+	// t_token		*token;
 
 	minishell = malloc(sizeof(t_minishell));
 	minishell->status = 0;
@@ -101,14 +98,19 @@ int	main(int argc, char *argv[], char **env)
 		add_history(minishell->input);
 		if (minishell->input == NULL)
 			free_exit_minishell(minishell, EXIT_SUCCESS);
-		// minishell->cmd_args = ft_split(minishell->input, ' ');
-		token = token_init();
-		mini_update(minishell, token);
-		minishell->red = red_init();
+		minishell->cmd_args = ft_split(minishell->input, ' ');
+		// token = token_init();
+		// mini_update(minishell, token);
+		// minishell->red = red_init();
 		if (!minishell->cmd_args)
 			free_exit_minishell(minishell, EXIT_FAILURE);
 		else if (minishell->cmd_args[0])
 			handle_command(minishell);
+    // char *str = my_getenv("dd", minishell->m_env);
+    // char *str1 = getenv("d");
+    // char *str2 = my_getenv("ff", minishell->m_env);
+    // char *str3 = getenv("f");
+    // printf("%d\n", is_var(minishell->cmd_args[1]));
 		printf("%d\n", minishell->status);
 		free(minishell->input);
 		free_strings(minishell->cmd_args);
