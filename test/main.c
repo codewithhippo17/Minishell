@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 11:11:49 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/27 05:11:44 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/28 04:50:51 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,16 @@ const char *join_to_string(t_join join)
     return flag_names[join];
 }
 
-void print_tokens(t_token *token)
+void print_tokens(t_token *token, int nb)
 {
     t_token *curr = token;
     static int i;
+    if (nb == 0)
+        i = 0;
 
-    printf("command number: %d\n    ->", ++i);
+    printf("\033[32m");
+    printf("CMD : %d\n    ->", ++i);
+    printf("\033[0m");
     while (curr)
     {
         if (curr->type == PIPE)
@@ -119,6 +123,7 @@ int	main(int argc, char *argv[], char **env)
 	t_minishell	*minishell;
 	char		*input;
 	t_token     *tokens;
+    int nb = 0;
 
 	(void)argc;
 	(void)argv;
@@ -130,6 +135,7 @@ int	main(int argc, char *argv[], char **env)
 	signal(SIGQUIT, SIG_IGN); // Ignore Ctrl+\ in interactive mode
 	while (argc == 1 && argv)
 	{
+        nb = 0;
 		g_signal_received = 0; // Reset signal flag
 		input = readline("minishell$> ");
 		if (!input) // Ctrl+D
@@ -144,26 +150,8 @@ int	main(int argc, char *argv[], char **env)
 		}
 		if (*input)
 		{
-			add_history(input);
-			tokens = lexer(input);
-			checker(&tokens, minishell);
-            
-            ft_expander(&tokens, minishell);
-
-            ft_join_tokens(&tokens);
-
-            t_red *red = sub_red(tokens);
-            
-            printf("cmds\n");
-            t_token *cmd = grep_tokens(&tokens);
-            while (cmd)
-            {
-                print_tokens(cmd);
-                cmd = grep_tokens(&tokens);
-            }
-
-            print_redirections(red);
-		}
+            t_script *ft_parrsing()
+	    }	
 	}
 	return (EXIT_SUCCESS);
 }

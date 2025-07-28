@@ -59,7 +59,9 @@ static void	append_red(t_red **head, t_red **tail, t_red *new_red)
 		*tail = new_red;
 	}
 }
-
+/*
+ * here is a function that check ambigious
+* */
 t_red	*sub_red(t_token *token)
 {
 	t_red	*head;

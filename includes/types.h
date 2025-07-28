@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:58:26 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/22 05:35:45 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/28 04:48:32 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ typedef struct s_splited
 	int					len;
 }						t_splited;
 
-typedef struct s_cmd
+typedef struct s_script
 {
 	t_token				*cmd_head;
-	t_heredoc			*red;
-	struct s_cmd		*next_cmd;
-}						t_cmd;
+	t_red				*red;
+	struct s_script		*next_cmd;
+}						t_script;
 
 typedef struct s_minishell
 {

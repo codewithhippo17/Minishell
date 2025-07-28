@@ -179,5 +179,5 @@ ehamza@c1r3p9:~$ s echo g$g#
 execve("/usr/bin/echo", ["echo", "g#"], 0x7ffd9baac368 /* 63 vars */) = 0
 
 
-export a="   a   b   c  " b="efg" c="         " d="" e
+export a="   aaaa" b="bbbbb  " c="cccc" d="  dddd   " e="eee  eeee   eeee   eeee" f="  fff fff fff fff" g="ggg ggg ggg ggg    " h="      " i="" j= k
 
