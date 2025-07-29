@@ -60,6 +60,7 @@ int	ft_exec_all(t_minishell *minishell)
 	int		status;
 	int		exit_status;
 
+  status = 0;
 	pid = fork();
 	if (pid == -1)
 	{
