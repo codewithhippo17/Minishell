@@ -6,22 +6,22 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 00:21:45 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/28 04:57:27 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/28 07:03:03 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	printerror(t_minishell *mini, char **args, char *err, int exinum)
+static void	printerror(t_minishell *minishell, char **args, char *err, int exinum)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(args[0], 2);
 	ft_putstr_fd(err, 2);
-	free_strings(mini->cmd_args);
-	free_exit_minishell(mini, exinum);
+	free_strings(minishell->script->cmd_args);
+	free_exit_minishell(minishell, exinum);
 }
 
-static void	child_pr_all(t_minishell *mini, char **args)
+static void	child_pr_all(t_minishell *minishell, char **args)
 {
 	char		*path;
 	struct stat	stats;
@@ -30,34 +30,34 @@ static void	child_pr_all(t_minishell *mini, char **args)
 	{
 		stat(args[0], &stats);
 		if (access(args[0], F_OK) == -1)
-			printerror(mini, args, ": No such file or directory\n", 127);
+			printerror(minishell, args, ": No such file or directory\n", 127);
 		else if (access(args[0], X_OK) == -1)
-			printerror(mini, args, ": Permission denied\n", 126);
+			printerror(minishell, args, ": Permission denied\n", 126);
 		else if (S_ISDIR(stats.st_mode))
-			printerror(mini, args, ": Is a directory\n", 126);
+			printerror(minishell, args, ": Is a directory\n", 126);
 		path = ft_strdup(args[0]);
 	}
 	else
 	{
-		path = get_path(args[0], mini->m_env);
+		path = get_path(args[0], minishell->m_env);
 		if (!path)
-			printerror(mini, args, ": command not found\n", 127);
+			printerror(minishell, args, ": command not found\n", 127);
 	}
-	execve(path, args, mini->m_env);
+	execve(path, args, minishell->m_env);
 	free(path);
-	printerror(mini, args, ": Failed to execve\n", 127);
+	printerror(minishell, args, ": Failed to execve\n", 127);
 }
 
-int	pipex(int ac, t_minishell *mini)
+int	pipex(int ac, t_minishell *minishell)
 {
 	pid_t		*pids;
-	t_minishell	*curent;
+	t_script	*curent;
 
 	int (p), (i), (fd[2]);
 	p = -1;
 	i = -1;
   pids = malloc(sizeof(int) * ac);
-	curent = mini;
+	curent = minishell->script;
 	while (++i < ac)
 	{
 		if (pipe(fd) == -1)
@@ -67,16 +67,19 @@ int	pipex(int ac, t_minishell *mini)
 		{
 			setup_input(p);
 			setup_output(fd, i, ac);
-      if (is_builtin(curent->cmd_args))        
-        execute_builtin(curent);
+      if (is_builtin(curent->cmd_args))
+      {
+        execute_builtin(minishell, curent);
+        exit (minishell->status);
+      }       
       else
-			  child_pr_all(mini, curent->cmd_args);
+			  child_pr_all(minishell, curent->cmd_args);
 		}
 		if (p != -1)
 			close(p);
 		p = fd[0];
 		close(fd[1]);
-		curent = curent->next;
+		curent = curent->next_cmd;
 	}
 	return (close(p), wait_for_children(pids, ac));
 }

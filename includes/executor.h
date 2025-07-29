@@ -17,7 +17,7 @@
 # include "types.h"
 
 void extract_args(t_minishell *minishell);
-int	calcule_cmd(char **cmd);
+int	calcule_cmd(t_script *script);
 t_minishell	*shell(t_minishell *mini);
 void	handle_command(t_minishell *minishell);
 void	handle_pipe(t_minishell *mini);

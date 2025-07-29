@@ -44,7 +44,7 @@
 //-------------------ººbuild-in_cmdºº-----------//
 
 int		is_builtin(char **s);
-void	execute_builtin(t_minishell *minishell);
+void	execute_builtin(t_minishell *minishell, t_script *script);
 
 //-------------------ººexternal_cmdºº-------------//
 int		ft_exec_all(t_minishell *minishell);

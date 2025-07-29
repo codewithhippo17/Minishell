@@ -31,13 +31,11 @@ int	chek_flag(char *flag)
 	return (1);
 }
 
-int	echo(char *str, int status)
+int	echo(char **s, int status)
 {
 	int		i;
-	char	**s;
 
 	i = 1;
-	s = ft_split(str, ' '); // This will be a parsing job
 	if (!s)
 		return (ft_putstr_fd("Error: Memory allocation failed\n", 2), 1);
 	while (s[i] && chek_flag(s[i]))

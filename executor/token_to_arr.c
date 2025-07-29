@@ -38,8 +38,8 @@ char	**token_to_arr(t_token *token)
 	current = token;
 	l = ft_structlen(token);
 	cmd = malloc((l + 1) * (sizeof(char *)));
-    if (!cmd)
-        return (NULL);
+	if (!cmd)
+		return (NULL);
 	while (current)
 	{
 		cmd[i] = ft_strdup(current->value);
@@ -50,14 +50,14 @@ char	**token_to_arr(t_token *token)
 	return (cmd);
 }
 
-void extract_args(t_minishell *minishell)
+void	extract_args(t_minishell *minishell)
 {
-    t_script *script;
+	t_script	*script;
 
-    script = minishell->script;
-    while (script)
-    {
-        script->cmd_args = token_to_arr(script->cmd_head);
-        script = script->next_cmd;
-    }
+	script = minishell->script;
+	while (script)
+	{
+		script->cmd_args = token_to_arr(script->cmd_head);
+		script = script->next_cmd;
+	}
 }
