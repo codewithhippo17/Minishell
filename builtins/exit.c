@@ -32,7 +32,7 @@ static int	is_num(char *str)
 void	free_befor_exit(t_minishell *minishell)
 {
 	free(minishell->input);
-	free_strings(minishell->cmd_args);
+	free_strings(minishell->script->cmd_args);
 	free_strings(minishell->m_env);
 	free_strings(minishell->s_env);
 	free(minishell);
@@ -43,9 +43,9 @@ int	ft_my_exit(t_minishell *minishell)
 	int		i;
 	char	**str;
 
-	str = minishell->cmd_args;
-	if (minishell->cmd_args[1])
-		i = ft_atoi(minishell->cmd_args[1]);
+	str = minishell->script->cmd_args;
+	if (minishell->script->cmd_args[1])
+		i = ft_atoi(minishell->script->cmd_args[1]);
 	printf("exit\n");
 	if (str[1] && !str[2] && is_num(str[1]))
 	{

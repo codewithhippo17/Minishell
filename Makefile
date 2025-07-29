@@ -57,7 +57,9 @@ PIPE_SRC =		$(PIPE_DIR)/pipex.c \
 
 EXEC_SRC =		$(EXEC_DIR)/build_in_cmd.c \
 				$(EXEC_DIR)/external_cmd.c \
-				$(EXEC_DIR)/redirection.c
+				$(EXEC_DIR)/redirection.c \
+				$(EXEC_DIR)/token_to_arr.c \
+				$(EXEC_DIR)/executor.c
 
 KILL_SRC =		$(KILL_DIR)/free_exit.c
 

@@ -24,38 +24,39 @@ int	handle_export_arg(t_minishell *minishell, int i)
 	int	valid_var;
 
 	status = 0;
-	valid_var = is_var(minishell->cmd_args[i]);
+	valid_var = is_var(minishell->script->cmd_args[i]);
 	if (valid_var == 0)
 	{
-		status = exports(minishell->cmd_args[i], &(minishell->s_env));
+		status = exports(minishell->script->cmd_args[i], &(minishell->s_env));
 		if (status == 0)
-			status = exports(minishell->cmd_args[i], &(minishell->m_env));
+			status = exports(minishell->script->cmd_args[i],
+					&(minishell->m_env));
 	}
-  else
+	else
 	{
 		ft_putstr_fd("bash: export: `", 2);
-		ft_putstr_fd(minishell->cmd_args[i], 2);
+		ft_putstr_fd(minishell->script->cmd_args[i], 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
 		return (1);
 	}
 	return (status);
 }
 
-int env_sort(char **env)
+int	env_sort(char **env)
 {
-  int i;
-  int j;
-  char	**split;
+	int		i;
+	int		j;
+	char	**split;
 
-  i = -1;
+	i = -1;
 	while (env[++i])
 	{
 		j = 0;
 		split = ft_split(env[i], '=');
 		if (!split)
 			return (1);
-    if (ft_strchr(env[i], '=') && ft_strcmp(split[0], "_"))
-    {
+		if (ft_strchr(env[i], '=') && ft_strcmp(split[0], "_"))
+		{
 			printf("declare -x %s=\"", split[0]);
 			while (split[++j])
 			{
@@ -64,13 +65,13 @@ int env_sort(char **env)
 					printf("=");
 			}
 			printf("\"\n");
-    }
-    else if (ft_strcmp(split[0], "_"))
-      printf("declare -x %s\n", env[i]);
+		}
+		else if (ft_strcmp(split[0], "_"))
+			printf("declare -x %s\n", env[i]);
 		free_strings(split);
 		split = NULL;
 	}
-  return (0);
+	return (0);
 }
 
 int	declair_x(char **env)
@@ -93,8 +94,8 @@ int	declair_x(char **env)
 			}
 		}
 	}
-  if (env_sort(env))
-    return (1);
+	if (env_sort(env))
+		return (1);
 	return (0);
 }
 
@@ -105,9 +106,9 @@ int	exec_export(t_minishell *minishell)
 
 	i = 1;
 	status = 0;
-	if (minishell->cmd_args[i])
+	if (minishell->script->cmd_args[i])
 	{
-		while (minishell->cmd_args[i])
+		while (minishell->script->cmd_args[i])
 		{
 			status = handle_export_arg(minishell, i);
 			i++;
@@ -119,4 +120,3 @@ int	exec_export(t_minishell *minishell)
 	}
 	return (status);
 }
-
