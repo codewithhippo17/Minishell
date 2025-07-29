@@ -33,7 +33,6 @@ t_script	*init_script(t_token *cmd, t_red *red)
 {
 	t_script	*script;
 
-  (void)minishell;
 	script = malloc(sizeof(t_script));
 	script->red = red;
 	script->cmd_head = cmd;
