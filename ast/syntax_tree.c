@@ -65,8 +65,8 @@ t_script	*ft_parrsing(t_minishell *minishell)
 	cmd = grep_tokens(&tokens);
 	while (cmd)
 	{
-		print_tokens(cmd, i);
-		print_redirections(red);
+		// print_tokens(cmd, i);
+		// print_redirections(red);
 		append_script(&script_head, &script_tail, init_script(cmd, red,
 				minishell));
 		red = sub_red(tokens);

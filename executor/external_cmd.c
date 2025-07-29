@@ -12,6 +12,7 @@
 
 #include "../minishell.h"
 #include <fcntl.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 static void	printerror(t_minishell *minishell, char *err, int exinum)
@@ -41,6 +42,9 @@ static void	child_pr_all(t_minishell *minishell)
 	else
 	{
 		path = get_path(minishell->script->cmd_args[0], minishell->m_env);
+    stat(path, &stats);
+    if (S_ISDIR(stats.st_mode))
+      printerror(minishell, ": Is a directory\n", 126);
 		if (!path)
 			printerror(minishell, ": command not found\n", 127);
 	}

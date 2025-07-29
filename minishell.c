@@ -40,19 +40,25 @@ int	main(int argc, char *argv[], char **env)
 	while (argc == 1 && argv)
 	{
 		minishell->input = readline("minishell$ ");
-		add_history(minishell->input);
-		if (minishell->input == NULL)
+    if (minishell->input == NULL)
 			free_exit_minishell(minishell, EXIT_SUCCESS);
-        minishell->script = ft_parrsing(minishell);
-        if (g_signal_received == SIGINT)
+    if (*(minishell->input) == '\0')
+    {
+      printf("%d\n", minishell->status);
+      continue;
+    }
+		add_history(minishell->input);
+
+    minishell->script = ft_parrsing(minishell);
+    if (g_signal_received == SIGINT)
 		{
 			free(minishell->input);
 			continue ; 
 		}
-        extract_args(minishell);
-		handle_command(minishell);
-		printf("%d\n", minishell->status);
-        free(minishell->input);
+    extract_args(minishell);
+    handle_command(minishell);
+		printf("\n%d\n", minishell->status);
+    free(minishell->input);
 	}
 	free(minishell);
 	return (EXIT_SUCCESS);
