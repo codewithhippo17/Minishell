@@ -12,7 +12,8 @@
 
 #include "../minishell.h"
 
-static void	printerror(t_minishell *minishell, char **args, char *err, int exinum)
+static void	printerror(t_minishell *minishell, char **args, char *err,
+		int exinum)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(args[0], 2);
@@ -21,7 +22,7 @@ static void	printerror(t_minishell *minishell, char **args, char *err, int exinu
 	free_exit_minishell(minishell, exinum);
 }
 
-static void	child_pr_all(t_minishell *minishell, char **args)
+static void	child_pr_all(t_minishell *minishell, t_script *script, char **args)
 {
 	char		*path;
 	struct stat	stats;
@@ -43,6 +44,11 @@ static void	child_pr_all(t_minishell *minishell, char **args)
 		if (!path)
 			printerror(minishell, args, ": command not found\n", 127);
 	}
+	if (script->red)
+	{
+		if (redirection(script->red) == 1)
+			exit(1);
+	}
 	execve(path, args, minishell->m_env);
 	free(path);
 	printerror(minishell, args, ": Failed to execve\n", 127);
@@ -53,10 +59,10 @@ int	pipex(int ac, t_minishell *minishell)
 	pid_t		*pids;
 	t_script	*curent;
 
-	int (p), (i), (fd[2]);
+	int(p), (i), (fd[2]);
 	p = -1;
 	i = -1;
-  pids = malloc(sizeof(int) * ac);
+	pids = malloc(sizeof(int) * ac);
 	curent = minishell->script;
 	while (++i < ac)
 	{
@@ -67,13 +73,13 @@ int	pipex(int ac, t_minishell *minishell)
 		{
 			setup_input(p);
 			setup_output(fd, i, ac);
-      if (is_builtin(curent->cmd_args))
-      {
-        execute_builtin(minishell, curent);
-        exit (minishell->status);
-      }       
-      else
-			  child_pr_all(minishell, curent->cmd_args);
+			if (is_builtin(curent->cmd_args))
+			{
+				execute_builtin(minishell, curent);
+        exit(minishell->status);
+			}
+			else
+				child_pr_all(minishell, curent, curent->cmd_args);
 		}
 		if (p != -1)
 			close(p);

@@ -37,7 +37,8 @@ void	execute_builtin(t_minishell *minishell, t_script *script)
 	if (script->red)
 	{
 		save_fds(script->red);
-		redirection(script->red);
+		if (redirection(script->red) == 1)
+      exit(1);
 	}
 	if (ft_strncmp(script->cmd_args[0], "echo",
 			ft_strlen(script->cmd_args[0])) == 0)
@@ -45,10 +46,9 @@ void	execute_builtin(t_minishell *minishell, t_script *script)
 				minishell->status);
 	else if (ft_strncmp(script->cmd_args[0], "cd",
 			ft_strlen(script->cmd_args[0])) == 0)
-		minishell->status = cd(script->cmd_args[1], minishell);
+		minishell->status = cd(script->cmd_args, minishell);
 	else if (ft_strncmp(script->cmd_args[0], "pwd",
-			ft_strlen(script->cmd_args[0])) == 0
-		&& !script->cmd_args[1])
+			ft_strlen(script->cmd_args[0])) == 0)
 		minishell->status = pwd();
 	else if (ft_strncmp(script->cmd_args[0], "env",
 			ft_strlen(script->cmd_args[0])) == 0)

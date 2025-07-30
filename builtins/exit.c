@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdlib.h>
 
 static int	is_num(char *str)
 {
@@ -61,7 +60,7 @@ int	ft_my_exit(t_minishell *minishell)
 		exit(2);
 	}
 	else if (str[1] && str[2])
-		return (ft_putstr_fd("minishell: exit: too many arguments", 2), 1);
+		return (ft_putstr_fd("minishell: exit: too many arguments", 2), 2);
 	else
 	{
 		free_befor_exit(minishell);
