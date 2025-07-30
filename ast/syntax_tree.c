@@ -60,7 +60,7 @@ t_script	*ft_parrsing(t_minishell *minishell)
 	ft_join_tokens(&tokens);
 	red = sub_red(tokens);
 	cmd = grep_tokens(&tokens);
-	while (cmd)
+	while (cmd || red)
 	{
 		append_script(&script_head, &script_tail, init_script(cmd, red));
 		red = sub_red(tokens);

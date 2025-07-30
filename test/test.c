@@ -96,8 +96,8 @@ void print_script(t_script *script)
     current = script;
     while (current)
     {
-        print_tokens(script->cmd_head, i);
-		print_redirections(script->red);
+        print_tokens(current->cmd_head, i);
+		print_redirections(current->red);
         current = current->next_cmd;
         i++;
     }
