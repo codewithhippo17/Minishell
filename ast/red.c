@@ -1,33 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast.c                                              :+:      :+:    :+:   */
+/*   red.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 05:00:21 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/22 06:19:26 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/07/30 23:20:06 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*
-	function loop to traverse the token linked list and grab
-	all the redirection tokens
-	and create a new linked list of redirection tokens.
-
- * typedef struct s_red
- * {
- *      int					fd;
- *      char				*path;
- *      t_flag				type;
- *      t_ambg				ambg;
- *  }						t_red;
-
-	be aware
-
-*/
 
 t_red	*red(int fd, t_flag type, t_ambg ambg, char *path)
 {
