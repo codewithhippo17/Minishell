@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 10:52:50 by ybelghad          #+#    #+#             */
-/*   Updated: 2024/10/25 14:13:39 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/31 00:13:31 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
+	if (!str)
+	{
+		return (0);
+	}
 	while (str[i])
 		i++;
 	return (i);
