@@ -12,6 +12,7 @@
 
 #include "../minishell.h"
 #include <fcntl.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -50,8 +51,8 @@ static void	child_pr_all(t_minishell *minishell)
 	}
 	if (minishell->script->red)
 	{
-		if (redirection(minishell->script->red) == -1)
-			printerror(minishell, "Error: Redirection failed", 1);
+		if (redirection(minishell->script->red) == 1)
+			exit(1);
 	}
 	execve(path, minishell->script->cmd_args, minishell->m_env);
 	free(path);

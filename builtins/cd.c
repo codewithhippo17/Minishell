@@ -50,25 +50,30 @@ int	chthmdir(char **m_env)
 	return (0);
 }
 
-int	cd(char *str, t_minishell *minishell)
+int	cd(char **str, t_minishell *minishell)
 {
 	char	current_dir[PATH_MAX];
 	char	*prev_dir;
 
+  if (str[2])
+  {
+    ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+    return (2);
+  }
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
 		return (perror("getcwd(): error"), 1);
-	if (str == NULL || *str == '\0' || ft_strncmp(str, "~",
+	if (str[1] == NULL || str[1][0] == '\0' || ft_strncmp(str[1], "~",
 			ft_strlen("~")) == 0)
 	{
 		if (chthmdir(minishell->m_env))
 			return (1);
 	}
-	else if (ft_strncmp(str, "-", ft_strlen("-")) == 0)
+	else if (ft_strncmp(str[1], "-", ft_strlen("-")) == 0)
 	{
 		if (chlstdir(minishell->m_env))
 			return (1);
 	}
-	else if (chdir(str) != 0)
+	else if (chdir(str[1]) != 0)
 		return (perror("cd error"), 1);
 	prev_dir = ft_strjoin("OLDPWD=", current_dir);
 	exports(prev_dir, &(minishell->m_env));

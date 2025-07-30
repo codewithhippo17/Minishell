@@ -113,8 +113,7 @@ typedef struct s_minishell
 	char				**m_env;
 	char				**s_env;
 	int					status;
-    t_script            *script;
-	struct s_minishell	*next;
+  t_script            *script;
 }						t_minishell;
 
 #endif

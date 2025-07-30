@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <string.h>
 
 int	ft_structlen(t_token *token)
 {
@@ -42,8 +43,14 @@ char	**token_to_arr(t_token *token)
 		return (NULL);
 	while (current)
 	{
-		cmd[i] = ft_strdup(current->value);
-		current = current->next;
+    if (current->value)
+		  cmd[i] = ft_strdup(current->value);
+    else
+    {
+      current = current->next;
+      continue ;
+    }
+    current = current->next;
 		i++;
 	}
 	cmd[i] = NULL;

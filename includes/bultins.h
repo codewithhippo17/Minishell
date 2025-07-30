@@ -18,7 +18,7 @@
 //----------------ººbuild-in_cmd_utilsºº------------------//
 
 int			echo(char **s, int status);
-int			cd(char *str, t_minishell *minishell);
+int			cd(char **str, t_minishell *minishell);
 int			pwd(void);
 int			envierment(char **m_env);
 int			ft_my_exit(t_minishell *minishell);
