@@ -11,54 +11,27 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
 
-void	expander(char **string, char **env)
+void	insert_token(t_token **head, t_token *current, t_splited *splited)
 {
-	char	*expanded;
-	char	*var_name;
-	char	*var_value;
-	char	*non_var_part;
-	int		i;
-	int		len;
+	t_token	*prev;
+	t_token	*next;
 
-	i = 0;
-	expanded = ft_strdup("");
-	while ((*string)[i])
+	if (!splited->head)
 	{
-		if ((*string)[i] == '$' && is_var_char((*string)[i + 1]))
-		{
-			len = get_var_len((*string) + i + 1);
-			if (len > 0)
-			{
-				var_name = ft_substr((*string), i + 1, len);
-				if (*var_name)
-					var_value = my_getenv(var_name, env);
-				if (var_value)
-					expanded = ft_strjoin(expanded, var_value);
-				i += len + 1;
-			}
-		}
-		else if ((*string)[i] == '$' && !is_var_char((*string)[i + 1]))
-		{
-			if ((*string)[i + 1] == '?')
-			{
-				expanded = ft_strjoin(expanded, ft_strdup("127"));
-				i++;
-			}
-			else
-				expanded = ft_strjoin(expanded, ft_strdup("$"));
-			i++;
-		}
-		else
-		{
-			len = getnon_var_len((*string) + i);
-			non_var_part = ft_substr(*string, i, len);
-			expanded = ft_strjoin(expanded, non_var_part);
-			i += len;
-		}
+		splited->head = fill_empty_splited();
+		splited->tail = splited->head;
 	}
-	free(*string);
-	*string = expanded;
+	prev = current->prev;
+	next = current->next;
+	if (prev)
+		prev->next = splited->head;
+	else
+		*head = splited->head;
+	if (splited->head)
+		splited->head->prev = prev;
+	if (splited->tail)
+		splited->tail->next = next;
+	if (next)
+		next->prev = splited->tail;
 }

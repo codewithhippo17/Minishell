@@ -24,12 +24,12 @@ t_token	*nonvar_parser(char *str, int *i, t_minishell *minishell)
 	tmp = ft_strdup("");
 	while (str[idx])
 	{
-        if (str[idx] == '$' && str[idx + 1] == '?')
-        {
+		if (str[idx] == '$' && str[idx + 1] == '?')
+		{
 			tmp = ft_strjoin(tmp, ft_itoa(minishell->status));
-            idx += 2;
-        }
-        else if (str[idx] == '$' && str[idx + 1] && !is_var_start(str[idx + 1]))
+			idx += 2;
+		}
+		else if (str[idx] == '$' && str[idx + 1] && !is_var_start(str[idx + 1]))
 			tmp = ft_strjoin(tmp, char_to_str(str[idx++]));
 		else if (str[idx] == '$' && !str[idx + 1])
 			tmp = ft_strjoin(tmp, char_to_str(str[idx++]));
@@ -68,32 +68,32 @@ t_splited	*ft_exspliter(t_token **token, char *str, int idx,
 				tmp->tail = splited->tail;
 		}
 	}
-	flag_ambg(tmp->head);
-	return (tmp);
+	return (flag_ambg(tmp->head), tmp);
 }
 
-void	insert_token(t_token **head, t_token *current, t_splited *splited)
+void	expander(char **string, t_minishell *minishell)
 {
-	t_token	*prev;
-	t_token	*next;
+	char	*expanded;
+	int		i;
 
-	if (!splited->head)
+	i = 0;
+	expanded = ft_strdup("");
+	while ((*string)[i])
 	{
-		splited->head = fill_empty_splited();
-		splited->tail = splited->head;
+		if ((*string)[i] == '$' && (*string)[i + 1] == '?')
+		{
+			expanded = ft_strjoin(expanded, ft_itoa(minishell->status));
+			i += 2;
+		}
+		else if ((*string)[i] == '$' && is_var_start((*string)[i + 1]))
+		{
+			expanded = ft_strjoin(expanded, my_getenv(get_varname(&(*string)[i],
+							&i), minishell->s_env));
+		}
+		else
+			expanded = ft_strjoin(expanded, char_to_str((*string)[i++]));
 	}
-	prev = current->prev;
-	next = current->next;
-	if (prev)
-		prev->next = splited->head;
-	else
-		*head = splited->head;
-	if (splited->head)
-		splited->head->prev = prev;
-	if (splited->tail)
-		splited->tail->next = next;
-	if (next)
-		next->prev = splited->tail;
+	*string = expanded;
 }
 
 void	ft_expander(t_token **token, t_minishell *minishell)
@@ -112,7 +112,7 @@ void	ft_expander(t_token **token, t_minishell *minishell)
 			flag_join(c);
 		else if (!no_var(c->value) && c->quote == DQS)
 		{
-			expander(&c->value, minishell->m_env);
+			expander(&c->value, minishell);
 			flag_join(c);
 		}
 		else if (!no_var(c->value))

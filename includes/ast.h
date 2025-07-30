@@ -15,8 +15,8 @@
 
 # include "types.h"
 
-void	delete_token(t_token **head, t_token **token);
-t_token	*grep_tokens(t_token **tokens);
-t_script *ft_parrsing(t_minishell *minishell);
+void		delete_token(t_token **head, t_token **token);
+t_token		*grep_tokens(t_token **tokens);
+t_script	*ft_parrsing(t_minishell *minishell);
 
 #endif

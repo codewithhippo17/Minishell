@@ -16,8 +16,9 @@
 # include "types.h"
 
 void		ft_expander(t_token **token, t_minishell *minishell);
-void		expander(char **string, char **env);
+void		expander(char **string, t_minishell *minishell);
 t_splited	*ft_spliter(char *word);
+
 int			ft_len_split(char **split);
 int			is_var_char(char c);
 bool		last_space(char *str);
@@ -32,5 +33,6 @@ void		flag_ambg(t_token *token);
 int			is_var_start(char c);
 char		*get_varname(char *str, int *i);
 t_token		*fill_empty_splited(void);
+void		insert_token(t_token **head, t_token *current, t_splited *splited);
 
 #endif

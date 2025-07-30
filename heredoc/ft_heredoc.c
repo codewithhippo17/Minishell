@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/heredoc.h"
-#include "../minishell.h"
-
 
 void	ft_heredoc(t_token *token, char *del, t_quote quote,
 		t_minishell *minishell)

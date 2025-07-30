@@ -26,7 +26,7 @@ static void	run_heredoc_child(t_heredoc *hd, t_minishell *minishell)
 			break ;
 		if (hd->quote == NQS)
 		{
-			expander(&(hd->line), minishell->m_env);
+			expander(&(hd->line), minishell);
 		}
 		write(hd->tmp_fd, hd->line, ft_strlen(hd->line));
 		write(hd->tmp_fd, "\n", 1);

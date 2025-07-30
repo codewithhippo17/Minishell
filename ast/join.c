@@ -12,15 +12,6 @@
 
 #include "../minishell.h"
 
-/*
- * here a function that loop the hole linked list of tokens
- * and join the value of the tokens
- * -if the current is NONE or NJ skip the current
- * -if the current is J || JR && JL
-	|| J then join the current->value with current->next->value and put it in current->value
- * and inherit the join flag from curent->next into the current
- * */
-
 void	ft_join_tokens(t_token **token)
 {
 	t_token	*current;

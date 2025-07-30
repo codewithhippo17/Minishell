@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdlib.h>
 
 void	append_script(t_script **head, t_script **tail, t_script *new_token)
 {
@@ -66,9 +65,9 @@ t_script	*ft_parrsing(t_minishell *minishell)
 		red = sub_red(tokens);
 		cmd = grep_tokens(&tokens);
 	}
-    if (!script_head || !script_tail)
-    {
-        return (NULL);
-    }
+	if (!script_head || !script_tail)
+	{
+		return (NULL);
+	}
 	return (script_tail->next_cmd = NULL, script_head);
 }

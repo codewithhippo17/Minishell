@@ -39,7 +39,8 @@ bool	no_var(char *value)
 		return (false);
 	while (*value)
 	{
-		if (*value == '$' && (isalpha(*(value + 1)) || *(value + 1) == '_' || *(value + 1) == '?'))
+		if (*value == '$' && (isalpha(*(value + 1)) || *(value + 1) == '_'
+				|| *(value + 1) == '?'))
 		{
 			return (false);
 		}
