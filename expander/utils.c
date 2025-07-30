@@ -68,3 +68,18 @@ char	*get_varname(char *str, int *i)
 	*i += len + 1;
 	return (varname);
 }
+
+t_token	*fill_empty_splited(void)
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->join = NJ;
+	token->ambg = AMBG;
+	token->hd = NULL;
+	token->next = NULL;
+	token->prev = NULL;
+	return (token);
+}

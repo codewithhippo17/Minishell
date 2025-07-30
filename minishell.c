@@ -53,7 +53,7 @@ int	main(int argc, char *argv[], char **env)
 		add_history(minishell->input);
 		minishell->script = ft_parrsing(minishell);
         print_script(minishell->script);
-		printf("--------°°--exec--out--bellow--°°---------");
+		printf("--------°°--exec--out--bellow--°°---------\n");
         if (g_signal_received == SIGINT)
 		{
 			free(minishell->input);

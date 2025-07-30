@@ -23,6 +23,7 @@
 # include "includes/pipex.h"
 # include "includes/redirection.h"
 # include "includes/executor.h"
+# include "includes/types.h"
 # include "libft/libft.h"
 # include </usr/include/readline/history.h>
 # include </usr/include/readline/readline.h>

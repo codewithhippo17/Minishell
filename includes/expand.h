@@ -31,5 +31,6 @@ t_splited	*init_inner(void);
 void		flag_ambg(t_token *token);
 int			is_var_start(char c);
 char		*get_varname(char *str, int *i);
+t_token		*fill_empty_splited(void);
 
 #endif
