@@ -25,6 +25,7 @@ void	handle_main_signal(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+    g_signal_received = 0;
 }
 
 int	main(int argc, char *argv[], char **env)
