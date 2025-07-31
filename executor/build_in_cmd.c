@@ -22,10 +22,7 @@ int	exec_unset(t_minishell *minishell)
 	while (minishell->script->cmd_args[i])
 	{
 		status = unset_env(minishell->script->cmd_args[i], &(minishell->m_env));
-		if (!status)
-			status = unset_env(minishell->script->cmd_args[i],
-					&(minishell->s_env));
-		else
+		if (status)
 			return (1);
 		i++;
 	}
@@ -40,27 +37,19 @@ void	execute_builtin(t_minishell *minishell, t_script *script)
 		if (redirection(script->red) == 1)
       exit(1);
 	}
-	if (ft_strncmp(script->cmd_args[0], "echo",
-			ft_strlen(script->cmd_args[0])) == 0)
-		minishell->status = echo(script->cmd_args,
-				minishell->status);
-	else if (ft_strncmp(script->cmd_args[0], "cd",
-			ft_strlen(script->cmd_args[0])) == 0)
+	if (ft_strcmp(script->cmd_args[0], "echo") == 0)
+		minishell->status = echo(script->cmd_args);
+	else if (ft_strcmp(script->cmd_args[0], "cd") == 0)
 		minishell->status = cd(script->cmd_args, minishell);
-	else if (ft_strncmp(script->cmd_args[0], "pwd",
-			ft_strlen(script->cmd_args[0])) == 0)
+	else if (ft_strcmp(script->cmd_args[0], "pwd") == 0)
 		minishell->status = pwd();
-	else if (ft_strncmp(script->cmd_args[0], "env",
-			ft_strlen(script->cmd_args[0])) == 0)
+	else if (ft_strcmp(script->cmd_args[0], "env") == 0)
 		minishell->status = envierment(minishell->m_env);
-	else if (ft_strncmp(script->cmd_args[0], "export",
-			ft_strlen(script->cmd_args[0])) == 0)
+	else if (ft_strcmp(script->cmd_args[0], "export") == 0)
 		minishell->status = exec_export(minishell);
-	else if (ft_strncmp(script->cmd_args[0], "unset",
-			ft_strlen(script->cmd_args[0])) == 0)
+	else if (ft_strcmp(script->cmd_args[0], "unset") == 0)
 		minishell->status = exec_unset(minishell);
-	else if (ft_strncmp(script->cmd_args[0], "exit",
-			ft_strlen(script->cmd_args[0])) == 0)
+	else if (ft_strcmp(script->cmd_args[0], "exit") == 0)
 		minishell->status = ft_my_exit(minishell);
 	if (script->red)
 		restore_fds(script->red);

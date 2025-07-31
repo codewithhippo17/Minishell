@@ -55,12 +55,12 @@ int	ft_my_exit(t_minishell *minishell)
 	{
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(str[1], 2);
-		ft_putstr_fd(": numeric argument required", 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
 		free_befor_exit(minishell);
 		exit(2);
 	}
 	else if (str[1] && str[2])
-		return (ft_putstr_fd("minishell: exit: too many arguments", 2), 2);
+		return (ft_putstr_fd("minishell: exit: too many arguments\n", 2), 2);
 	else
 	{
 		free_befor_exit(minishell);

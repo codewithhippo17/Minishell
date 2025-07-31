@@ -31,29 +31,26 @@ int	chek_flag(char *flag)
 	return (1);
 }
 
-int	echo(char **s, int status)
+int	echo(char **s)
 {
 	int		i;
 
 	i = 1;
-	if (!s)
-		return (ft_putstr_fd("Error: Memory allocation failed\n", 2), 1);
-	while (s[i] && chek_flag(s[i]))
+  if (!s[i])
+  {
+    printf("\n");
+    return (0);
+  }
+  while (s[i] && chek_flag(s[i]))
 		i++;
-	if (s[i] && ft_strcmp(s[i], "$?") == 0)
-		printf("%d", status);
-	else
+	while (s[i])
 	{
-		while (s[i])
-		{
-			printf("%s", s[i]);
-			if (s[i + 1])
-				printf("%c", ' ');
-			i++;
-		}
+		printf("%s", s[i]);
+		if (s[i + 1])
+			printf("%c", ' ');
+		i++;
 	}
 	if (!chek_flag(s[1]))
 		printf("\n");
-	free_strings(s);
 	return (0);
 }

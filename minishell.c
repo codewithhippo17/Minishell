@@ -46,10 +46,7 @@ int	main(int argc, char *argv[], char **env)
 		if (minishell->input == NULL)
 			free_exit_minishell(minishell, EXIT_SUCCESS);
 		if (*(minishell->input) == '\0')
-		{
-			// printf("%d\n", minishell->status);
 			continue ;
-		}
 		add_history(minishell->input);
 		minishell->script = ft_parrsing(minishell);
         print_script(minishell->script);
@@ -62,7 +59,6 @@ int	main(int argc, char *argv[], char **env)
 		extract_args(minishell);
 		if (minishell->script && minishell->script->cmd_args[0])
 			handle_command(minishell);
-		// printf("\n%d\n", minishell->status);
 		free(minishell->input);
      }
 	free(minishell);

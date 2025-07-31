@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdlib.h>
+#include <string.h>
 
 int	chlstdir(char **m_env)
 {
@@ -50,16 +52,39 @@ int	chthmdir(char **m_env)
 	return (0);
 }
 
+int	update_old_pwd(char ***env, char *ft_var, char *var_value)
+{
+	int		i;
+	char	**var;
+
+	i = 0;
+	while ((*env)[i])
+	{
+		var = ft_split((*env)[i], '=');
+		if (ft_strcmp(var[0], ft_var) == 0)
+		{
+			if ((*env)[i] != NULL)
+				free((*env)[i]);
+			(*env)[i] = ft_strdup(var_value);
+			if (!(*env)[i])
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	cd(char **str, t_minishell *minishell)
 {
 	char	current_dir[PATH_MAX];
 	char	*prev_dir;
+	char	*pwd;
 
-  if (str[2])
-  {
-    ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-    return (2);
-  }
+	if (str[2])
+	{
+		ft_putstr_fd("minishell: cd: too many arguments", 2);
+		return (2);
+	}
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
 		return (perror("getcwd(): error"), 1);
 	if (str[1] == NULL || str[1][0] == '\0' || ft_strncmp(str[1], "~",
@@ -76,8 +101,12 @@ int	cd(char **str, t_minishell *minishell)
 	else if (chdir(str[1]) != 0)
 		return (perror("cd error"), 1);
 	prev_dir = ft_strjoin("OLDPWD=", current_dir);
-	exports(prev_dir, &(minishell->m_env));
-	exports(prev_dir, &(minishell->s_env));
-	exports(ft_strjoin("PWD=", current_dir), &(minishell->m_env));
-	return (free(prev_dir), prev_dir = NULL, 0);
+	update_old_pwd(&(minishell->m_env), "OLDPWD", prev_dir);
+	update_old_pwd(&(minishell->s_env), "OLDPWD", prev_dir);
+	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
+		return (perror("getcwd(): error"), 1);
+	pwd = ft_strjoin("PWD=", current_dir);
+	update_old_pwd(&(minishell->m_env), "PWD", pwd);
+	update_old_pwd(&(minishell->s_env), "PWD", pwd);
+	return (free(prev_dir), free(pwd), prev_dir = NULL, pwd = NULL, 0);
 }
