@@ -6,21 +6,18 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 09:56:33 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/28 04:45:56 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/31 04:37:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
 
 int	save_fds(t_red *red)
 {
 	red->saved_stdin = dup(0);
 	red->saved_stdout = dup(1);
 	if (red->saved_stdin == -1 || red->saved_stdout == -1)
-		return (-1);
+		return (1);
 	return (0);
 }
 
@@ -51,7 +48,7 @@ int	apply_redirection(t_red *current)
 	if (current->fd == -1)
 	{
     perror(strerror(errno));
-    return (-1);
+    return (1);
   }
 	return (0);
 }
@@ -71,10 +68,10 @@ int	redirection(t_red *red)
 
 	current = red;
 	if (save_fds(red) == -1)
-		return (-1);
+		return (1);
 	while (current)
 	{
-		if (apply_redirection(current) == -1)
+		if (apply_redirection(current) == 1)
 			return (1);
 		redirect_io(current);
 		current = current->next;

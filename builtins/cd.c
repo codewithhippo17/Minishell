@@ -80,10 +80,10 @@ int	cd(char **str, t_minishell *minishell)
 	char	*prev_dir;
 	char	*pwd;
 
-	if (str[2])
+	if (str[1] && str[2])
 	{
-		ft_putstr_fd("minishell: cd: too many arguments", 2);
-		return (2);
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		return (1);
 	}
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
 		return (perror("getcwd(): error"), 1);
