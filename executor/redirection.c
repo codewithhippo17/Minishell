@@ -69,9 +69,9 @@ int	redirect_io(t_red *red)
 	{
 		if (dup2(red->fd, 0) == -1)
 			return (1);
-		else if (dup2(red->fd, 1) == -1)
-			return (1);
 	}
+	else if (dup2(red->fd, 1) == -1)
+		return (1);
 	close(red->fd);
 	return (0);
 }

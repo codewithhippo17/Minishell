@@ -1,42 +1,54 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/01 14:22:47 by marvin            #+#    #+#             */
+/*   Updated: 2025/08/01 14:22:47 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_builtin_name which_bultin(const char *cmd)
+t_builtin_name	which_bultin(const char *cmd)
 {
+	if (!cmd)
+		return (UNKNOWN);
 	if (ft_strcmp(cmd, "echo") == 0)
-		return ECHO;
+		return (ECHO);
 	if (ft_strcmp(cmd, "cd") == 0)
-		return CD;
+		return (CD);
 	if (ft_strcmp(cmd, "pwd") == 0)
-		return PWD;
+		return (PWD);
 	if (ft_strcmp(cmd, "env") == 0)
-		return ENV;
+		return (ENV);
 	if (ft_strcmp(cmd, "export") == 0)
-		return EXPORT;
+		return (EXPORT);
 	if (ft_strcmp(cmd, "unset") == 0)
-		return UNSET;
+		return (UNSET);
 	if (ft_strcmp(cmd, "exit") == 0)
-		return EXIT;
-	return UNKNOWN;
+		return (EXIT);
+	return (UNKNOWN);
 }
 
-typedef int (*t_builtin_fn)(t_minishell *, t_script *);
+typedef int			(*t_builtin_fn)(t_minishell *, t_script *);
 
-static t_builtin_fn g_builtin_dispatch[] = {
-	builtin_echo,
-	builtin_cd,
-	builtin_pwd,
-	builtin_env,
-	builtin_export,
-	builtin_unset,
-	builtin_exit,
-	builtin_unknown
-};
+static t_builtin_fn	g_builtin_dispatch[] = {builtin_echo, builtin_cd,
+		builtin_pwd, builtin_env, builtin_export, builtin_unset, builtin_exit,
+		builtin_unknown};
 
-
-int	execute_builtin(t_minishell *minishell, t_script *script, t_builtin_name name)
+int	execute_builtin(t_minishell *minishell, t_script *script,
+		t_builtin_name name)
 {
-    minishell->status = g_builtin_dispatch[name](minishell, script);
-    return (minishell->status);
+	if (script->red)
+	{
+		minishell->status = redirection(script->red);
+		if (minishell->status)
+			return (1);
+	}
+	minishell->status = g_builtin_dispatch[name](minishell, script);
+	minishell->status = restore_fds(script->red);
+	return (minishell->status);
 }

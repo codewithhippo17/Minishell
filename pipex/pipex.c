@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <readline/history.h>
 #include <stdlib.h>
 
 char	*error_managment(t_minishell *minishell, char **args)
@@ -36,16 +37,11 @@ char	*error_managment(t_minishell *minishell, char **args)
 	return (path);
 }
 
-static void	extrenal_cmds(t_minishell *minishell, t_script *script, char **args)
+static void	extrenal_cmds(t_minishell *minishell, char **args)
 {
 	char	*path;
 
 	path = error_managment(minishell, args);
-	if (script->red)
-	{
-		if (redirection(script->red) == 1)
-			exit(1);
-	}
 	execve(path, args, minishell->m_env);
 	free(path);
 	printerror(minishell, args, ": Permission denied\n", 126);
@@ -61,8 +57,14 @@ static void	child_pr_all(t_minishell *minishell, t_script *script)
 		execute_builtin(minishell, minishell->script, name);
 		exit(minishell->status);
 	}
-	else
-		extrenal_cmds(minishell, script, script->cmd_args);
+	else {
+		if (script->red)
+		{	
+		    if (redirection(script->red))
+			    exit(1);
+		}
+		extrenal_cmds(minishell, script->cmd_args);
+	}
 }
 
 int	pipex(int ac, t_minishell *minishell)
