@@ -15,18 +15,15 @@
 int	exec_unset(t_minishell *minishell)
 {
 	int	i;
-	int	status;
 
 	i = 1;
-	status = 0;
 	while (minishell->script->cmd_args[i])
 	{
-		status = unset_env(minishell->script->cmd_args[i], &(minishell->m_env));
-		if (status)
+		if (unset_env(minishell->script->cmd_args[i], &(minishell->m_env)))
 			return (1);
 		i++;
 	}
-	return (status);
+	return (0);
 }
 
 int	execute_builtin(t_minishell *minishell, t_script *script)

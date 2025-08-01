@@ -53,10 +53,10 @@ BULTINS_SRC =	$(BULTINS_DIR)/cd.c \
 				$(BULTINS_DIR)/unset.c
 
 PIPE_SRC =		$(PIPE_DIR)/pipex.c \
-				$(PIPE_DIR)/pipex_utils.c
+				$(PIPE_DIR)/manage_pipex_fds.c \
+				$(PIPE_DIR)/wait_exit.c
 
 EXEC_SRC =		$(EXEC_DIR)/build_in_cmd.c \
-				$(EXEC_DIR)/external_cmd.c \
 				$(EXEC_DIR)/redirection.c \
 				$(EXEC_DIR)/token_to_arr.c \
 				$(EXEC_DIR)/executor.c
