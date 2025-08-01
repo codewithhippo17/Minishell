@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -40,11 +41,11 @@ char	*my_getenv(char *name, char **env)
 
 char	*get_path(char *cmd, char **env)
 {
-	int		i;
-	char	*exec;
-	char	**allpath;
-	char	*path_part;
-  struct stat stats;
+	int			i;
+	char		*exec;
+	char		**allpath;
+	char		*path_part;
+	struct stat	stats;
 
 	i = -1;
 	allpath = ft_split(my_getenv("PATH", env), ':');
@@ -53,11 +54,13 @@ char	*get_path(char *cmd, char **env)
 		path_part = ft_strjoin(allpath[i], "/");
 		exec = ft_strjoin(path_part, cmd);
 		free(path_part);
-    stat(exec, &stats);
-    if (S_ISDIR(stats.st_mode) || access(exec, F_OK | X_OK) == -1)
-      continue;
 		if (access(exec, F_OK) == 0)
+		{
+			stat(exec, &stats);
+			if (S_ISDIR(stats.st_mode))
+				continue ;
 			return (exec);
+		}
 		free(exec);
 	}
 	free_strings(allpath);

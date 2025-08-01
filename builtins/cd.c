@@ -80,10 +80,10 @@ int	cd(char **str, t_minishell *minishell)
 	char	*prev_dir;
 	char	*pwd;
 
-	if (str[2])
+	if (str[1] && str[2])
 	{
-		ft_putstr_fd("minishell: cd: too many arguments", 2);
-		return (2);
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		return (1);
 	}
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)
 		return (perror("getcwd(): error"), 1);
@@ -100,7 +100,7 @@ int	cd(char **str, t_minishell *minishell)
 	}
 	else if (chdir(str[1]) != 0)
 		return (perror("cd error"), 1);
-	prev_dir = ft_strjoin("OLDPWD=", current_dir);
+	prev_dir = ft_strjoin("OLDPWD=", my_getenv("PWD", minishell->m_env));
 	update_old_pwd(&(minishell->m_env), "OLDPWD", prev_dir);
 	update_old_pwd(&(minishell->s_env), "OLDPWD", prev_dir);
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)

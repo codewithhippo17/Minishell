@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:14:19 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/28 01:48:49 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/31 04:22:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	child_pr_all(t_minishell *minishell)
 	else
 	{
 		path = get_path(minishell->script->cmd_args[0], minishell->m_env);
-    stat(path, &stats);
-    if (S_ISDIR(stats.st_mode))
-      printerror(minishell, ": Is a directory\n", 126);
+		stat(path, &stats);
+		if (S_ISDIR(stats.st_mode))
+			printerror(minishell, ": Is a directory\n", 126);
 		if (!path)
 			printerror(minishell, ": command not found\n", 127);
 	}
@@ -65,7 +65,7 @@ int	ft_exec_all(t_minishell *minishell)
 	int		status;
 	int		exit_status;
 
-  status = 0;
+	status = 0;
 	pid = fork();
 	if (pid == -1)
 	{

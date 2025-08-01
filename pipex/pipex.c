@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 00:21:45 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/28 07:03:03 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/07/31 04:23:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ int	pipex(int ac, t_minishell *minishell)
 	i = -1;
 	pids = malloc(sizeof(int) * ac);
 	curent = minishell->script;
-	while (++i < ac)
+	while (curent)
 	{
-		if (pipe(fd) == -1)
+		if (curent->next_cmd && pipe(fd) == -1)
 			ft_perror("pipe", 1);
-		pids[i] = fork();
+		pids[++i] = fork();
 		if (pids[i] == 0)
 		{
 			setup_input(p);
@@ -76,7 +76,7 @@ int	pipex(int ac, t_minishell *minishell)
 			if (is_builtin(curent->cmd_args))
 			{
 				execute_builtin(minishell, curent);
-        exit(minishell->status);
+				exit(minishell->status);
 			}
 			else
 				child_pr_all(minishell, curent, curent->cmd_args);

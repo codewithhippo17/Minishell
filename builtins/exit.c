@@ -60,7 +60,7 @@ int	ft_my_exit(t_minishell *minishell)
 		exit(2);
 	}
 	else if (str[1] && str[2])
-		return (ft_putstr_fd("minishell: exit: too many arguments\n", 2), 2);
+		return (ft_putstr_fd("minishell: exit: too many arguments\n", 2), 1);
 	else
 	{
 		free_befor_exit(minishell);
