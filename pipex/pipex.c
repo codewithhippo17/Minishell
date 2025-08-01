@@ -71,6 +71,12 @@ int	pipex(int ac, t_minishell *minishell)
 		pids[++i] = fork();
 		if (pids[i] == 0)
 		{
+            /*  * NOTE: here signals logic
+                *
+                *
+                *
+                *
+                */
 			setup_input(p);
 			setup_output(fd, i, ac);
 			if (is_builtin(curent->cmd_args))
