@@ -15,6 +15,18 @@
 
 # include <stddef.h>
 
+typedef enum e_builtin_name
+{
+	ECHO,
+	CD,
+	PWD,
+	ENV,
+	EXPORT,
+	UNSET,
+	EXIT,
+	UNKNOWN
+}	t_builtin_name;
+
 typedef enum e_join
 {
 	J,

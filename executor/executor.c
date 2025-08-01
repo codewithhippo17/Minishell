@@ -35,7 +35,6 @@ void	handle_command(t_minishell *minishell)
 	{
 		if (is_builtin(minishell->script->cmd_args))
 			execute_builtin(minishell, minishell->script);
-		else
-			minishell->status = ft_exec_all(minishell);
+
 	}
 }
