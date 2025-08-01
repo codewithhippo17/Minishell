@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 23:58:26 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/28 04:48:32 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/01 04:47:09 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 # define TYPES_H
 
 # include <stddef.h>
+
+typedef enum e_free
+{
+	FREE,
+	STILL,
+}   t_free;
+
+typedef enum e_scope
+{
+	SCOPE_TEMP,
+	SCOPE_SESSION,
+	SCOPE_CHILD,
+	SCOPE_SHELL,
+}					t_mem_scope;
 
 typedef enum e_join
 {
@@ -106,6 +120,12 @@ typedef struct s_script
 	int				exit_status;
 	struct s_script	*next_cmd;
 }					t_script;
+
+typedef struct s_collect
+{
+	void			*ptr;
+    t_free          free;
+}					t_collect;
 
 typedef struct s_minishell
 {
