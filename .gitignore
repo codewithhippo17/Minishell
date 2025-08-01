@@ -10,3 +10,5 @@
 # Ignore all archive files
 **/*.a
 
+
+./minishell_tester/
