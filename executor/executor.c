@@ -29,13 +29,8 @@ int	calcule_cmd(t_script *script)
 
 void	handle_command(t_minishell *minishell)
 {
-	if (minishell->script->next_cmd)
-		minishell->status = pipex(calcule_cmd(minishell->script), minishell);
+	if (is_builtin(minishell->script->cmd_args))
+		execute_builtin(minishell, minishell->script);
 	else
-	{
-		if (is_builtin(minishell->script->cmd_args))
-			execute_builtin(minishell, minishell->script);
-		else
-			minishell->status = ft_exec_all(minishell);
-	}
+		minishell->status = pipex(calcule_cmd(minishell->script), minishell);
 }
