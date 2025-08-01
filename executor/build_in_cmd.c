@@ -26,7 +26,7 @@ int	exec_unset(t_minishell *minishell)
 	return (0);
 }
 
-int	execute_builtin(t_minishell *minishell, t_script *script)
+/* int	execute_builtin(t_minishell *minishell, t_script *script)
 {
 	if (ft_strcmp(script->cmd_args[0], "echo") == 0)
 		minishell->status = echo(script->cmd_args);
@@ -43,4 +43,4 @@ int	execute_builtin(t_minishell *minishell, t_script *script)
 	else if (ft_strcmp(script->cmd_args[0], "exit") == 0)
 		minishell->status = ft_my_exit(minishell);
 	return (minishell->status);
-}
+} */

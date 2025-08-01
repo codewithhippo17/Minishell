@@ -35,5 +35,7 @@ int	builtin_export(t_minishell *m, t_script *s);
 int	builtin_unset(t_minishell *m, t_script *s);
 int	builtin_exit(t_minishell *m, t_script *s);
 int	builtin_unknown(t_minishell *m, t_script *s);
+int	execute_builtin(t_minishell *minishell, t_script *script, t_builtin_name name);
+t_builtin_name which_bultin(const char *cmd);
 
 #endif

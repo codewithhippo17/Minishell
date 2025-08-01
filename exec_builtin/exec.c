@@ -2,7 +2,7 @@
 
 #include "../minishell.h"
 
-t_builtin_name get_builtin_type(const char *cmd)
+t_builtin_name which_bultin(const char *cmd)
 {
 	if (ft_strcmp(cmd, "echo") == 0)
 		return ECHO;
@@ -35,7 +35,8 @@ static t_builtin_fn g_builtin_dispatch[] = {
 };
 
 
-int	execute_builtin(t_minishell *minishell, t_script *script)
+int	execute_builtin(t_minishell *minishell, t_script *script, t_builtin_name name)
 {
-
+    minishell->status = g_builtin_dispatch[name](minishell, script);
+    return (minishell->status);
 }

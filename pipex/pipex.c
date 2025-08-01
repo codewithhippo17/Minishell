@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdlib.h>
 
 char	*error_managment(t_minishell *minishell, char **args)
 {
@@ -52,9 +53,12 @@ static void	extrenal_cmds(t_minishell *minishell, t_script *script, char **args)
 
 static void	child_pr_all(t_minishell *minishell, t_script *script)
 {
-	if (is_builtin(script->cmd_args))
+	t_builtin_name	name;
+
+	name = which_bultin(*minishell->script->cmd_args);
+	if (name != UNKNOWN)
 	{
-		execute_builtin(minishell, script);
+		execute_builtin(minishell, minishell->script, name);
 		exit(minishell->status);
 	}
 	else

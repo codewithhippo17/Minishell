@@ -17,6 +17,7 @@ KILL_DIR = ./kill
 EXEC_DIR = ./executor
 PIPE_DIR = ./pipex
 UTILS_DIR = ./utils
+EXEC_BUILT = ./exec_builtin
 
 # Source files
 LEXER_SRCS =	$(LEXER_DIR)/lexer.c \
@@ -50,7 +51,12 @@ BULTINS_SRC =	$(BULTINS_DIR)/cd.c \
 				$(BULTINS_DIR)/exit.c \
 				$(BULTINS_DIR)/export.c \
 				$(BULTINS_DIR)/pwd.c \
-				$(BULTINS_DIR)/unset.c
+				$(BULTINS_DIR)/unset.c \
+				$(EXEC_BUILT)/bultin1.c \
+				$(EXEC_BUILT)/bultin2.c \
+				$(EXEC_BUILT)/exec.c
+
+
 
 PIPE_SRC =		$(PIPE_DIR)/pipex.c \
 				$(PIPE_DIR)/manage_pipex_fds.c \
@@ -67,6 +73,7 @@ UTILS_SRC =		$(UTILS_DIR)/minishell_helpers.c \
 				$(UTILS_DIR)/minishell_set_env.c \
 				$(UTILS_DIR)/minishell_utils.c \
 				$(UTILS_DIR)/export_utils.c
+
 
 TEST = 			./test/test.c
 
