@@ -100,7 +100,7 @@ int	cd(char **str, t_minishell *minishell)
 	}
 	else if (chdir(str[1]) != 0)
 		return (perror("cd error"), 1);
-	prev_dir = ft_strjoin("OLDPWD=", current_dir);
+	prev_dir = ft_strjoin("OLDPWD=", my_getenv("PWD", minishell->m_env));
 	update_old_pwd(&(minishell->m_env), "OLDPWD", prev_dir);
 	update_old_pwd(&(minishell->s_env), "OLDPWD", prev_dir);
 	if (getcwd(current_dir, sizeof(current_dir)) == NULL)

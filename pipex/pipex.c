@@ -64,11 +64,11 @@ int	pipex(int ac, t_minishell *minishell)
 	i = -1;
 	pids = malloc(sizeof(int) * ac);
 	curent = minishell->script;
-	while (++i < ac)
+	while (curent)
 	{
-		if (pipe(fd) == -1)
+		if (curent->next_cmd && pipe(fd) == -1)
 			ft_perror("pipe", 1);
-		pids[i] = fork();
+		pids[++i] = fork();
 		if (pids[i] == 0)
 		{
 			setup_input(p);

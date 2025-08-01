@@ -43,15 +43,9 @@ char	**token_to_arr(t_token *token)
 		return (NULL);
 	while (current)
 	{
-    if (current->value)
-		  cmd[i] = ft_strdup(current->value);
-    else
-    {
-      current = current->next;
-      continue ;
-    }
-    current = current->next;
-		i++;
+		if (current->value)
+			cmd[i++] = current->value;
+		current = current->next;
 	}
 	cmd[i] = NULL;
 	return (cmd);
