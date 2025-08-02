@@ -13,32 +13,32 @@
 #include "../minishell.h"
 #include <sys/types.h>
 
-int	save_fds(t_red *red)
+int	save_fds(t_script *script)
 {
-	if (!red)
+	if (!script)
 		return (1);
-	red->saved_stdin = dup(0);
-	red->saved_stdout = dup(1);
-	if (red->saved_stdin == -1 || red->saved_stdout == -1)
+	script->saved_stdin = dup(0);
+	script->saved_stdout = dup(1);
+	if (script->saved_stdin == -1 || script->saved_stdout == -1)
 		return (1);
 	return (0);
 }
 
-int	restore_fds(t_red *red)
+int	restore_fds(t_script *script)
 {
-	if (!red)
+	if (!script)
 		return (1);
-	if (red->saved_stdin != -1)
+	if (script->saved_stdin != -1)
 	{
-		dup2(red->saved_stdin, 0);
-		close(red->saved_stdin);
-		red->saved_stdin = -1;
+		dup2(script->saved_stdin, 0);
+		close(script->saved_stdin);
+		script->saved_stdin = -1;
 	}
-	if (red->saved_stdout != -1)
+	if (script->saved_stdout != -1)
 	{
-		dup2(red->saved_stdout, 1);
-		close(red->saved_stdout);
-		red->saved_stdout = -1;
+		dup2(script->saved_stdout, 1);
+		close(script->saved_stdout);
+		script->saved_stdout = -1;
 	}
 	return (0);
 }
@@ -76,24 +76,25 @@ int	redirect_io(t_red *red)
 	return (0);
 }
 
-int	redirection(t_red *red)
+int	redirection(t_script *script, t_red *red)
 {
 	t_red	*current;
 
 	current = red;
-
-	if (save_fds(red) == 1)
+	script->saved_stdin = -1;
+	script->saved_stdout = -1;
+	if (save_fds(script) == 1)
 		return (1);
 	while (current)
 	{
 		if (apply_redirection(current))
 		{
-			restore_fds(current);
+			restore_fds(script);
 			return (1);
 		}
 		if (redirect_io(current))
 		{
-			restore_fds(current);
+			restore_fds(script);
 			return (1);
 		}
 		current = current->next;

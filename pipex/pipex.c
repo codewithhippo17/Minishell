@@ -60,7 +60,7 @@ static void	child_pr_all(t_minishell *minishell, t_script *script)
 	else {
 		if (script->red)
 		{	
-		    if (redirection(script->red))
+		    if (redirection(script, script->red))
 			    exit(1);
 		}
 		extrenal_cmds(minishell, script->cmd_args);

@@ -44,12 +44,12 @@ int	execute_builtin(t_minishell *minishell, t_script *script,
 {
 	if (script->red)
 	{
-		minishell->status = redirection(script->red);
+		minishell->status = redirection(script, script->red);
 		if (minishell->status)
 			return (1);
 	}
 	minishell->status = g_builtin_dispatch[name](minishell, script);
 	if (script->red)
-		minishell->status = restore_fds(script->red);
+		minishell->status = restore_fds(script);
 	return (minishell->status);
 }

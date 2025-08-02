@@ -38,10 +38,11 @@ void	handle_command(t_minishell *minishell)
 		minishell->status = pipex(calcule_cmd(minishell->script), minishell);
 	else
 	{
-		minishell->status = redirection(minishell->script->red);
+		minishell->status = redirection(minishell->script,
+				minishell->script->red);
 		if (minishell->status)
 			return ;
-		minishell->status = restore_fds(minishell->script->red);
+		minishell->status = restore_fds(minishell->script);
 		if (minishell->status)
 			return ;
 	}

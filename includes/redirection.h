@@ -15,10 +15,10 @@
 
 # include "./types.h"
 
-int	save_fds(t_red *red);
-int	restore_fds(t_red *red);
+int	save_fds(t_script *script);
+int	restore_fds(t_script *script);
 int	apply_redirection(t_red *current);
 int	redirect_io(t_red *current);
-int	redirection(t_red *red);
+int	redirection(t_script *script, t_red *red);
 
 #endif
