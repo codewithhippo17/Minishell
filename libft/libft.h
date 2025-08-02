@@ -67,5 +67,6 @@ void	ft_putnbr_fd(int n, int fd);
 // Part 3 - Expanding----------------
 void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 int		ft_strcmp(const char *s1, const char *s2);
+void	ft_swap_str(char **s1, char **s2);
 
 #endif

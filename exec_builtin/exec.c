@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: marvin <ybelghad@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/01 14:22:47 by marvin            #+#    #+#             */
-/*   Updated: 2025/08/01 14:22:47 by marvin           ###   ########.fr       */
+/*   Created: 2025/08/01 14:22:47 by ybelghad          #+#    #+#             */
+/*   Updated: 2025/08/02 16:47:21 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	execute_builtin(t_minishell *minishell, t_script *script,
 {
 	if (script->red)
 	{
-		minishell->status = redirection(script, script->red);
+		minishell->status = redirection(script);
 		if (minishell->status)
 			return (1);
 	}

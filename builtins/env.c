@@ -19,8 +19,8 @@ int	envierment(char **m_env)
 	i = 0;
 	while (m_env[i])
 	{
-    if (ft_strchr(m_env[i], '='))
-		  printf("%s\n", m_env[i]);
+		if (ft_strchr(m_env[i], '='))
+			printf("%s\n", m_env[i]);
 		i++;
 	}
 	return (0);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/02 16:49:32 by ybelghad          #+#    #+#             */
+/*   Updated: 2025/08/02 16:49:32 by ybelghad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	is_var(char *str)
@@ -42,13 +54,10 @@ int	handle_export_arg(t_minishell *minishell, int i)
 	return (status);
 }
 
-int	env_sort(char **env)
+int	print_sorted_env(char **env, int i, int j)
 {
-	int		i;
-	int		j;
 	char	**split;
 
-	i = -1;
 	while (env[++i])
 	{
 		j = 0;
@@ -76,9 +85,8 @@ int	env_sort(char **env)
 
 int	declair_x(char **env)
 {
-	int		i;
-	int		j;
-	char	*temp;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (env[++i])
@@ -87,14 +95,10 @@ int	declair_x(char **env)
 		while (env[++j])
 		{
 			if (ft_strcmp(env[i], env[j]) > 0)
-			{
-				temp = env[i];
-				env[i] = env[j];
-				env[j] = temp;
-			}
+				ft_swap_str(&env[i], &env[j]);
 		}
 	}
-	if (env_sort(env))
+	if (print_sorted_env(env, -1, 0))
 		return (1);
 	return (0);
 }
@@ -109,14 +113,9 @@ int	exec_export(t_minishell *minishell)
 	if (minishell->script->cmd_args[i])
 	{
 		while (minishell->script->cmd_args[i])
-		{
-			status = handle_export_arg(minishell, i);
-			i++;
-		}
+			status = handle_export_arg(minishell, i++);
 	}
 	else
-	{
 		status = declair_x(minishell->m_env);
-	}
 	return (status);
 }

@@ -69,8 +69,7 @@ EXEC_SRC =		$(EXEC_DIR)/build_in_cmd.c \
 
 KILL_SRC =		$(KILL_DIR)/free_exit.c
 
-UTILS_SRC =		$(UTILS_DIR)/minishell_helpers.c \
-				$(UTILS_DIR)/minishell_set_env.c \
+UTILS_SRC =		$(UTILS_DIR)/set_env.c \
 				$(UTILS_DIR)/minishell_utils.c \
 				$(UTILS_DIR)/export_utils.c
 

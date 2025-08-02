@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 00:21:45 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/31 04:23:01 by marvin           ###   ########.fr       */
+/*   Updated: 2025/08/02 16:48:48 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	child_pr_all(t_minishell *minishell, t_script *script)
 	else {
 		if (script->red)
 		{	
-		    if (redirection(script, script->red))
+		    if (redirection(script))
 			    exit(1);
 		}
 		extrenal_cmds(minishell, script->cmd_args);
