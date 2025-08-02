@@ -31,12 +31,11 @@ int	main(int argc, char *argv[], char **env)
 		minishell->script = ft_parrsing(minishell);
         if (g_received_signal == SIGNAL_SIGINT)
         {
-        	printf("\n");
         	rl_on_new_line();               // Start a new line
-        	rl_replace_line("", 0);        // Clear current input buffer
-        	rl_redisplay();                // Redraw prompt and empty input
-        	g_received_signal = SIGNAL_NONE;
-        	free(minishell->input);                    // Prevent memory leak
+        	rl_replace_line("", 0);
+            rl_redisplay(); // Redraw prompt and empty input
+            printf("\n");
+            g_received_signal = SIGNAL_NONE;
         	continue;                      // Restart prompt loop
         }
         extract_args(minishell);
