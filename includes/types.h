@@ -19,7 +19,7 @@ typedef enum e_free
 {
 	FREE,
 	STILL,
-}   t_free;
+}						t_free;
 
 typedef enum e_scope
 {
@@ -27,7 +27,7 @@ typedef enum e_scope
 	SCOPE_SESSION,
 	SCOPE_CHILD,
 	SCOPE_SHELL,
-}					t_mem_scope;
+}						t_mem_scope;
 
 typedef enum e_builtin_name
 {
@@ -39,7 +39,7 @@ typedef enum e_builtin_name
 	UNSET,
 	EXIT,
 	UNKNOWN
-}	t_builtin_name;
+}						t_builtin_name;
 
 typedef enum e_join
 {
@@ -48,7 +48,7 @@ typedef enum e_join
 	JR,
 	NJ,
 	NONE
-}					t_join;
+}						t_join;
 
 typedef enum e_quote
 {
@@ -56,7 +56,7 @@ typedef enum e_quote
 	SQS,
 	DQS,
 	UQS
-}					t_quote;
+}						t_quote;
 
 typedef enum e_flag
 {
@@ -72,80 +72,82 @@ typedef enum e_flag
 	HEREDOC,
 	VAR,
 	ERROR
-}					t_flag;
+}						t_flag;
 
 typedef enum e_ambg
 {
 	AMBG,
 	OBV,
-}					t_ambg;
+}						t_ambg;
 
 typedef struct s_heredoc
 {
-	int				fd;
-	int				tmp_fd;
-	int				pid;
-	int				status;
-	char			*line;
-	char			*filename;
-	char			*del;
-	t_quote			quote;
-	t_ambg			ambg;
-}					t_heredoc;
+	int					fd;
+	int					tmp_fd;
+	int					pid;
+	int					status;
+	char				*line;
+	char				*filename;
+	char				*del;
+	t_quote				quote;
+	t_ambg				ambg;
+}						t_heredoc;
 
 typedef struct s_red
 {
-	int				fd;
-	int				saved_stdin;
-	int				saved_stdout;
-	char			*path;
-	t_flag			type;
-	t_ambg			ambg;
-	struct s_red	*next;
-}					t_red;
+	int					fd;
+	int					saved_stdin;
+	int					saved_stdout;
+	char				*path;
+	t_flag				type;
+	t_ambg				ambg;
+	struct s_red		*next;
+}						t_red;
 
 typedef struct s_token
 {
-	char			*value;
-	t_flag			type;
-	t_quote			quote;
-	t_join			join;
-	t_ambg			ambg;
-	t_heredoc		*hd;
-	struct s_token	*next;
-	struct s_token	*prev;
-}					t_token;
+	char				*value;
+	t_flag				type;
+	t_quote				quote;
+	t_join				join;
+	t_ambg				ambg;
+	t_heredoc			*hd;
+	struct s_token		*next;
+	struct s_token		*prev;
+}						t_token;
 
 typedef struct s_splited
 {
-	t_token			*head;
-	t_token			*tail;
-	char			**split;
-	int				len;
-}					t_splited;
+	t_token				*head;
+	t_token				*tail;
+	char				**split;
+	int					len;
+}						t_splited;
 
 typedef struct s_script
 {
-	t_token			*cmd_head;
-	t_red			*red;
-	char			**cmd_args;
-	int				exit_status;
-	struct s_script	*next_cmd;
-}					t_script;
+	t_token				*cmd_head;
+	t_red				*red;
+	char				**cmd_args;
+	int					exit_status;
+	struct s_script		*next_cmd;
+}						t_script;
 
 typedef struct s_collect
 {
-	void			*ptr;
-    t_free          free;
-}					t_collect;
+	void				*ptr;
+	t_mem_scope			scope;
+	struct s_collect	*next;
+}						t_collect;
 
 typedef struct s_minishell
 {
-	char			*input;
-	char			**m_env;
-	char			**s_env;
-	int				status;
-	t_script		*script;
-}					t_minishell;
+	char				*input;
+	char				**m_env;
+	char				**s_env;
+	int					status;
+	t_script			*script;
+    t_collect           *collect;
+}						t_minishell;
 
 #endif
