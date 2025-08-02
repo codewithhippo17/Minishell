@@ -27,8 +27,8 @@
 # include "includes/executor.h"
 # include "includes/types.h"
 # include "libft/libft.h"
-# include </usr/include/readline/history.h>
-# include </usr/include/readline/readline.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
