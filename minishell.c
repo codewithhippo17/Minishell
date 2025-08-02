@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 
 int	main(int argc, char *argv[], char **env)
 {
@@ -26,18 +27,15 @@ int	main(int argc, char *argv[], char **env)
 		if (minishell->input == NULL)
 			free_exit_minishell(minishell, EXIT_SUCCESS);
 		if (*(minishell->input) == '\0')
-			continue ;
-		add_history(minishell->input);
+        {
+            free(minishell->input);
+        }
         if (g_received_signal == SIGNAL_SIGINT)
         {
-            rl_on_new_line();               // Start a new line
-        	rl_replace_line("", 0);
-            rl_redisplay();
             g_received_signal = SIGNAL_NONE;
-        	free(minishell->input);
-            continue;
         }
-		minishell->script = ft_parrsing(minishell);
+		add_history(minishell->input);
+        minishell->script = ft_parrsing(minishell);
         extract_args(minishell);
 		if (minishell->script)
 			handle_command(minishell);

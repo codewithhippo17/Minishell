@@ -48,13 +48,15 @@ t_script	*ft_parrsing(t_minishell *minishell)
 	t_script	*script_head;
 	t_script	*script_tail;
 	t_red		*red;
+    int synx;
 
+    synx = 0;
 	script_head = NULL;
 	script_tail = NULL;
 	tokens = lexer(minishell->input);
-	checker(&tokens, minishell);
-	// if (!checker(&tokens, minishell))
-	// free and exit all
+	synx = checker(&tokens, minishell);
+	if (synx != 0)
+	    return (printf("syntax error"), NULL);
 	ft_expander(&tokens, minishell);
 	ft_join_tokens(&tokens);
 	red = sub_red(tokens);

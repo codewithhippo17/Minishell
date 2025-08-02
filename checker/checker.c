@@ -28,25 +28,27 @@ bool	is_vpipe(t_token *token)
 	return (true);
 }
 
-bool	checker(t_token **token, t_minishell *minishell)
+int checker(t_token **token, t_minishell *minishell)
 {
 	t_token	*c;
-
+    int res = 0;
 	if (check_quote(*token) == false)
-		return (false);
+		return (1);
 	c = *token;
 	while (c)
 	{
 		if (c->type == PIPE)
 		{
 			if (is_vpipe(c))
-				return (false);
+				return (1);
 		}
 		if (is_op(c) == true && (!c->next || is_word(c->next) == false))
-			return (false);
+			return (1);
 		if (c->type == DLR)
-			ft_heredoc(c, grabdel(c), grabquote(c), minishell);
+			res = ft_heredoc(c, grabdel(c), grabquote(c), minishell);
+        if (res != 0)
+            return (1);
 		c = c->next;
 	}
-	return (true);
+	return (0);
 }

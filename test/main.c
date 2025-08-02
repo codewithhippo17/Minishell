@@ -10,57 +10,65 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-// This is the ONLY global variable allowed
-int		g_signal_received = 0;
+#define SIGNAL_NONE    0
+#define SIGNAL_SIGINT  1
+#define SIGNAL_SIGQUIT 2
 
-void	handle_main_signal(int sig)
+volatile sig_atomic_t g_received_signal = 0;
+
+void	handle_signal(int signo)
 {
-	g_signal_received = sig; // Only store the signal number
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	if (signo == SIGINT)
+		g_received_signal = SIGNAL_SIGINT;
+	else if (signo == SIGQUIT)
+		g_received_signal = SIGNAL_SIGQUIT;
 }
 
-
-
-int	main(int argc, char *argv[], char **env)
+void	setup_signals(void)
 {
-	t_minishell	*minishell;
-	char		*input;
-	t_token     *tokens;
-    int nb = 0;
+	struct sigaction sa;
 
-	(void)argc;
-	(void)argv;
-	minishell = malloc(sizeof(t_minishell));
-	minishell->status = 0;
-	if (set_env(minishell, env))
-		free_exit_minishell(minishell, EXIT_FAILURE);
-	signal(SIGINT, handle_main_signal);
-	signal(SIGQUIT, SIG_IGN); // Ignore Ctrl+\ in interactive mode
-	while (argc == 1 && argv)
+	sa.sa_handler = &handle_signal;
+	sa.sa_flags = SA_RESTART;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, NULL);
+
+	sa.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &sa, NULL);
+}
+
+int	main(void)
+{
+	char *line;
+
+	setup_signals();
+	while (1)
 	{
-        nb = 0;
-		g_signal_received = 0; // Reset signal flag
-		input = readline("minishell$> ");
-		if (!input) // Ctrl+D
-		{
-			printf("exit\n");
-			break ;
-		}
-		if (g_signal_received == SIGINT)
-		{
-			free(input);
-			continue ; // Go to next prompt
-		}
+		line = readline("minishell$ ");
+		if (!line)
+			break;
+        if (g_received_signal == SIGNAL_SIGINT)
+        {
+            write(1, "\n", 1);
+            rl_replace_line("", 0);
+            rl_on_new_line();
+            rl_redisplay();
+            g_received_signal = SIGNAL_NONE;
+            free(line);
+            continue;
+        }
+		if (*line)
+			add_history(line);
+		printf("%s\n", line);
+        free(line);
 	}
-	return (EXIT_SUCCESS);
 }
 
 

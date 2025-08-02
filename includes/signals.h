@@ -15,7 +15,7 @@
 
 # include <signal.h>
 
-extern volatile sig_atomic_t	g_received_signal;
+extern sig_atomic_t	g_received_signal;
 
 void							setup_shell_signals(void);
 void							setup_child_signals(void);
