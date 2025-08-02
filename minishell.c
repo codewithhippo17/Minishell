@@ -39,6 +39,11 @@ int	main(int argc, char *argv[], char **env)
             g_received_signal = SIGNAL_NONE;
         	continue;                      // Restart prompt loop
         }
+        else if (g_received_signal == SIGNAL_HEREDOC_SIGINT)
+        {
+            g_received_signal = SIGNAL_NONE;
+            continue;                      // Just restart prompt loop, no extra readline operations
+        }
         extract_args(minishell);
 		if (minishell->script)
 			handle_command(minishell);

@@ -44,14 +44,14 @@ static int	run_heredoc_parent(t_heredoc *hd)
 		int sig = WTERMSIG(hd->status);
 		if (sig == SIGINT)
 		{
-			g_received_signal = SIGNAL_SIGINT;
+			g_received_signal = SIGNAL_HEREDOC_SIGINT;
 		}
-        ft_putstr_fd("heredoc terminated with sigint", 2);
+        ft_putstr_fd("heredoc terminated with sigint\n", 2);
 		return (-1);
 	}
 	else if (WIFSTOPPED(hd->status))
     {
-        ft_putstr_fd("heredoc stoped", 2);
+        ft_putstr_fd("heredoc stopped\n", 2);
 		return (perror("heredoc child stopped"), -1);
     }
     else if (WIFEXITED(hd->status) && WEXITSTATUS(hd->status) != 0)
