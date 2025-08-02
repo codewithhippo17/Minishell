@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   wait_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 02:46:05 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/21 02:50:17 by ybelghad         ###   ########.fr       */
+/*   Created: 2025/08/01 12:06:55 by ybelghad	       #+#    #+#             */
+/*   Updated: 2025/08/01 12:06:55 by ybelghad  	      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	ft_perror(char *str, int ex_st)
@@ -17,23 +18,14 @@ void	ft_perror(char *str, int ex_st)
 	exit(ex_st);
 }
 
-void	setup_input(int p)
+void	printerror(t_minishell *minishell, char **args, char *err,
+		int exinum)
 {
-	if (p != -1)
-	{
-		dup2(p, 0);
-		close(p);
-	}
-}
-
-void	setup_output(int *fd, int i, int ac)
-{
-	if (i < ac - 1)
-	{
-		dup2(fd[1], 1);
-		close(fd[1]);
-		close(fd[0]);
-	}
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(args[0], 2);
+	ft_putstr_fd(err, 2);
+	free_strings(minishell->script->cmd_args);
+	free_exit_minishell(minishell, exinum);
 }
 
 int	wait_for_children(int *pid, int ac)

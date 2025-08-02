@@ -54,7 +54,7 @@ int	main(int argc, char *argv[], char **env)
 			continue ;
 		}
 		extract_args(minishell);
-		if (minishell->script && minishell->script->cmd_args[0])
+		if (minishell->script)
 			handle_command(minishell);
 		free(minishell->input);
 	}

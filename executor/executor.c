@@ -29,13 +29,20 @@ int	calcule_cmd(t_script *script)
 
 void	handle_command(t_minishell *minishell)
 {
-	if (minishell->script->next_cmd)
+	t_builtin_name	name;
+
+	name = which_bultin(*minishell->script->cmd_args);
+	if (name != UNKNOWN && !minishell->script->next_cmd)
+		execute_builtin(minishell, minishell->script, name);
+	else if (minishell->script->cmd_args)
 		minishell->status = pipex(calcule_cmd(minishell->script), minishell);
 	else
 	{
-		if (is_builtin(minishell->script->cmd_args))
-			execute_builtin(minishell, minishell->script);
-		else
-			minishell->status = ft_exec_all(minishell);
+		minishell->status = redirection(minishell->script->red);
+		if (minishell->status)
+			return ;
+		minishell->status = restore_fds(minishell->script->red);
+		if (minishell->status)
+			return ;
 	}
 }

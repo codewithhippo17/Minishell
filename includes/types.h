@@ -29,6 +29,18 @@ typedef enum e_scope
 	SCOPE_SHELL,
 }					t_mem_scope;
 
+typedef enum e_builtin_name
+{
+	ECHO,
+	CD,
+	PWD,
+	ENV,
+	EXPORT,
+	UNSET,
+	EXIT,
+	UNKNOWN
+}	t_builtin_name;
+
 typedef enum e_join
 {
 	J,
