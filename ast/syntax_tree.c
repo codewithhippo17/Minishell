@@ -56,7 +56,11 @@ t_script	*ft_parrsing(t_minishell *minishell)
 	tokens = lexer(minishell->input);
 	synx = checker(&tokens, minishell);
 	if (synx != 0)
-	    return (printf("syntax error"), NULL);
+	{
+		if (g_received_signal == SIGNAL_SIGINT)
+			g_received_signal = SIGNAL_NONE;
+	    return (ft_putstr_fd("syntax error\n", 2), NULL);
+	}
 	ft_expander(&tokens, minishell);
 	ft_join_tokens(&tokens);
 	red = sub_red(tokens);
