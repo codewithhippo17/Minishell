@@ -10,15 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/heredoc.h"
 #include "../minishell.h"
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "../includes/signals.h"
 
 static void	run_heredoc_child(t_heredoc *hd, t_minishell *minishell)
 {
-	signal(SIGINT, SIG_DFL);
+    setup_child_signals();
 	while (1)
 	{
 		hd->line = readline("> ");
@@ -43,10 +40,21 @@ static int	run_heredoc_parent(t_heredoc *hd)
 {
 	waitpid(hd->pid, &hd->status, 0);
 	if (WIFSIGNALED(hd->status))
-		return (perror("heredoc child terminated by signal"), -1);
+	{
+		int sig = WTERMSIG(hd->status);
+		if (sig == SIGINT)
+		{
+			g_received_signal = SIGNAL_SIGINT;
+		}
+        ft_putstr_fd("heredoc terminated with sigint", 2);
+		return (-1);
+	}
 	else if (WIFSTOPPED(hd->status))
+    {
+        ft_putstr_fd("heredoc stoped", 2);
 		return (perror("heredoc child stopped"), -1);
-	else if (WIFEXITED(hd->status) && WEXITSTATUS(hd->status) != 0)
+    }
+    else if (WIFEXITED(hd->status) && WEXITSTATUS(hd->status) != 0)
 		return (perror("open tmp for reading"), -1);
 	return (0);
 }
@@ -65,6 +73,9 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 	if (hd->pid == 0)
 		run_heredoc_child(hd, minishell);
 	else
-		run_heredoc_parent(hd);
+	{
+		if (run_heredoc_parent(hd) < 0)
+			return (-1);
+	}
 	return (0);
 }

@@ -18,6 +18,7 @@ EXEC_DIR = ./executor
 PIPE_DIR = ./pipex
 UTILS_DIR = ./utils
 EXEC_BUILT = ./exec_builtin
+SIG_DIR	=	./signals
 
 # Source files
 LEXER_SRCS =	$(LEXER_DIR)/lexer.c \
@@ -56,8 +57,6 @@ BULTINS_SRC =	$(BULTINS_DIR)/cd.c \
 				$(EXEC_BUILT)/bultin2.c \
 				$(EXEC_BUILT)/exec.c
 
-
-
 PIPE_SRC =		$(PIPE_DIR)/pipex.c \
 				$(PIPE_DIR)/manage_pipex_fds.c \
 				$(PIPE_DIR)/wait_exit.c
@@ -74,13 +73,15 @@ UTILS_SRC =		$(UTILS_DIR)/minishell_helpers.c \
 				$(UTILS_DIR)/minishell_utils.c \
 				$(UTILS_DIR)/export_utils.c
 
+SIG_SRC	=		$(SIG_DIR)/signals.c
+
 
 TEST = 			./test/test.c
 
 MAIN_SRCS = minishell.c
 
 # All source files
-SRCS =		$(LEXER_SRCS) $(CHECKER_SRCS) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(AST_SRCS) \
+SRCS =		$(LEXER_SRCS) $(CHECKER_SRCS) $(SIG_SRC) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(AST_SRCS) \
 				$(BULTINS_SRC) $(PIPE_SRC) $(EXEC_SRC) $(KILL_SRC) $(UTILS_SRC) $(TEST) \
 				$(MAIN_SRCS)
 

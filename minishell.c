@@ -12,31 +12,14 @@
 
 #include "minishell.h"
 
-int g_signal_received = 0;
-
-void	handle_main_signal(int sig)
-{
-	g_signal_received = sig; // Only store the signal number
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-    g_signal_received = 0;
-}
-
 int	main(int argc, char *argv[], char **env)
 {
 	t_minishell	*minishell;
-
+    setup_shell_signals();
 	minishell = malloc(sizeof(t_minishell));
 	minishell->status = 0;
 	if (set_env(minishell, env))
 		free_exit_minishell(minishell, EXIT_FAILURE);
-	signal(SIGINT, handle_main_signal);
-	signal(SIGQUIT, SIG_IGN);
 	while (argc == 1 && argv)
 	{
 		minishell->input = readline("minishell$ ");
@@ -46,18 +29,26 @@ int	main(int argc, char *argv[], char **env)
 			continue ;
 		add_history(minishell->input);
 		minishell->script = ft_parrsing(minishell);
-		print_script(minishell->script);
-		printf("--------°°--exec--out--bellow--°°---------\n");
-		if (g_signal_received == SIGINT)
-		{
-			free(minishell->input);
-			continue ;
-		}
-		extract_args(minishell);
+        if (g_received_signal == SIGNAL_SIGINT)
+        {
+        	printf("\n");
+        	rl_on_new_line();               // Start a new line
+        	rl_replace_line("", 0);        // Clear current input buffer
+        	rl_redisplay();                // Redraw prompt and empty input
+        	g_received_signal = SIGNAL_NONE;
+        	free(minishell->input);                    // Prevent memory leak
+        	continue;                      // Restart prompt loop
+        }
+        extract_args(minishell);
 		if (minishell->script)
 			handle_command(minishell);
 		free(minishell->input);
 	}
+    restore_shell_signals();
 	free(minishell);
 	return (EXIT_SUCCESS);
 }
+
+/* 		print_script(minishell->script);
+		printf("--------°°--exec--out--bellow--°°---------\n"); */
+

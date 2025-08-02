@@ -15,6 +15,11 @@
 
 # include <stddef.h>
 
+# define SIGNAL_NONE 0
+# define SIGNAL_SIGINT 1
+# define SIGNAL_SIGQUIT 2
+
+
 typedef enum e_free
 {
 	FREE,
