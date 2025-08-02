@@ -51,10 +51,10 @@ static void	child_pr_all(t_minishell *minishell, t_script *script)
 {
 	t_builtin_name	name;
 
-	name = which_bultin(*minishell->script->cmd_args);
+	name = which_bultin(*script->cmd_args);
 	if (name != UNKNOWN)
 	{
-		execute_builtin(minishell, minishell->script, name);
+		execute_builtin(minishell, script, name);
 		exit(minishell->status);
 	}
 	else {

@@ -49,6 +49,7 @@ int	execute_builtin(t_minishell *minishell, t_script *script,
 			return (1);
 	}
 	minishell->status = g_builtin_dispatch[name](minishell, script);
-	minishell->status = restore_fds(script->red);
+	if (script->red)
+		minishell->status = restore_fds(script->red);
 	return (minishell->status);
 }
