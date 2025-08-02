@@ -28,17 +28,16 @@ int	main(int argc, char *argv[], char **env)
 		if (*(minishell->input) == '\0')
 			continue ;
 		add_history(minishell->input);
-		minishell->script = ft_parrsing(minishell);
         if (g_received_signal == SIGNAL_SIGINT)
         {
-            printf("\n");
-        	rl_on_new_line();               // Start a new line
+            rl_on_new_line();               // Start a new line
         	rl_replace_line("", 0);
-            rl_redisplay(); // Redraw prompt and empty input
-            printf("\n");
+            rl_redisplay();
             g_received_signal = SIGNAL_NONE;
-        	continue;                      // Restart prompt loop
+        	free(minishell->input);
+            continue;
         }
+		minishell->script = ft_parrsing(minishell);
         extract_args(minishell);
 		if (minishell->script)
 			handle_command(minishell);
