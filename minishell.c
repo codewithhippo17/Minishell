@@ -31,6 +31,7 @@ int	main(int argc, char *argv[], char **env)
 		minishell->script = ft_parrsing(minishell);
         if (g_received_signal == SIGNAL_SIGINT)
         {
+            printf("\n");
         	rl_on_new_line();               // Start a new line
         	rl_replace_line("", 0);
             rl_redisplay(); // Redraw prompt and empty input
