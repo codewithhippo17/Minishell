@@ -19,6 +19,7 @@ PIPE_DIR = ./pipex
 UTILS_DIR = ./utils
 EXEC_BUILT = ./exec_builtin
 SIG_DIR	=	./signals
+GB_DIR = ./gb_col
 
 # Source files
 LEXER_SRCS =	$(LEXER_DIR)/lexer.c \
@@ -33,7 +34,7 @@ HEREDOC_SRCS =	$(HEREDOC_DIR)/heredoc.c \
 	        	$(HEREDOC_DIR)/heredoc_helpers.c \
 	        	$(HEREDOC_DIR)/random.c \
 	        	$(HEREDOC_DIR)/ft_heredoc.c
-
+	
 EXPAND_SRC =	$(EXPAND_DIR)/expand_helpers.c \
 				$(EXPAND_DIR)/ft_expander.c \
 				$(EXPAND_DIR)/expand_utils.c \
@@ -66,6 +67,11 @@ EXEC_SRC =		$(EXEC_DIR)/build_in_cmd.c \
 				$(EXEC_DIR)/token_to_arr.c \
 				$(EXEC_DIR)/executor.c
 
+GB_SRC =		$(GB_DIR)/cleanup.c \
+				$(GB_DIR)/gb_col.c \
+				$(GB_DIR)/helpers.c
+
+
 KILL_SRC =		$(KILL_DIR)/free_exit.c
 
 UTILS_SRC =		$(UTILS_DIR)/minishell_helpers.c \
@@ -81,13 +87,9 @@ TEST = 			./test/test.c
 MAIN_SRCS = minishell.c
 
 # All source files
-SRCS =		$(LEXER_SRCS) $(CHECKER_SRCS) $(SIG_SRC) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(AST_SRCS) \
+SRCS =			$(GB_SRC) $(LEXER_SRCS) $(CHECKER_SRCS) $(SIG_SRC) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(AST_SRCS) \
 				$(BULTINS_SRC) $(PIPE_SRC) $(EXEC_SRC) $(KILL_SRC) $(UTILS_SRC) $(TEST) \
 				$(MAIN_SRCS)
-
-PSRCS =		$(LEXER_SRCS) $(CHECKER_SRCS) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(AST_SRCS) \
-			$(UTILS_SRC) \
-			$(MAIN_SRCS)
 
 
 # Object files

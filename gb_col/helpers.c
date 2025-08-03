@@ -23,8 +23,10 @@ void	delete_collected(t_collect **head, t_collect *prev,
     if (!prev)
         *head = tmp->next;
     else
+    {
         prev->next = tmp->next;
-	*to_delete = (*to_delete)->next;
+    }
+    *to_delete = (*to_delete)->next;
     free(tmp);
 }
 

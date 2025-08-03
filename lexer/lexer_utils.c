@@ -20,16 +20,14 @@ t_token	*parse_word(int *i, char *input)
 
 	start = *i;
 	len = 0;
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
+	token = my_alloc(sizeof(t_token), SCOPE_SESSION);
 	while (input[*i] && !is_space(input[*i]) && !is_quote(input[*i])
 		&& !is_operator_start(input[*i]))
 	{
 		(*i)++;
 		len++;
 	}
-	token->value = ft_strndup(&input[start], len);
+	token->value = ft_strndup(&input[start], len, SCOPE_SESSION);
 	token->type = WORD;
 	token->quote = NQS;
 	token->join = NJ;
@@ -44,14 +42,12 @@ t_token	*parse_spaces(int *i, char *input)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
+	token = my_alloc(sizeof(t_token), SCOPE_SESSION);
 	while (is_space(input[*i]))
 	{
 		(*i)++;
 	}
-	token->value = ft_strdup(" ");
+	token->value = ft_strdup(" ", SCOPE_SESSION);
 	token->type = WS;
 	token->quote = NQS;
 	token->join = NJ;
@@ -66,9 +62,7 @@ t_token	*parse_operator(int *i, char *input, char op)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
+	token = my_alloc(sizeof(t_token), SCOPE_SESSION);
 	if (op == '|')
 		fill_token(&token, "|", PIPE, NQS);
 	else if (op == '>' && input[*i + 1] == '>')
@@ -97,9 +91,7 @@ t_token	*parse_quoted(int *i, char *input, char quote)
 
 	len = 0;
 	start = ++(*i);
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
+	token = my_alloc(sizeof(t_token), SCOPE_SESSION);
 	while (input[*i] && input[*i] != quote)
 	{
 		(*i)++;
@@ -110,9 +102,11 @@ t_token	*parse_quoted(int *i, char *input, char quote)
 	else if (input[*i] == '\0')
 		return (fill_token(&token, &input[start], ERROR, UQS), token);
 	if (quote == '"')
-		fill_token(&token, ft_strndup(&input[start], len), WORD, DQS);
+		fill_token(&token, ft_strndup(&input[start], len, SCOPE_SESSION), WORD,
+			DQS);
 	else
-		fill_token(&token, ft_strndup(&input[start], len), WORD, SQS);
+		fill_token(&token, ft_strndup(&input[start], len, SCOPE_SESSION), WORD,
+			SQS);
 	token->ambg = OBV;
 	token->join = NJ;
 	return (token->prev = NULL, token->next = NULL, token);

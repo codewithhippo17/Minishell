@@ -18,7 +18,7 @@ int ft_heredoc(t_token *token, char *del, t_quote quote,
 	t_heredoc	*hd;
 
 	hd = init_heredoc();
-	hd->del = ft_strdup(del);
+	hd->del = del;
 	hd->quote = quote;
 	hd->filename = ft_strjoin("/tmp/heredoc", ft_random());
     if (heredoc(hd, minishell) == 1)

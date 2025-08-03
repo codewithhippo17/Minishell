@@ -21,7 +21,7 @@ t_token	*nonvar_parser(char *str, int *i, t_minishell *minishell)
 	idx = 0;
 	if (!str || !str[idx])
 		return (NULL);
-	tmp = ft_strdup("");
+	tmp = ft_strdup("", SCOPE_SESSION);
 	while (str[idx])
 	{
 		if (str[idx] == '$' && str[idx + 1] == '?')
@@ -77,7 +77,7 @@ void	expander(char **string, t_minishell *minishell)
 	int		i;
 
 	i = 0;
-	expanded = ft_strdup("");
+	expanded = ft_strdup("", SCOPE_SESSION);
 	while ((*string)[i])
 	{
 		if ((*string)[i] == '$' && (*string)[i + 1] == '?')

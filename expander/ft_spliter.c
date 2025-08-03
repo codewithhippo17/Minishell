@@ -19,7 +19,7 @@ static t_token	*fill_splited(char *snip, t_join join)
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
-	token->value = ft_strdup(snip);
+	token->value = ft_strdup(snip, SCOPE_SESSION);
 	token->join = join;
 	token->hd = NULL;
 	if (ft_memcmp(snip, " ", 1) == 0)
