@@ -26,13 +26,11 @@ char	*ft_random(void)
 	charset = "r8f5b6h46scw9";
 	random_fd = open("/dev/urandom", O_RDONLY);
 	if (random_fd < 0)
-		return (perror("open /dev/urandom"), NULL);
+		return (perror("open"), NULL);
 	if (read(random_fd, buffer, LEN_RANDOM) != LEN_RANDOM)
-		return (perror("read /dev/urandom"), NULL);
+		return (perror("read"), close(random_fd), NULL);
 	close(random_fd);
-	filename = malloc(LEN_RANDOM + 1);
-	if (!filename)
-		return (perror("malloc"), NULL);
+	filename = my_alloc(LEN_RANDOM + 1, SCOPE_TEMP);
 	while (i < LEN_RANDOM)
 	{
 		filename[i] = charset[buffer[i] % sizeof(charset)];

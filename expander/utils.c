@@ -61,7 +61,7 @@ char	*get_varname(char *str, int *i)
 	len = get_var_len(&str[1]);
 	if (len == 0)
 		return (NULL);
-	varname = malloc(len + 1);
+	varname = my_alloc(len + 1, SCOPE_TEMP);
 	if (!varname)
 		return (NULL);
 	ft_strlcpy(varname, &str[1], len + 1);
@@ -73,9 +73,7 @@ t_token	*fill_empty_splited(void)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
+	token = my_alloc(sizeof(t_token), SCOPE_SESSION);
 	token->join = NJ;
 	token->ambg = AMBG;
 	token->hd = NULL;

@@ -16,9 +16,7 @@ t_red	*red(int fd, t_flag type, t_ambg ambg, char *path)
 {
 	t_red	*red;
 
-	red = malloc(sizeof(t_red));
-	if (!red)
-		return (NULL);
+	red = my_alloc(sizeof(t_red), SCOPE_SESSION);
 	red->fd = fd;
 	red->path = path;
 	red->type = type;

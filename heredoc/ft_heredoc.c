@@ -11,21 +11,26 @@
 /* ************************************************************************** */
 
 #include "../includes/heredoc.h"
+#include <stdlib.h>
 
-int ft_heredoc(t_token *token, char *del, t_quote quote,
-		t_minishell *minishell)
+int	ft_heredoc(t_token *token, char *del, t_quote quote, t_minishell *minishell)
 {
 	t_heredoc	*hd;
+	char		*r;
 
 	hd = init_heredoc();
+	r = ft_random();
+	if (!r)
+		return (collector_cleanup(SCOPE_SESSION), collector_cleanup(SCOPE_TEMP),
+			1);
 	hd->del = del;
 	hd->quote = quote;
-	hd->filename = ft_strjoin("/tmp/heredoc", ft_random());
-    if (heredoc(hd, minishell) == 1)
-    {
-        return 1;
-    }
-    token->hd = hd;
+	hd->filename = ft_strjoin("/tmp/heredoc", r, SCOPE_SESSION);
+	if (heredoc(hd, minishell) == 1)
+	{
+		return (1);
+	}
+	token->hd = hd;
 	token->type = HEREDOC;
 	if (token->next->type == WORD)
 		token->next = token->next->next;
@@ -33,5 +38,5 @@ int ft_heredoc(t_token *token, char *del, t_quote quote,
 	{
 		token->next = token->next->next->next;
 	}
-    return (0);
+	return (0);
 }

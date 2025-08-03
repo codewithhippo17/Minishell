@@ -13,14 +13,16 @@
 #ifndef GBCOL_H
 # define GBCOL_H
 
-#include "../includes/types.h"
+# include "../includes/types.h"
 
-void collector_init_shell(t_minishell *shell);
-void collectr_cleanup(t_mem_scope scope);
-void collector_register(void *ptr, t_mem_scope scope);
-void *my_alloc(size_t size, t_mem_scope scope);
-void	append_collected(t_collect **head, t_collect **tail, t_collect *new_col);
+void	collector_init_shell(t_minishell *shell, char **env);
+void	collector_cleanup(t_mem_scope scope);
+void	collector_register(void *ptr, t_mem_scope scope);
+void	*my_alloc(size_t size, t_mem_scope scope);
+void	append_collected(t_collect **head, t_collect **tail,
+			t_collect *new_col);
 void	delete_collected(t_collect **head, t_collect *prev,
-		t_collect **to_delete);
+			t_collect **to_delete);
+void	cleanup_exit(int exit_code);
 
 #endif

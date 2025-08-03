@@ -53,7 +53,7 @@ char	*char_to_str(char c)
 {
 	char	*str;
 
-	str = malloc(2);
+	str = my_alloc(2, SCOPE_TEMP);
 	if (!str)
 		return (NULL);
 	str[0] = c;
@@ -65,8 +65,8 @@ t_token	*fill_var_token(char *varname)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
-	token->value = varname;
+	token = my_alloc(sizeof(t_token), SCOPE_SESSION);
+	token->value = ft_strdup(varname, SCOPE_SESSION);
 	token->type = WORD;
 	token->quote = NQS;
 	token->ambg = OBV;
@@ -81,9 +81,7 @@ t_splited	*init_inner(void)
 {
 	t_splited	*splited;
 
-	splited = malloc(sizeof(t_splited));
-	if (!splited)
-		return (NULL);
+	splited = my_alloc(sizeof(t_splited), SCOPE_SESSION);
 	splited->split = NULL;
 	splited->head = NULL;
 	splited->tail = NULL;

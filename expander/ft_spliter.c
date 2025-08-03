@@ -16,9 +16,7 @@ static t_token	*fill_splited(char *snip, t_join join)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
+	token = my_alloc(sizeof(t_token), SCOPE_SESSION);
 	token->value = ft_strdup(snip, SCOPE_SESSION);
 	token->join = join;
 	token->hd = NULL;
@@ -61,7 +59,7 @@ static t_splited	*init_splited(char *word)
 	if (!sp)
 		return (NULL);
 	sp->len = 0;
-	sp->split = ft_split(word, ' ');
+	sp->split = ft_split(word, ' ', SCOPE_TEMP);
 	sp->len = ft_len_split(sp->split);
 	sp->head = NULL;
 	sp->tail = NULL;

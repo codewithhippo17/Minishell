@@ -69,7 +69,7 @@ int		is_piped(char *input);
 //------------------ºº./minishell_set_envºº------------//
 int		is_var(char *str);
 char	**set_env_utils(char **env);
-int		set_env(t_minishell *minishell, char **env);
+void set_env(t_minishell *minishell, char **env);
 void print_script(t_script *script);
 
 // -----------------ººPIPEXºº------------------ //

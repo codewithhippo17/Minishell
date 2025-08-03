@@ -22,7 +22,8 @@ void	ft_join_tokens(t_token **token)
 		if (current->next && (current->join == J || current->join == JR)
 			&& (current->next->join == J || current->next->join == JL))
 		{
-			current->value = ft_strjoin(current->value, current->next->value);
+			current->value = ft_strjoin(current->value, current->next->value,
+					SCOPE_SESSION);
 			current->join = current->next->join;
 			if (current->next->next != NULL)
 				current->next->next->prev = current;

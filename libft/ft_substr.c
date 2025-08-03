@@ -12,7 +12,8 @@
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len,
+		t_mem_scope scope)
 {
 	size_t	actual_len;
 	char	*st;
@@ -21,10 +22,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	actual_len = ft_strlen(s);
 	if (start >= actual_len)
-		return (ft_calloc(1, sizeof(char)));
+		return (ft_calloc(1, sizeof(char), scope));
 	if (start + len > actual_len)
 		len = actual_len - start;
-	st = ft_calloc(len + 1, sizeof(char));
+	st = ft_calloc(len + 1, sizeof(char), scope);
 	if (!st)
 		return (NULL);
 	ft_strlcpy(st, s + start, len + 1);

@@ -32,7 +32,7 @@ t_script	*init_script(t_token *cmd, t_red *red)
 {
 	t_script	*script;
 
-	script = malloc(sizeof(t_script));
+	script = my_alloc(sizeof(t_script), SCOPE_SESSION);
 	script->red = red;
 	script->cmd_head = cmd;
 	script->cmd_args = NULL;
@@ -48,16 +48,13 @@ t_script	*ft_parrsing(t_minishell *minishell)
 	t_script	*script_head;
 	t_script	*script_tail;
 	t_red		*red;
-    int synx;
 
-    synx = 0;
 	script_head = NULL;
 	script_tail = NULL;
 	tokens = lexer(minishell->input);
-	synx = checker(&tokens, minishell);
-	if (synx)
+	if (checker(&tokens, minishell))
 	{
-		if (g_received_signal == SIGNAL_SIGINT)
+		if (g_received_signal == SIGNAL_SIGINT) // TODO: remove this line later
 			g_received_signal = SIGNAL_NONE;
 	    return (NULL);
 	}

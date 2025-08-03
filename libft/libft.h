@@ -15,11 +15,11 @@
 
 // Includes-----
 
+# include "../includes/gbcol.h"
+# include "../includes/types.h"
 # include <stddef.h> // For size_t
 # include <stdlib.h> // For ft_atoi
 # include <unistd.h> // For Write
-# include "../includes/gbcol.h"
-# include "../includes/types.h"
 
 // Part 1 - Libc functions-----
 
@@ -48,12 +48,14 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 int		ft_atoi(const char *str);
 void	*ft_calloc(size_t nmemb, size_t size, t_mem_scope scope);
-char	*ft_strdup(const char *s, t_mem_scope scope);;
+char	*ft_strdup(const char *s, t_mem_scope scope);
+;
 char	*ft_strndup(char *s, int len, t_mem_scope scope);
 
 //  Part 2 - Additional functions-----
 
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_substr(char const *s, unsigned int start, size_t len,
+			t_mem_scope scope);
 char	*ft_strjoin(char const *s1, char const *s2, t_mem_scope scope);
 char	*ft_join(char *s1, char *s2);
 char	*ft_strtrim(char const *s1, char const *set);

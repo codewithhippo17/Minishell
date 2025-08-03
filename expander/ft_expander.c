@@ -21,20 +21,20 @@ t_token	*nonvar_parser(char *str, int *i, t_minishell *minishell)
 	idx = 0;
 	if (!str || !str[idx])
 		return (NULL);
-	tmp = ft_strdup("", SCOPE_SESSION);
+	tmp = ft_strdup("", SCOPE_TEMP);
 	while (str[idx])
 	{
 		if (str[idx] == '$' && str[idx + 1] == '?')
 		{
-			tmp = ft_strjoin(tmp, ft_itoa(minishell->status));
+			tmp = ft_strjoin(tmp, ft_itoa(minishell->status), SCOPE_TEMP);
 			idx += 2;
 		}
 		else if (str[idx] == '$' && str[idx + 1] && !is_var_start(str[idx + 1]))
-			tmp = ft_strjoin(tmp, char_to_str(str[idx++]));
+			tmp = ft_strjoin(tmp, char_to_str(str[idx++]), SCOPE_TEMP);
 		else if (str[idx] == '$' && !str[idx + 1])
-			tmp = ft_strjoin(tmp, char_to_str(str[idx++]));
+			tmp = ft_strjoin(tmp, char_to_str(str[idx++]), SCOPE_TEMP);
 		else if (str[idx] && str[idx] != '$')
-			tmp = ft_strjoin(tmp, char_to_str(str[idx++]));
+			tmp = ft_strjoin(tmp, char_to_str(str[idx++]), SCOPE_TEMP);
 		else
 			break ;
 	}
@@ -77,23 +77,25 @@ void	expander(char **string, t_minishell *minishell)
 	int		i;
 
 	i = 0;
-	expanded = ft_strdup("", SCOPE_SESSION);
+	expanded = ft_strdup("", SCOPE_TEMP);
 	while ((*string)[i])
 	{
 		if ((*string)[i] == '$' && (*string)[i + 1] == '?')
 		{
-			expanded = ft_strjoin(expanded, ft_itoa(minishell->status));
+			expanded = ft_strjoin(expanded, ft_itoa(minishell->status),
+					SCOPE_TEMP);
 			i += 2;
 		}
 		else if ((*string)[i] == '$' && is_var_start((*string)[i + 1]))
 		{
 			expanded = ft_strjoin(expanded, my_getenv(get_varname(&(*string)[i],
-							&i), minishell->s_env));
+							&i), minishell->s_env), SCOPE_TEMP);
 		}
 		else
-			expanded = ft_strjoin(expanded, char_to_str((*string)[i++]));
+			expanded = ft_strjoin(expanded, char_to_str((*string)[i++]),
+					SCOPE_TEMP);
 	}
-	*string = expanded;
+	*string = ft_strdup(expanded, SCOPE_SESSION);
 }
 
 void	ft_expander(t_token **token, t_minishell *minishell)
@@ -102,9 +104,9 @@ void	ft_expander(t_token **token, t_minishell *minishell)
 	t_splited	*splited;
 	int			idx;
 
-	idx = 0;
+	idx = -1;
 	c = *token;
-	while (c)
+	while (c && ++idx)
 	{
 		if (c->type != WORD)
 			c->join = NONE;
@@ -120,7 +122,7 @@ void	ft_expander(t_token **token, t_minishell *minishell)
 			splited = ft_exspliter(token, c->value, idx, minishell);
 			insert_token(token, c, splited);
 		}
-		idx++;
 		c = c->next;
 	}
+	collector_cleanup(SCOPE_TEMP);
 }
