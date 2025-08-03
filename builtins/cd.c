@@ -77,7 +77,7 @@ int	update_env(t_minishell *minishell)
 		return (1);
 	update_old_pwd(&(minishell->m_env), "OLDPWD", prev_dir);
 	update_old_pwd(&(minishell->s_env), "OLDPWD", prev_dir);
-	getcwd(current_dir, sizeof(current_dir));
+	if (!getcwd(current_dir, sizeof(current_dir)))
 		return (perror("getcwd"), 1);
 	pwd = ft_strjoin("PWD=", current_dir, SCOPE_TEMP);
 	update_old_pwd(&(minishell->m_env), "PWD", pwd);
