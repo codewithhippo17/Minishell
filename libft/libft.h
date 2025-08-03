@@ -47,17 +47,17 @@ void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 int		ft_atoi(const char *str);
-void	*ft_calloc(size_t nmemb, size_t size);
+void	*ft_calloc(size_t nmemb, size_t size, t_mem_scope scope);
 char	*ft_strdup(const char *s, t_mem_scope scope);;
 char	*ft_strndup(char *s, int len, t_mem_scope scope);
 
 //  Part 2 - Additional functions-----
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char const *s1, char const *s2, t_mem_scope scope);
 char	*ft_join(char *s1, char *s2);
 char	*ft_strtrim(char const *s1, char const *set);
-char	**ft_split(char const *s, char c);
+char	**ft_split(char const *s, char c, t_mem_scope scope);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));

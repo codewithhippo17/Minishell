@@ -31,9 +31,9 @@ static size_t	count_tokens(char const *s, char c)
 	return (tokens);
 }
 
-static int	safe_malloc(char **ns, int i, size_t l_token)
+static int	safe_malloc(char **ns, int i, size_t l_token, t_mem_scope scope)
 {
-	ns[i] = malloc((l_token + 1) * sizeof(char));
+	ns[i] = my_alloc((l_token + 1) * sizeof(char), scope);
 	if (!ns[i])
 	{
 		while (i > 0)
@@ -44,7 +44,7 @@ static int	safe_malloc(char **ns, int i, size_t l_token)
 	return (0);
 }
 
-static int	fill_ns(char **ns, char const *s, char c)
+static int	fill_ns(char **ns, char const *s, char c, t_mem_scope scope)
 {
 	int		i;
 	size_t	l_token;
@@ -62,7 +62,7 @@ static int	fill_ns(char **ns, char const *s, char c)
 		}
 		if (l_token)
 		{
-			if (safe_malloc(ns, i, l_token))
+			if (safe_malloc(ns, i, l_token, scope))
 				return (1);
 			ft_strlcpy(ns[i], s - l_token, l_token + 1);
 			i++;
@@ -71,7 +71,7 @@ static int	fill_ns(char **ns, char const *s, char c)
 	return (0);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c, t_mem_scope scope)
 {
 	size_t	tokens;
 	char	**ns;
@@ -79,11 +79,11 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	tokens = count_tokens(s, c);
-	ns = malloc((tokens + 1) * sizeof(char *));
+	ns = (char **)my_alloc((tokens + 1) * sizeof(char *), scope);
 	if (!ns)
 		return (NULL);
 	ns[tokens] = NULL;
-	if (fill_ns(ns, s, c))
+	if (fill_ns(ns, s, c, scope))
 		return (NULL);
 	return (ns);
 }
