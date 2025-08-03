@@ -23,16 +23,16 @@ char	*error_managment(t_minishell *minishell, char **args)
 	{
 		stat(args[0], &stats);
 		if (access(args[0], F_OK) == -1)
-			printerror(minishell, args, ": No such file or directory\n", 127);
+			printerror(args, ": No such file or directory\n", 127);
 		else if (S_ISDIR(stats.st_mode))
-			printerror(minishell, args, ": Is a directory\n", 126);
-		path = ft_strdup(args[0]);
+			printerror(args, ": Is a directory\n", 126);
+		path = ft_strdup(args[0], SCOPE_SESSION);
 	}
 	else
 	{
 		path = get_path(args[0], minishell->m_env);
 		if (!path)
-			printerror(minishell, args, ": command not found\n", 127);
+			printerror(args, ": command not found\n", 127);
 	}
 	return (path);
 }
@@ -43,8 +43,7 @@ static void	extrenal_cmds(t_minishell *minishell, char **args)
 
 	path = error_managment(minishell, args);
 	execve(path, args, minishell->m_env);
-	free(path);
-	printerror(minishell, args, ": Permission denied\n", 126);
+	printerror(args, ": Permission denied\n", 126);
 }
 
 static void	child_pr_all(t_minishell *minishell, t_script *script)
@@ -74,13 +73,15 @@ int	pipex(int ac, t_minishell *minishell)
 
 	int(p), (i), (fd[2]);
 	(1) && (p = -1, i = -1);
-	pids = malloc(sizeof(int) * ac);
+	pids = my_alloc(sizeof(int) * ac, SCOPE_SESSION);
 	curent = minishell->script;
 	while (curent)
 	{
 		if (curent->next_cmd && pipe(fd) == -1)
 			ft_perror("pipe", 1);
 		pids[++i] = fork();
+        if (pids[i] == -1)
+            return (collector_cleanup(SCOPE_SESSION), perror("fork"), 1);
 		if (pids[i] == 0)
 		{
 			/*  * NOTE: here signals logic

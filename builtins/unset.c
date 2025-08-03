@@ -26,30 +26,18 @@ char	**rm_var(char *var, char **env)
 	l = 0;
 	while (env[l])
 		l++;
-	new_env = malloc((l) * sizeof(char *));
-	if (!new_env)
-		return (NULL);
+	new_env = my_alloc((l) * sizeof(char *), SCOPE_SHELL);
 	while (env[j])
 	{
-		split = ft_split(env[j], '=');
-		if (!split)
-			return (NULL);
+		split = ft_split(env[j], '=', SCOPE_TEMP);
 		if (ft_strcmp(split[0], var) != 0)
 		{
-			new_env[i] = ft_strdup(env[j]);
-			if (!new_env[i])
-			{
-				free_strings(split);
-				free_strings(new_env);
-				return (env);
-			}
+			new_env[i] = ft_strdup(env[j], SCOPE_SHELL);
 			i++;
 		}
-		free_strings(split);
 		j++;
 	}
 	new_env[i] = NULL;
-	free_strings(env);
 	return (new_env);
 }
 
@@ -61,15 +49,11 @@ int	if_ixist(char *var, char **env)
 	i = 0;
 	while (env[i])
 	{
-		split = ft_split(env[i], '=');
-		if (!split)
-			return (0);
+		split = ft_split(env[i], '=', SCOPE_TEMP);
 		if (ft_strncmp(split[0], var, ft_strlen(split[0])) == 0)
 		{
-			free_strings(split);
 			return (1);
 		}
-		free_strings(split);
 		i++;
 	}
 	return (0);
@@ -85,5 +69,6 @@ int	unset_env(char *var, char ***env)
 	if (!(tmp))
 		return (1);
 	*env = tmp;
+    collector_cleanup(SCOPE_TEMP);
 	return (0);
 }

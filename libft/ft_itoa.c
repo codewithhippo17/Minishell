@@ -40,7 +40,7 @@ char	*ft_itoa(int n)
 
 	nbr = n;
 	len = len_nbr(n);
-	alpha = ft_calloc((len + 1), sizeof(char));
+	alpha = ft_calloc((len + 1), sizeof(char), SCOPE_TEMP);
 	if (!alpha)
 		return (NULL);
 	alpha[len] = '\0';

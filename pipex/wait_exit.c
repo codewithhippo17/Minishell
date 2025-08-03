@@ -18,14 +18,12 @@ void	ft_perror(char *str, int ex_st)
 	exit(ex_st);
 }
 
-void	printerror(t_minishell *minishell, char **args, char *err,
-		int exinum)
+void	printerror(char **args, char *err, int exinum)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(args[0], 2);
 	ft_putstr_fd(err, 2);
-	free_strings(minishell->script->cmd_args);
-	free_exit_minishell(minishell, exinum);
+    cleanup_exit(exinum);
 }
 
 int	wait_for_children(int *pid, int ac)
@@ -40,6 +38,9 @@ int	wait_for_children(int *pid, int ac)
 	while (i < ac)
 	{
 		waitpid(pid[i], &status, 0);
+        /*
+         * TODO: capture sigs
+         * */
 		if (WIFEXITED(status))
 			exit_status = WEXITSTATUS(status);
 		i++;

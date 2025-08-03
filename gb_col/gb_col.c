@@ -17,18 +17,17 @@ static t_minishell	*g_minishell = NULL;
 static t_collect	*g_head = NULL;
 static t_collect	*g_tail = NULL;
 
-void	collector_init_shell(t_minishell *shell, char **env)
+void	collector_init_shell(t_minishell **shell, char **env)
 {
-	shell = my_alloc(sizeof(t_minishell), SCOPE_SHELL);
-	if (!shell)
+	*shell = my_alloc(sizeof(t_minishell), SCOPE_SHELL);
+	if (!(*shell))
 	{
 		perror("malloc:");
 		exit(1);
 	}
-	set_env(shell, env);
-	shell->status = 0;
-	shell->input = NULL;
-	g_minishell = shell;
+	set_env((*shell), env);
+	(*shell)->status = 0;
+	g_minishell = *shell;
 	g_minishell->collect = g_head;
 }
 

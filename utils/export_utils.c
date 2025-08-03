@@ -61,9 +61,7 @@ int	print_sorted_env(char **env, int i, int j)
 	while (env[++i])
 	{
 		j = 0;
-		split = ft_split(env[i], '=');
-		if (!split)
-			return (1);
+		split = ft_split(env[i], '=', SCOPE_TEMP);
 		if (ft_strchr(env[i], '=') && ft_strcmp(split[0], "_"))
 		{
 			printf("declare -x %s=\"", split[0]);
@@ -77,7 +75,7 @@ int	print_sorted_env(char **env, int i, int j)
 		}
 		else if (ft_strcmp(split[0], "_"))
 			printf("declare -x %s\n", env[i]);
-		free_strings(split);
+        collector_cleanup(SCOPE_TEMP);
 		split = NULL;
 	}
 	return (0);

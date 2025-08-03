@@ -11,20 +11,35 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "includes/gbcol.h"
 #include "includes/types.h"
-#include <stdlib.h>
+
+
+void dispatch(t_minishell *minishell)
+{
+    minishell->script = ft_parrsing(minishell);
+	if (!minishell->script)
+    {
+        free(minishell->input);
+        return ;
+    }
+    extract_args(minishell);
+    handle_command(minishell);
+    free(minishell->input);
+}
 
 int	main(int argc, char *argv[], char **env)
 {
 	t_minishell	*minishell;
 
+    minishell = NULL;
 	setup_shell_signals();
-    collector_init_shell(minishell, env);
+    collector_init_shell(&minishell, env);
 	while (argc == 1 && argv)
 	{
 		minishell->input = readline("minishell$ ");
 		if (minishell->input == NULL)
-		    collector_cleanup(SCOPE_SHELL);
+            cleanup_exit(0);
 		if (g_received_signal == SIGNAL_SIGINT)
 		{
 			g_received_signal = SIGNAL_NONE;
@@ -36,17 +51,10 @@ int	main(int argc, char *argv[], char **env)
 			continue ;
 		}
 		add_history(minishell->input);
-		minishell->script = ft_parrsing(minishell);
-		if (!minishell->script)
-            continue;
-        extract_args(minishell);
-		if (minishell->script)
-			handle_command(minishell);
-		free(minishell->input);
-	}
-	restore_shell_signals();
-	free(minishell);
-	return (EXIT_SUCCESS);
+        dispatch(minishell);
+    }
+  	restore_shell_signals();
+    cleanup_exit(0);
 }
 
 /* 		print_script(minishell->script);

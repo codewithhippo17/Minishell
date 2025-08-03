@@ -20,19 +20,15 @@ int	find_variable(char *var, char **env, int *pos)
 
 	i = 0;
 	found = 0;
-	splited_var = ft_split(var, '=');
-	if (!splited_var)
-		return (printf("Memory allocation failed\n"), 1);
+	splited_var = ft_split(var, '=', SCOPE_TEMP);
 	while (env[i])
 	{
-		splited_env = ft_split(env[i], '=');
+		splited_env = ft_split(env[i], '=', SCOPE_TEMP);
 		if (ft_strcmp(splited_env[0], splited_var[0]) == 0)
 		{
-			free_strings(splited_env);
 			found = 1;
 			break ;
 		}
-		free_strings(splited_env);
 		splited_env = NULL;
 		i++;
 	}
@@ -46,17 +42,8 @@ char	**add_variable(char **env, const char *new_var, int current_size)
 
 	new_env = ft_realloc(env, ((current_size + 1) * sizeof(char *)),
 			(current_size + 2) * sizeof(char *));
-	if (!new_env)
-	{
-		ft_putstr_fd("Memory allocation failed\n", 2);
-		return (env);
-	}
-	new_env[current_size] = ft_strdup(new_var);
-	if (!new_env[current_size])
-	{
-		ft_putstr_fd("Memory allocation failed\n", 2);
-		return (env);
-	}
+    collector_register(new_env, SCOPE_SHELL);
+	new_env[current_size] = ft_strdup(new_var, SCOPE_SHELL);
 	new_env[current_size + 1] = NULL;
 	return (new_env);
 }
@@ -65,11 +52,7 @@ int	update_variable(char *var, char **env, int found)
 {
 	if (ft_strchr(var, '='))
 	{
-		if (env[found] != NULL)
-			free(env[found]);
-		env[found] = ft_strdup(var);
-		if (!env[found])
-			return (1);
+		env[found] = ft_strdup(var, SCOPE_SHELL);
 	}
 	return (0);
 }
@@ -90,8 +73,8 @@ int	exports(char *var, char ***env)
 	}
 	else
 	{
-		if (update_variable(var, *env, pos))
-			return (1);
+		update_variable(var, *env, pos);
 	}
+    collector_cleanup(SCOPE_TEMP);
 	return (0);
 }

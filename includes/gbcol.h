@@ -15,7 +15,7 @@
 
 # include "../includes/types.h"
 
-void	collector_init_shell(t_minishell *shell, char **env);
+void	collector_init_shell(t_minishell **shell, char **env);
 void	collector_cleanup(t_mem_scope scope);
 void	collector_register(void *ptr, t_mem_scope scope);
 void	*my_alloc(size_t size, t_mem_scope scope);

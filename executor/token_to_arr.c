@@ -38,9 +38,7 @@ char	**token_to_arr(t_token *token)
 	i = 0;
 	current = token;
 	l = ft_structlen(token);
-	cmd = malloc((l + 1) * (sizeof(char *)));
-	if (!cmd)
-		return (NULL);
+	cmd = my_alloc((l + 1) * (sizeof(char *)), SCOPE_SESSION);
 	while (current)
 	{
 		if (current->value)
