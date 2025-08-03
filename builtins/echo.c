@@ -33,15 +33,15 @@ int	chek_flag(char *flag)
 
 int	echo(char **s)
 {
-	int		i;
+	int	i;
 
 	i = 1;
-  if (!s[i])
-  {
-    printf("\n");
-    return (0);
-  }
-  while (s[i] && chek_flag(s[i]))
+	if (!s[i])
+	{
+		printf("\n");
+		return (0);
+	}
+	while (s[i] && chek_flag(s[i]))
 		i++;
 	while (s[i])
 	{

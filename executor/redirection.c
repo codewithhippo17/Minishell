@@ -6,39 +6,39 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 09:56:33 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/31 04:37:48 by marvin           ###   ########.fr       */
+/*   Updated: 2025/08/02 16:47:32 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <sys/types.h>
 
-int	save_fds(t_red *red)
+int	save_fds(t_script *script)
 {
-	if (!red)
+	if (!script)
 		return (1);
-	red->saved_stdin = dup(0);
-	red->saved_stdout = dup(1);
-	if (red->saved_stdin == -1 || red->saved_stdout == -1)
+	script->saved_stdin = dup(0);
+	script->saved_stdout = dup(1);
+	if (script->saved_stdin == -1 || script->saved_stdout == -1)
 		return (1);
 	return (0);
 }
 
-int	restore_fds(t_red *red)
+int	restore_fds(t_script *script)
 {
-	if (!red)
+	if (!script)
 		return (1);
-	if (red->saved_stdin != -1)
+	if (script->saved_stdin != -1)
 	{
-		dup2(red->saved_stdin, 0);
-		close(red->saved_stdin);
-		red->saved_stdin = -1;
+		dup2(script->saved_stdin, 0);
+		close(script->saved_stdin);
+		script->saved_stdin = -1;
 	}
-	if (red->saved_stdout != -1)
+	if (script->saved_stdout != -1)
 	{
-		dup2(red->saved_stdout, 1);
-		close(red->saved_stdout);
-		red->saved_stdout = -1;
+		dup2(script->saved_stdout, 1);
+		close(script->saved_stdout);
+		script->saved_stdout = -1;
 	}
 	return (0);
 }
@@ -55,7 +55,7 @@ int	apply_redirection(t_red *red)
 		red->fd = open(red->path, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	if (red->fd == -1)
 	{
-		perror(strerror(errno));
+		perror(red->path);
 		return (1);
 	}
 	return (0);
@@ -76,24 +76,25 @@ int	redirect_io(t_red *red)
 	return (0);
 }
 
-int	redirection(t_red *red)
+int	redirection(t_script *script)
 {
 	t_red	*current;
 
-	current = red;
-
-	if (save_fds(red) == 1)
+	current = script->red;
+	script->saved_stdin = -1;
+	script->saved_stdout = -1;
+	if (save_fds(script) == 1)
 		return (1);
 	while (current)
 	{
 		if (apply_redirection(current))
 		{
-			restore_fds(current);
+			restore_fds(script);
 			return (1);
 		}
 		if (redirect_io(current))
 		{
-			restore_fds(current);
+			restore_fds(script);
 			return (1);
 		}
 		current = current->next;

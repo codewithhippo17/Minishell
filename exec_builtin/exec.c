@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: marvin <ybelghad@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/01 14:22:47 by marvin            #+#    #+#             */
-/*   Updated: 2025/08/01 14:22:47 by marvin           ###   ########.fr       */
+/*   Created: 2025/08/01 14:22:47 by ybelghad          #+#    #+#             */
+/*   Updated: 2025/08/02 16:47:21 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,20 @@ t_builtin_name	which_bultin(const char *cmd)
 typedef int			(*t_builtin_fn)(t_minishell *, t_script *);
 
 static t_builtin_fn	g_builtin_dispatch[] = {builtin_echo, builtin_cd,
-		builtin_pwd, builtin_env, builtin_export, builtin_unset, builtin_exit,
-		builtin_unknown};
+	builtin_pwd, builtin_env, builtin_export, builtin_unset, builtin_exit,
+	builtin_unknown};
 
 int	execute_builtin(t_minishell *minishell, t_script *script,
 		t_builtin_name name)
 {
 	if (script->red)
 	{
-		minishell->status = redirection(script->red);
+		minishell->status = redirection(script);
 		if (minishell->status)
 			return (1);
 	}
 	minishell->status = g_builtin_dispatch[name](minishell, script);
-	minishell->status = restore_fds(script->red);
+	if (script->red)
+		minishell->status = restore_fds(script);
 	return (minishell->status);
 }

@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 06:10:57 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/28 06:59:21 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/08/02 16:47:35 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	handle_command(t_minishell *minishell)
 		minishell->status = pipex(calcule_cmd(minishell->script), minishell);
 	else
 	{
-		minishell->status = redirection(minishell->script->red);
+		minishell->status = redirection(minishell->script);
 		if (minishell->status)
 			return ;
-		minishell->status = restore_fds(minishell->script->red);
+		minishell->status = restore_fds(minishell->script);
 		if (minishell->status)
 			return ;
 	}

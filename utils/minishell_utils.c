@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdio.h>
-#include <sys/stat.h>
-#include <unistd.h>
 
 char	*my_getenv(char *name, char **env)
 {

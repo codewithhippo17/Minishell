@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_swap_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/12 18:10:42 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/06/12 18:10:42 by ybelghad         ###   ########.fr       */
+/*   Created: 2025/08/02 18:31:44 by ybelghad          #+#    #+#             */
+/*   Updated: 2025/08/02 18:31:44 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int	envierment(char **m_env)
+void	ft_swap_str(char **s1, char **s2)
 {
-	int	i;
+	char	*temp;
 
-	i = 0;
-	while (m_env[i])
-	{
-		if (ft_strchr(m_env[i], '='))
-			printf("%s\n", m_env[i]);
-		i++;
-	}
-	return (0);
+	temp = *s1;
+	*s1 = *s2;
+	*s2 = temp;
 }
