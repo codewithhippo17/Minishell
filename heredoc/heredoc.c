@@ -75,6 +75,7 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 		if (run_heredoc_parent(hd) != 0)
 		{
 			setup_shell_signals();
+            ft_putstr_fd(HEREDOC_ERROR, 2);
             minishell->status = 130;
 			return (1);
 		}

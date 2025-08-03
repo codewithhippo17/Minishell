@@ -39,7 +39,9 @@ int	main(int argc, char *argv[], char **env)
 		}
 		add_history(minishell->input);
 		minishell->script = ft_parrsing(minishell);
-		extract_args(minishell);
+		if (!minishell->script)
+            continue;
+        extract_args(minishell);
 		if (minishell->script)
 			handle_command(minishell);
 		free(minishell->input);
