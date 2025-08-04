@@ -19,8 +19,10 @@ char	*ft_strdup(const char *s, t_mem_scope scope)
 
 	i = 0;
     if (!s)
+    {
         return (NULL);
-	tmp = (char *)my_alloc(ft_strlen(s) + 1, scope);
+    }
+    tmp = (char *)my_alloc(ft_strlen(s) + 1, scope);
 	while (s[i])
 	{
 		tmp[i] = s[i];

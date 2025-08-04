@@ -21,7 +21,7 @@ int	echo(char **s);
 int	cd(char **str, t_minishell *minishell);
 int	pwd(void);
 int	envierment(char **m_env);
-int	ft_my_exit(t_minishell *minishell);
+int	ft_my_exit(t_script *script);
 int	update_variable(char *s, char **env, int i);
 int	exports(char *var, char ***env);
 int	exec_export(t_minishell *minishell);

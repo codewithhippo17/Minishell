@@ -54,14 +54,14 @@ size_t	ft_atol(const char *str)
 	return (s * n);
 }
 
-int	ft_my_exit(t_minishell *minishell)
+int	ft_my_exit(t_script *script)
 {
 	size_t		i;
 	char	**str;
 
-	str = minishell->script->cmd_args;
-	if (minishell->script->cmd_args[1])
-		i = ft_atol(minishell->script->cmd_args[1]);
+	str = script->cmd_args;
+	if (script->cmd_args[1])
+		i = ft_atol(script->cmd_args[1]);
 	printf("exit\n");
 	if ((str[1] && !is_num(str[1])) || (i > LONG_MAX))
 	{
