@@ -11,7 +11,13 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <sys/types.h>
+
+void print_abg(t_red *red)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(red->path, 2);
+	ft_putstr_fd(": ambiguous redirect", 2);
+}
 
 int	save_fds(t_script *script)
 {
@@ -76,6 +82,7 @@ int	redirect_io(t_red *red)
 	return (0);
 }
 
+
 int	redirection(t_script *script)
 {
 	t_red	*current;
@@ -87,6 +94,12 @@ int	redirection(t_script *script)
 		return (1);
 	while (current)
 	{
+		if (current->ambg == AMBG)
+		{
+			restore_fds(script);
+			print_abg(current);
+			return (1);
+		}
 		if (apply_redirection(current))
 		{
 			restore_fds(script);
@@ -99,5 +112,6 @@ int	redirection(t_script *script)
 		}
 		current = current->next;
 	}
+
 	return (0);
 }

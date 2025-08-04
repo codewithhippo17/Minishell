@@ -34,7 +34,7 @@ void	handle_command(t_minishell *minishell)
 	name = which_bultin(*minishell->script->cmd_args);
 	if (name != UNKNOWN && !minishell->script->next_cmd)
 		execute_builtin(minishell, minishell->script, name);
-	else if (minishell->script->cmd_args)
+	else if (minishell->script->next_cmd)
 		minishell->status = pipex(calcule_cmd(minishell->script), minishell);
 	else
 	{
