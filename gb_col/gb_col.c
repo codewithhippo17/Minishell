@@ -28,27 +28,30 @@ void	collector_init_shell(t_minishell **shell, char **env)
 	set_env((*shell), env);
 	(*shell)->status = 0;
 	g_minishell = *shell;
-	g_minishell->collect = g_head;
 }
 
 void	collector_cleanup(t_mem_scope scope)
 {
 	t_collect	*prev;
 	t_collect	*curr;
+    t_collect   *next;
 
 	prev = NULL;
 	curr = g_head;
+    next = NULL;
 	while (curr)
 	{
+        curr = curr->next;
 		if (curr->scope == scope)
 		{
 			free(curr->ptr);
 			delete_collected(&g_head, prev, &curr);
+            curr = next;
 		}
 		else
 		{
 			prev = curr;
-			curr = curr->next;
+			curr = next;
 		}
 	}
 }

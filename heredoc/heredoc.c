@@ -61,7 +61,8 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 	if (hd->tmp_fd == -1)
 		return (1);
 	hd->fd = open(hd->filename, O_RDONLY, 0600);
-	return (1);
+	if (hd->tmp_fd == -1)
+        return (1);
 	unlink(hd->filename);
 	hd->pid = fork();
 	if (hd->pid < 0)
