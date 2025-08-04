@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
+#include <stdlib.h>
 
 int	find_variable(char *var, char **env, int *pos)
 {
@@ -36,17 +37,35 @@ int	find_variable(char *var, char **env, int *pos)
 	return (found);
 }
 
-char	**add_variable(char **env, const char *new_var, int current_size)
-{
-	char	**new_env;
+// char	**add_variable(char **env, const char *new_var, int current_size)
+// {
+// 	char	**new_env;
+//
+// 	new_env = ft_realloc(env, ((current_size + 1) * sizeof(char *)),
+// 			(current_size + 2) * sizeof(char *));
+//     collector_register(new_env, SCOPE_SHELL);
+// 	new_env[current_size] = ft_strdup(new_var, SCOPE_SHELL);
+// 	new_env[current_size + 1] = NULL;
+// 	return (new_env);
+// }
 
-	new_env = ft_realloc(env, ((current_size + 1) * sizeof(char *)),
-			(current_size + 2) * sizeof(char *));
-    collector_register(new_env, SCOPE_SHELL);
-	new_env[current_size] = ft_strdup(new_var, SCOPE_SHELL);
-	new_env[current_size + 1] = NULL;
+char **add_variable(char **env, const char *new_var, int current_size)
+{
+	int i;
+	char **new_env;
+
+	i = 0;
+	new_env = my_alloc((current_size + 2) * sizeof(char *), SCOPE_SHELL);
+	while (env[i]) 
+	{
+		new_env[i] = ft_strdup(env[i], SCOPE_SHELL);
+		i++;
+	}
+	new_env[i] = ft_strdup(new_var, SCOPE_SHELL);
+	new_env[i + 1] = NULL;
 	return (new_env);
 }
+
 
 int	update_variable(char *var, char **env, int found)
 {

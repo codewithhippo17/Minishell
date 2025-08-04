@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/08/02 04:28:16 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/04 08:40:10 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 # include "includes/ast.h"
 # include "includes/bultins.h"
 # include "includes/checker.h"
+# include "includes/executor.h"
 # include "includes/expand.h"
+# include "includes/gbcol.h"
 # include "includes/heredoc.h"
 # include "includes/kill.h"
 # include "includes/lexer.h"
 # include "includes/pipex.h"
 # include "includes/redirection.h"
-# include "includes/gbcol.h"
 # include "includes/signals.h"
-# include "includes/executor.h"
 # include "includes/types.h"
 # include "libft/libft.h"
 # include </usr/include/readline/history.h>
@@ -34,9 +34,9 @@
 # include <fcntl.h>
 # include <linux/limits.h>
 # include <readline/chardefs.h>
+# include <signal.h>
 # include <stddef.h>
 # include <stdio.h>
-# include <signal.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/stat.h>
@@ -49,7 +49,6 @@
 # define PIPE_ERROR3 "syntax error: command missing between pipes '|'\n"
 # define RED_ERROR "syntax error: redirection requires a filepath or heredoc delimiter\n"
 # define HEREDOC_ERROR "warning: heredoc canceled due to interruption\n"
-
 
 //-------------------ººbuild-in_cmdºº-----------//
 
@@ -69,8 +68,8 @@ int		is_piped(char *input);
 //------------------ºº./minishell_set_envºº------------//
 int		is_var(char *str);
 char	**set_env_utils(char **env);
-void set_env(t_minishell *minishell, char **env);
-void print_script(t_script *script);
+void	set_env(t_minishell *minishell, char **env);
+void	print_script(t_script *script);
 
 // -----------------ººPIPEXºº------------------ //
 int		pipex(int ac, t_minishell *mini);

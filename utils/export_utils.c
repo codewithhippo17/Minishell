@@ -75,9 +75,8 @@ int	print_sorted_env(char **env, int i, int j)
 		}
 		else if (ft_strcmp(split[0], "_"))
 			printf("declare -x %s\n", env[i]);
-        collector_cleanup(SCOPE_TEMP);
-		split = NULL;
 	}
+	collector_cleanup(SCOPE_TEMP);
 	return (0);
 }
 
