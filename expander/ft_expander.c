@@ -104,9 +104,9 @@ void	ft_expander(t_token **token, t_minishell *minishell)
 	t_splited	*splited;
 	int			idx;
 
-	idx = -1;
+	idx = 0;
 	c = *token;
-	while (c && ++idx)
+	while (c)
 	{
 		if (c->type != WORD)
 			c->join = NONE;
@@ -122,6 +122,7 @@ void	ft_expander(t_token **token, t_minishell *minishell)
 			splited = ft_exspliter(token, c->value, idx, minishell);
 			insert_token(token, c, splited);
 		}
+        idx++;
 		c = c->next;
 	}
 	collector_cleanup(SCOPE_TEMP);
