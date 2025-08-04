@@ -38,19 +38,19 @@ int	echo(char **s)
 	i = 1;
 	if (!s[i])
 	{
-		printf("\n");
+		ft_putchar_fd('\n', 1);
 		return (0);
 	}
 	while (s[i] && chek_flag(s[i]))
 		i++;
 	while (s[i])
 	{
-		printf("%s", s[i]);
+		ft_putstr_fd(s[i], 1);
 		if (s[i + 1])
-			printf("%c", ' ');
+			ft_putchar_fd(' ', 1);
 		i++;
 	}
 	if (!chek_flag(s[1]))
-		printf("\n");
+		ft_putchar_fd('\n', 1);
 	return (0);
 }

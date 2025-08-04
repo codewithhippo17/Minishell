@@ -16,7 +16,7 @@ void print_abg(t_red *red)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(red->path, 2);
-	ft_putstr_fd(": ambiguous redirect", 2);
+	ft_putstr_fd(": ambiguous redirect\n", 2);
 }
 
 int	save_fds(t_script *script)
