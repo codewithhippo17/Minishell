@@ -30,8 +30,6 @@ static void	run_heredoc_child(t_heredoc *hd, t_minishell *minishell)
 	}
 	close(hd->tmp_fd);
 	close(hd->fd);
-	free(hd->filename);
-	free(hd->del);
 	cleanup_exit(0);
 }
 

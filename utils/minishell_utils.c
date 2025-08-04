@@ -17,8 +17,10 @@ char	*my_getenv(char *name, char **env)
 	int		i;
 	int		j;
 	char	*sub;
+	char	*result;
 
 	i = 0;
+    result = NULL;
 	while (env[i])
 	{
 		j = 0;
@@ -27,11 +29,13 @@ char	*my_getenv(char *name, char **env)
 		sub = ft_substr(env[i], 0, j, SCOPE_TEMP);
 		if (ft_strcmp(sub, name) == 0)
 		{
-			return (env[i] + j + 1);
+			result = ft_strdup(env[i] + j + 1, SCOPE_SESSION);
+			collector_cleanup(SCOPE_TEMP);
+			return (result);
 		}
 		i++;
 	}
-    collector_cleanup(SCOPE_TEMP);
+	collector_cleanup(SCOPE_TEMP);
 	return (NULL);
 }
 
@@ -41,6 +45,7 @@ char	*get_path(char *cmd, char **env)
 	char		*exec;
 	char		**allpath;
 	char		*path_part;
+	char		*result;
 	struct stat	stats;
 
 	i = -1;
@@ -54,9 +59,11 @@ char	*get_path(char *cmd, char **env)
 			stat(exec, &stats);
 			if (S_ISDIR(stats.st_mode))
 				continue ;
-			return (ft_strdup(exec, SCOPE_SESSION));
+			result = ft_strdup(exec, SCOPE_SESSION);
+			collector_cleanup(SCOPE_TEMP);
+			return (result);
 		}
-        collector_cleanup(SCOPE_TEMP);
 	}
+	collector_cleanup(SCOPE_TEMP);
 	return (NULL);
 }

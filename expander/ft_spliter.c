@@ -54,13 +54,23 @@ bool	is_all_space(char *word)
 static t_splited	*init_splited(char *word)
 {
 	t_splited	*sp;
-
-	sp = my_alloc(sizeof(t_splited), SCOPE_SESSION);
+    t_token     *new;
+	
+    new = my_alloc(sizeof(t_token), SCOPE_SESSION);
+    sp = my_alloc(sizeof(t_splited), SCOPE_SESSION);
 	sp->len = 0;
 	sp->split = ft_split(word, ' ', SCOPE_TEMP);
 	sp->len = ft_len_split(sp->split);
-	sp->head = NULL;
-	sp->tail = NULL;
+    if (!sp->split)
+    {
+        fill_token(&(new), NULL, ERROR, NQS);
+        sp->head = new;
+    }
+    else
+    {
+        sp->head = NULL;
+    }
+    sp->tail = NULL;
 	return (sp);
 }
 

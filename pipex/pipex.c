@@ -19,7 +19,7 @@ char	*error_managment(t_minishell *minishell, char **args)
 	char		*path;
 	struct stat	stats;
 
-	if (ft_strchr(args[0], '/'))
+	if (!args || !args[0] || ft_strchr(args[0], '/'))
 	{
 		stat(args[0], &stats);
 		if (access(args[0], F_OK) == -1)
@@ -84,7 +84,7 @@ int	pipex(int ac, t_minishell *minishell)
             return (collector_cleanup(SCOPE_SESSION), perror("fork"), 1);
 		if (pids[i] == 0)
 		{
-			/*  * NOTE: here signals logic
+			/*  * TODO: here signals logic
 				*/
 			setup_input(p);
 			setup_output(fd, i, ac);

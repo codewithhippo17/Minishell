@@ -14,8 +14,11 @@
 
 void	fill_token(t_token **token, char *value, t_flag flag, t_quote quote)
 {
-	(*token)->value = ft_strdup(value, SCOPE_SESSION);
-	(*token)->type = flag;
+    if (value)
+	    (*token)->value = ft_strdup(value, SCOPE_SESSION);
+    else
+        (*token)->value = NULL;
+    (*token)->type = flag;
 	(*token)->quote = quote;
 	(*token)->join = NJ;
 	(*token)->ambg = OBV;
