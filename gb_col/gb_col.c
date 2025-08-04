@@ -38,13 +38,14 @@ void	collector_cleanup(t_mem_scope scope)
 
 	prev = NULL;
 	curr = g_head;
-    next = NULL;
 	while (curr)
 	{
-        curr = curr->next;
+        next = curr->next;
 		if (curr->scope == scope)
 		{
 			free(curr->ptr);
+			if (curr == g_tail)
+				g_tail = prev;
 			delete_collected(&g_head, prev, &curr);
             curr = next;
 		}
@@ -58,11 +59,26 @@ void	collector_cleanup(t_mem_scope scope)
 
 void	cleanup_exit(int exit_code)
 {
-	collector_cleanup(0);
-	collector_cleanup(1);
-	collector_cleanup(2);
-	collector_cleanup(3);
-	free(g_minishell->input);
+	t_collect	*curr;
+	t_collect	*next;
+	char		*input_backup;
+
+	input_backup = NULL;
+	if (g_minishell && g_minishell->input)
+		input_backup = g_minishell->input;
+	collector_cleanup(SCOPE_TEMP);
+	collector_cleanup(SCOPE_SESSION);
+	collector_cleanup(SCOPE_CHILD);
+	collector_cleanup(SCOPE_SHELL);
+	curr = g_head;
+	while (curr)
+	{
+		next = curr->next;
+		free(curr);
+		curr = next;
+	}
+	if (input_backup)
+		free(input_backup);
 	exit(exit_code);
 }
 

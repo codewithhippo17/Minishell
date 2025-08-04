@@ -11,36 +11,36 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "includes/gbcol.h"
-#include "includes/types.h"
 
-
-void dispatch(t_minishell *minishell)
+void	dispatch(t_minishell *minishell)
 {
-    minishell->script = ft_parrsing(minishell);
-    print_script(minishell->script);
+	minishell->script = ft_parrsing(minishell);
+	print_script(minishell->script);
 	if (!minishell->script)
-    {
-        free(minishell->input);
-        return ;
-    }
-    extract_args(minishell);
-    handle_command(minishell);
-    free(minishell->input);
+	{
+		free(minishell->input);
+		return ;
+	}
+	collector_cleanup(SCOPE_TEMP);
+	extract_args(minishell);
+	handle_command(minishell);
+   	collector_cleanup(SCOPE_TEMP);
+	collector_cleanup(SCOPE_SESSION);
+	free(minishell->input);
 }
 
 int	main(int argc, char *argv[], char **env)
 {
 	t_minishell	*minishell;
 
-    minishell = NULL;
+	minishell = NULL;
 	setup_shell_signals();
-    collector_init_shell(&minishell, env);
+	collector_init_shell(&minishell, env);
 	while (argc == 1 && argv)
 	{
 		minishell->input = readline("minishell$ ");
 		if (minishell->input == NULL)
-            cleanup_exit(0);
+			cleanup_exit(0);
 		if (g_received_signal == SIGNAL_SIGINT)
 		{
 			g_received_signal = SIGNAL_NONE;
@@ -52,10 +52,10 @@ int	main(int argc, char *argv[], char **env)
 			continue ;
 		}
 		add_history(minishell->input);
-        dispatch(minishell);
-    }
-  	restore_shell_signals();
-    cleanup_exit(0);
+		dispatch(minishell);
+	}
+	restore_shell_signals();
+	cleanup_exit(0);
 }
 
 /* 		print_script(minishell->script);

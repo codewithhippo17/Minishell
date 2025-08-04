@@ -26,7 +26,7 @@ void	delete_collected(t_collect **head, t_collect *prev,
     {
         prev->next = tmp->next;
     }
-    *to_delete = (*to_delete)->next;
+    *to_delete = tmp->next;
     free(tmp);
 }
 

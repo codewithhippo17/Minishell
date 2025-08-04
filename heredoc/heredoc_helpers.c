@@ -16,9 +16,7 @@ t_heredoc	*init_heredoc(void)
 {
 	t_heredoc	*new;
 
-	new = malloc(sizeof(t_heredoc));
-	if (!new)
-		return (perror("malloc"), NULL);
+	new = my_alloc(sizeof(t_heredoc), SCOPE_SESSION);
 	new->fd = -1;
 	new->tmp_fd = -1;
 	new->filename = NULL;

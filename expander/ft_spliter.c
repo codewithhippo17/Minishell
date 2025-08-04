@@ -55,9 +55,7 @@ static t_splited	*init_splited(char *word)
 {
 	t_splited	*sp;
 
-	sp = malloc(sizeof(t_splited));
-	if (!sp)
-		return (NULL);
+	sp = my_alloc(sizeof(t_splited), SCOPE_SESSION);
 	sp->len = 0;
 	sp->split = ft_split(word, ' ', SCOPE_TEMP);
 	sp->len = ft_len_split(sp->split);
