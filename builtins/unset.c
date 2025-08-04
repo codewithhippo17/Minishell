@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdlib.h>
 
 char	**rm_var(char *var, char **env)
 {
@@ -19,7 +18,7 @@ char	**rm_var(char *var, char **env)
 	int		j;
 	int		l;
 	char	**new_env;
-	char	**split;
+	char	**temp;
 
 	i = 0;
 	j = 0;
@@ -29,8 +28,8 @@ char	**rm_var(char *var, char **env)
 	new_env = my_alloc((l) * sizeof(char *), SCOPE_SHELL);
 	while (env[j])
 	{
-		split = ft_split(env[j], '=', SCOPE_TEMP);
-		if (ft_strcmp(split[0], var) != 0)
+		temp = ft_split(env[j], '=', SCOPE_TEMP);
+		if (ft_strcmp(temp[0], var) != 0)
 		{
 			new_env[i] = ft_strdup(env[j], SCOPE_SHELL);
 			i++;
@@ -38,6 +37,7 @@ char	**rm_var(char *var, char **env)
 		j++;
 	}
 	new_env[i] = NULL;
+	collector_cleanup(SCOPE_TEMP);
 	return (new_env);
 }
 
@@ -69,6 +69,5 @@ int	unset_env(char *var, char ***env)
 	if (!(tmp))
 		return (1);
 	*env = tmp;
-    collector_cleanup(SCOPE_TEMP);
 	return (0);
 }
