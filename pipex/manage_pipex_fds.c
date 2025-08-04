@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
+#include <unistd.h>
 
 void	setup_input(int p)
 {
@@ -40,7 +41,12 @@ void	close_pr_fds(t_script *script, int *p, int *fd)
 		close(fd[1]);
 		*p = fd[0];
 	}
+    if (script->red && script->red->type == HEREDOC)
+    {
+        close(script->red->fd);
+    }
 	else
-		*p = -1;
+    {
+        *p = -1;
+    }
 }
-

@@ -80,5 +80,5 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 		}
 		setup_shell_signals();
 	}
-	return (minishell->status);
+	return (close(hd->tmp_fd), minishell->status);
 }

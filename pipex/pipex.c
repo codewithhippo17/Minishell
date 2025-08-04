@@ -14,7 +14,7 @@
 #include <readline/history.h>
 #include <stdlib.h>
 
-char	*error_managment(t_minishell *minishell, char **args)
+char	*error_managment(t_minishell *minishell, t_script *script, char **args)
 {
 	char		*path;
 	struct stat	stats;
@@ -23,27 +23,27 @@ char	*error_managment(t_minishell *minishell, char **args)
 	{
 		stat(args[0], &stats);
 		if (access(args[0], F_OK) == -1)
-			printerror(args, ": No such file or directory\n", 127);
+			printerror(script, args, ": No such file or directory\n", 127);
 		else if (S_ISDIR(stats.st_mode))
-			printerror(args, ": Is a directory\n", 126);
+			printerror(script, args, ": Is a directory\n", 126);
 		path = ft_strdup(args[0], SCOPE_SESSION);
 	}
 	else
 	{
 		path = get_path(args[0], minishell->m_env);
 		if (!path)
-			printerror(args, ": command not found\n", 127);
+			printerror(script, args, ": command not found\n", 127);
 	}
 	return (path);
 }
 
-static void	extrenal_cmds(t_minishell *minishell, char **args)
+static void	extrenal_cmds(t_minishell *minishell, t_script *script,  char **args)
 {
 	char	*path;
 
-	path = error_managment(minishell, args);
+	path = error_managment(minishell, script, args);
 	execve(path, args, minishell->m_env);
-	printerror(args, ": Permission denied\n", 126);
+	printerror(script, args, ": Permission denied\n", 126);
 }
 
 static void	child_pr_all(t_minishell *minishell, t_script *script)
@@ -54,15 +54,15 @@ static void	child_pr_all(t_minishell *minishell, t_script *script)
 	if (name != UNKNOWN)
 	{
 		execute_builtin(minishell, script, name);
-		exit(minishell->status);
+	    cleanup_exit(minishell->status);
 	}
 	else {
 		if (script->red)
 		{	
 		    if (redirection(script))
-			    exit(1);
+                cleanup_exit(1);
 		}
-		extrenal_cmds(minishell, script->cmd_args);
+		extrenal_cmds(minishell, script,  script->cmd_args);
 	}
 }
 

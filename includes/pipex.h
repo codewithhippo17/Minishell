@@ -16,13 +16,13 @@
 # include "./types.h"
 
 //--------------------°°manage_pipex_fds°°--------------//
-void		setup_input(int p);
-void		setup_output(int *fd, int i, int ac);
-void		close_pr_fds(t_script *script, int *p, int *fd);
+void	setup_input(int p);
+void	setup_output(int *fd, int i, int ac);
+void	close_pr_fds(t_script *script, int *p, int *fd);
 
 //------------------°°wait_exit°°-----------//
-void		ft_perror(char *str, int ex_st);
-void	printerror(char **args, char *err, int exinum);
-int			wait_for_children(int *pid, int ac);
+void	ft_perror(char *str, int ex_st);
+void	printerror(t_script *script, char **args, char *err, int exinum);
+int		wait_for_children(int *pid, int ac);
 
 #endif // !PIPEX_H

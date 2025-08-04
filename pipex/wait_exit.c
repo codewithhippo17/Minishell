@@ -18,11 +18,15 @@ void	ft_perror(char *str, int ex_st)
 	exit(ex_st);
 }
 
-void	printerror(char **args, char *err, int exinum)
+void	printerror(t_script *script, char **args, char *err, int exinum)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(args[0], 2);
 	ft_putstr_fd(err, 2);
+    if (script->red)
+    {
+        restore_fds(script);
+    }
     cleanup_exit(exinum);
 }
 
