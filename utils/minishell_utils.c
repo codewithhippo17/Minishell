@@ -35,7 +35,6 @@ char	*my_getenv(char *name, char **env)
 		}
 		i++;
 	}
-	collector_cleanup(SCOPE_TEMP);
 	return (NULL);
 }
 

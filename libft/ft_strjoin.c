@@ -21,13 +21,17 @@ char	*ft_strjoin(char const *s1, char const *s2, t_mem_scope scope)
 	i = 0;
 	j = 0;
 	res = (char *)my_alloc((ft_strlen(s1) + ft_strlen(s2) + 1), scope);
-	if (!res)
-		return (NULL);
-	while (s1 && s1[i])
-		res[j++] = s1[i++];
+	if (s1)
+	{
+		while (s1[i])
+			res[j++] = s1[i++];
+	}
 	i = 0;
-	while (s2 && s2[i])
-		res[j++] = s2[i++];
-	res[j] = '\0';
+    if (s2)
+    {
+        while (s2[i])
+            res[j++] = s2[i++];
+    }
+    res[j] = '\0';
 	return (res);
 }

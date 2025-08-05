@@ -114,7 +114,7 @@ void	ft_expander(t_token **token, t_minishell *minishell)
 			flag_join(c);
 		else if (!no_var(c->value) && c->quote == DQS)
 		{
-			expander(&c->value, minishell);
+			expander(&(c->value), minishell);
 			flag_join(c);
 		}
 		else if (!no_var(c->value))
