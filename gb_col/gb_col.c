@@ -88,7 +88,7 @@ void	collector_register(void *ptr, t_mem_scope scope)
 
 	collect = malloc(sizeof(t_collect));
 	if (!collect)
-		return ;
+        cleanup_exit(1);
 	collect->ptr = ptr;
 	collect->scope = scope;
 	collect->next = NULL;
