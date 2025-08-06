@@ -20,7 +20,10 @@ int	envierment(char **m_env)
 	while (m_env[i])
 	{
 		if (ft_strchr(m_env[i], '='))
+		{
 			ft_putstr_fd(m_env[i], 1);
+			ft_putchar_fd('\n', 1);
+		}
 		i++;
 	}
 	return (0);
