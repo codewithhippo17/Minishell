@@ -63,14 +63,16 @@ static t_splited	*init_splited(char *word)
 	sp->len = ft_len_split(sp->split);
     if (!sp->split)
     {
-        fill_token(&(new), NULL, ERROR, NQS);
+        fill_token(&(new), NULL, WORD, NQS);
         new->join = J;
+        new->ambg = AMBG;
         sp->head = new;
     }
     else if (word && word[0] == '\0')
     {
         fill_token(&(new), "", WORD, NQS);
         new->join = J;
+        new->ambg = AMBG;
         sp->head = new;
 
     }

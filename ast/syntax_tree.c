@@ -58,7 +58,9 @@ t_script	*ft_parrsing(t_minishell *minishell)
 			g_received_signal = SIGNAL_NONE;
 	    return (NULL);
 	}
+    print_tokens(tokens, 0);
     ft_expander(&tokens, minishell);
+    print_tokens(tokens, 0);
     ft_join_tokens(&tokens);
 	red = sub_red(tokens);
 	cmd = grep_tokens(&tokens);

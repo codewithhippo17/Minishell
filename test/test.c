@@ -5,7 +5,7 @@ const char *flag_to_string(t_flag flag)
     static const char *flag_names[] = {
         "WORD", "CMD", "ARG", "WS", "PIPE",
         "LR", "RR", "DLR", "DRR", "HEREDOC",
-        "VAR", "ES", "ERROR"
+        "VAR", "ERROR"
     };
 
     if (flag < 0 || flag > ERROR)
