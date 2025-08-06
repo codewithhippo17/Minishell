@@ -16,7 +16,7 @@ void	dispatch(t_minishell *minishell)
 {
 	minishell->script = ft_parrsing(minishell);
 	print_script(minishell->script);
-	if (!minishell->script)
+    if (!minishell->script)
 	{
 		free(minishell->input);
 		return ;

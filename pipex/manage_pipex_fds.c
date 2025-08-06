@@ -9,8 +9,8 @@
 /*   Updated: 2025/08/02 16:48:43 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../minishell.h"
-#include <unistd.h>
 
 void	setup_input(int p)
 {
