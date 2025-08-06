@@ -12,15 +12,17 @@
 
 #include "../minishell.h"
 
-int	exec_unset(t_minishell *minishell)
+int	exec_unset(t_minishell *minishell, t_script *script)
 {
 	int	i;
 
 	i = 1;
-	while (minishell->script->cmd_args[i])
+	while (script->cmd_args[i])
 	{
-		if (unset_env(minishell->script->cmd_args[i], &(minishell->m_env)))
+		if (unset_env(script->cmd_args[i], &(minishell->m_env)))
 			return (1);
+		else if (unset_env(script->cmd_args[i], &(minishell->s_env)))
+			;
 		i++;
 	}
 	return (0);

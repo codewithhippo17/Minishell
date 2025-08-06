@@ -59,11 +59,12 @@ int	ft_my_exit(t_script *script)
 	size_t		i;
 	char	**str;
 
+	i = 0;
 	str = script->cmd_args;
-	if (script->cmd_args[1])
+	if (str[1])
 		i = ft_atol(script->cmd_args[1]);
 	printf("exit\n");
-	if ((str[1] && !is_num(str[1])) || (i > LONG_MAX))
+	if (str[1] && (!is_num(str[1]) || (i > LONG_MAX)))
 	{
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(str[1], 2);
