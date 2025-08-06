@@ -14,14 +14,12 @@
 
 int	builtin_export(t_minishell *m, t_script *s)
 {
-	(void)s;
-	return (exec_export(m));
+	return (exec_export(m, s));
 }
 
 int	builtin_unset(t_minishell *m, t_script *s)
 {
-	(void)s;
-	return (exec_unset(m));
+	return (exec_unset(m, s));
 }
 
 int	builtin_exit(t_minishell *m, t_script *s)

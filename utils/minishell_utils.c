@@ -58,10 +58,8 @@ char	*get_path(char *cmd, char **env)
 			if (S_ISDIR(stats.st_mode))
 				continue ;
 			result = ft_strdup(exec, SCOPE_SESSION);
-			collector_cleanup(SCOPE_TEMP);
 			return (result);
 		}
 	}
-	collector_cleanup(SCOPE_TEMP);
 	return (NULL);
 }

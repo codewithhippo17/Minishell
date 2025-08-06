@@ -30,24 +30,23 @@ int	is_var(char *str)
 	return (0);
 }
 
-int	handle_export_arg(t_minishell *minishell, int i)
+int	handle_export_arg(t_minishell *minishell, t_script *script, int i)
 {
 	int	status;
 	int	valid_var;
 
 	status = 0;
-	valid_var = is_var(minishell->script->cmd_args[i]);
+	valid_var = is_var(script->cmd_args[i]);
 	if (valid_var == 0)
 	{
-		status = exports(minishell->script->cmd_args[i], &(minishell->s_env));
+		status = exports(script->cmd_args[i], &(minishell->s_env));
 		if (status == 0)
-			status = exports(minishell->script->cmd_args[i],
-					&(minishell->m_env));
+			status = exports(script->cmd_args[i], &(minishell->m_env));
 	}
 	else
 	{
 		ft_putstr_fd("bash: export: `", 2);
-		ft_putstr_fd(minishell->script->cmd_args[i], 2);
+		ft_putstr_fd(script->cmd_args[i], 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
 		return (1);
 	}
@@ -76,7 +75,6 @@ int	print_sorted_env(char **env, int i, int j)
 		else if (ft_strcmp(split[0], "_"))
 			printf("declare -x %s\n", env[i]);
 	}
-	collector_cleanup(SCOPE_TEMP);
 	return (0);
 }
 
@@ -100,17 +98,20 @@ int	declair_x(char **env)
 	return (0);
 }
 
-int	exec_export(t_minishell *minishell)
+int	exec_export(t_minishell *minishell, t_script *script)
 {
 	int	i;
 	int	status;
 
 	i = 1;
 	status = 0;
-	if (minishell->script->cmd_args[i])
+	if (script->cmd_args[i])
 	{
-		while (minishell->script->cmd_args[i])
-			status = handle_export_arg(minishell, i++);
+		while (script->cmd_args[i])
+		{
+			if (handle_export_arg(minishell, script, i++))
+				status = 1;
+		}
 	}
 	else
 		status = declair_x(minishell->m_env);

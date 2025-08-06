@@ -18,7 +18,8 @@ int	pwd(void)
 
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
-		printf("%s\n", cwd);
+		ft_putstr_fd(cwd, 1);
+		ft_putchar_fd('\n', 1);
 		return (0);
 	}
 	return (1);

@@ -35,12 +35,3 @@ void	ft_close_wait_exit(int p_fd[], int pid1, int pid2)
 	waitpid(pid2, &status, 0);
 	exit(WEXITSTATUS(status));
 }
-
-void	free_exit_minishell(t_minishell *minishell, int status)
-{
-	free_strings(minishell->m_env);
-	free_strings(minishell->s_env);
-	free(minishell->input);
-	free(minishell);
-	exit(status);
-}

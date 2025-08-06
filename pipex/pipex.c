@@ -37,7 +37,7 @@ char	*error_managment(t_minishell *minishell, t_script *script, char **args)
 	return (path);
 }
 
-static void	extrenal_cmds(t_minishell *minishell, t_script *script,  char **args)
+static void	extrenal_cmds(t_minishell *minishell, t_script *script, char **args)
 {
 	char	*path;
 
@@ -54,15 +54,16 @@ static void	child_pr_all(t_minishell *minishell, t_script *script)
 	if (name != UNKNOWN)
 	{
 		execute_builtin(minishell, script, name);
-	    cleanup_exit(minishell->status);
+		cleanup_exit(minishell->status);
 	}
-	else {
+	else
+	{
 		if (script->red)
-		{	
-		    if (redirection(script))
-                cleanup_exit(1);
+		{
+			if (redirection(script))
+				cleanup_exit(1);
 		}
-		extrenal_cmds(minishell, script,  script->cmd_args);
+		extrenal_cmds(minishell, script, script->cmd_args);
 	}
 }
 
@@ -80,8 +81,8 @@ int	pipex(int ac, t_minishell *minishell)
 		if (curent->next_cmd && pipe(fd) == -1)
 			ft_perror("pipe", 1);
 		pids[++i] = fork();
-        if (pids[i] == -1)
-            return (collector_cleanup(SCOPE_SESSION), perror("fork"), 1);
+		if (pids[i] == -1)
+			return (perror("fork"), 1);
 		if (pids[i] == 0)
 		{
 			/*  * TODO: here signals logic
