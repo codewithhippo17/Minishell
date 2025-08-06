@@ -110,7 +110,10 @@ int	exec_export(t_minishell *minishell)
 	if (minishell->script->cmd_args[i])
 	{
 		while (minishell->script->cmd_args[i])
-			status = handle_export_arg(minishell, i++);
+		{
+			if (handle_export_arg(minishell, i++))
+				status = 1;
+		}
 	}
 	else
 		status = declair_x(minishell->m_env);

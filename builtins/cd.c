@@ -50,7 +50,7 @@ int	chthmdir(char **m_env)
 	return (0);
 }
 
-int	update_old_pwd(char ***env, char *ft_var, char *var_value)
+int	update_old_pwd(char ***env, char *new_var, char *var_value)
 {
 	int		i;
 	char	**var;
@@ -59,7 +59,7 @@ int	update_old_pwd(char ***env, char *ft_var, char *var_value)
 	while ((*env)[i])
 	{
 		var = ft_split((*env)[i], '=', SCOPE_TEMP);
-		if (ft_strcmp(var[0], ft_var) == 0)
+		if (ft_strcmp(var[0], new_var) == 0)
 			(*env)[i] = ft_strdup(var_value, SCOPE_SHELL);
 		i++;
 	}
@@ -78,7 +78,7 @@ int	update_env(t_minishell *minishell)
 	update_old_pwd(&(minishell->m_env), "OLDPWD", prev_dir);
 	update_old_pwd(&(minishell->s_env), "OLDPWD", prev_dir);
 	if (!getcwd(current_dir, sizeof(current_dir)))
-		return (perror("getcwd"), 1);
+		return (collector_cleanup(SCOPE_TEMP), collector_cleanup(SCOPE_SESSION), perror("getcwd"), 1);
 	pwd = ft_strjoin("PWD=", current_dir, SCOPE_TEMP);
 	update_old_pwd(&(minishell->m_env), "PWD", pwd);
 	update_old_pwd(&(minishell->s_env), "PWD", pwd);

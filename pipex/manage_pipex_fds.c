@@ -31,9 +31,10 @@ void	setup_output(int *fd, int i, int ac)
 	}
 }
 
-
 void	close_pr_fds(t_script *script, int *p, int *fd)
 {
+	if (script->red && script->red->type == HEREDOC)
+		close(script->red->fd);
 	if (*p != -1)
 		close(*p);
 	if (script->next_cmd)
@@ -41,12 +42,6 @@ void	close_pr_fds(t_script *script, int *p, int *fd)
 		close(fd[1]);
 		*p = fd[0];
 	}
-    if (script->red && script->red->type == HEREDOC)
-    {
-        close(script->red->fd);
-    }
 	else
-    {
-        *p = -1;
-    }
+		*p = -1;
 }
