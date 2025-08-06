@@ -30,7 +30,6 @@ char	*my_getenv(char *name, char **env)
 		if (ft_strcmp(sub, name) == 0)
 		{
 			result = ft_strdup(env[i] + j + 1, SCOPE_SESSION);
-			collector_cleanup(SCOPE_TEMP);
 			return (result);
 		}
 		i++;

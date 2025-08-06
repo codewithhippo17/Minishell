@@ -64,6 +64,7 @@ static t_splited	*init_splited(char *word)
     if (!sp->split)
     {
         fill_token(&(new), NULL, ERROR, NQS);
+        new->join = J;
         sp->head = new;
     }
     else
