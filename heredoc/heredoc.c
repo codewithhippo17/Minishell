@@ -46,7 +46,7 @@ static int	run_heredoc_parent(t_heredoc *hd)
 			ft_putstr_fd("\n", 1);
 			g_received_signal = SIGNAL_SIGINT;
 		}
-		return (130);
+		return (130); // NOTE: to be reviewed
 	}
 	else if (WIFEXITED(hd->status) && WEXITSTATUS(hd->status) != 0)
 		return (1);

@@ -59,7 +59,7 @@ t_script	*ft_parrsing(t_minishell *minishell)
 	    return (NULL);
 	}
     ft_expander(&tokens, minishell);
-	ft_join_tokens(&tokens);
+    ft_join_tokens(&tokens);
 	red = sub_red(tokens);
 	cmd = grep_tokens(&tokens);
 	while (cmd || red)
