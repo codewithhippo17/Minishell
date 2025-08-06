@@ -6,18 +6,11 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 09:56:33 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/08/02 16:47:32 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/08/06 10:03:59 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void print_abg(t_red *red)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(red->path, 2);
-	ft_putstr_fd(": ambiguous redirect\n", 2);
-}
 
 int	save_fds(t_script *script)
 {
@@ -82,7 +75,6 @@ int	redirect_io(t_red *red)
 	return (0);
 }
 
-
 int	redirection(t_script *script)
 {
 	t_red	*current;
@@ -95,23 +87,12 @@ int	redirection(t_script *script)
 	while (current)
 	{
 		if (current->ambg == AMBG)
-		{
-			restore_fds(script);
-			print_abg(current);
-			return (1);
-		}
+			return (restore_fds(script), print_abg(current), 1);
 		if (apply_redirection(current))
-		{
-			restore_fds(script);
-			return (1);
-		}
+			return (restore_fds(script), 1);
 		if (redirect_io(current))
-		{
-			restore_fds(script);
-			return (1);
-		}
+			return (restore_fds(script), 1);
 		current = current->next;
 	}
-
 	return (0);
 }

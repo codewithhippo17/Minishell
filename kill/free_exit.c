@@ -35,3 +35,10 @@ void	ft_close_wait_exit(int p_fd[], int pid1, int pid2)
 	waitpid(pid2, &status, 0);
 	exit(WEXITSTATUS(status));
 }
+
+void	print_abg(t_red *red)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(red->path, 2);
+	ft_putstr_fd(": ambiguous redirect\n", 2);
+}
