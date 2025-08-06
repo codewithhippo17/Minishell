@@ -37,26 +37,14 @@ int	find_variable(char *var, char **env, int *pos)
 	return (found);
 }
 
-// char	**add_variable(char **env, const char *new_var, int current_size)
-// {
-// 	char	**new_env;
-//
-// 	new_env = ft_realloc(env, ((current_size + 1) * sizeof(char *)),
-// 			(current_size + 2) * sizeof(char *));
-//     collector_register(new_env, SCOPE_SHELL);
-// 	new_env[current_size] = ft_strdup(new_var, SCOPE_SHELL);
-// 	new_env[current_size + 1] = NULL;
-// 	return (new_env);
-// }
-
-char **add_variable(char **env, const char *new_var, int current_size)
+char	**add_variable(char **env, const char *new_var, int current_size)
 {
-	int i;
-	char **new_env;
+	int		i;
+	char	**new_env;
 
 	i = 0;
 	new_env = my_alloc((current_size + 2) * sizeof(char *), SCOPE_SHELL);
-	while (env[i]) 
+	while (env[i])
 	{
 		new_env[i] = ft_strdup(env[i], SCOPE_SHELL);
 		i++;
@@ -66,13 +54,10 @@ char **add_variable(char **env, const char *new_var, int current_size)
 	return (new_env);
 }
 
-
 int	update_variable(char *var, char **env, int found)
 {
 	if (ft_strchr(var, '='))
-	{
 		env[found] = ft_strdup(var, SCOPE_SHELL);
-	}
 	return (0);
 }
 
@@ -91,9 +76,6 @@ int	exports(char *var, char ***env)
 		*env = temp_env;
 	}
 	else
-	{
 		update_variable(var, *env, pos);
-	}
-    collector_cleanup(SCOPE_TEMP);
 	return (0);
 }

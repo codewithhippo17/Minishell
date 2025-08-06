@@ -30,12 +30,10 @@ char	*my_getenv(char *name, char **env)
 		if (ft_strcmp(sub, name) == 0)
 		{
 			result = ft_strdup(env[i] + j + 1, SCOPE_SESSION);
-			collector_cleanup(SCOPE_TEMP);
 			return (result);
 		}
 		i++;
 	}
-	collector_cleanup(SCOPE_TEMP);
 	return (NULL);
 }
 
@@ -60,10 +58,8 @@ char	*get_path(char *cmd, char **env)
 			if (S_ISDIR(stats.st_mode))
 				continue ;
 			result = ft_strdup(exec, SCOPE_SESSION);
-			collector_cleanup(SCOPE_TEMP);
 			return (result);
 		}
 	}
-	collector_cleanup(SCOPE_TEMP);
 	return (NULL);
 }

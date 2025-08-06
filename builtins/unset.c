@@ -37,7 +37,6 @@ char	**rm_var(char *var, char **env)
 		j++;
 	}
 	new_env[i] = NULL;
-	collector_cleanup(SCOPE_TEMP);
 	return (new_env);
 }
 
@@ -51,9 +50,7 @@ int	if_ixist(char *var, char **env)
 	{
 		split = ft_split(env[i], '=', SCOPE_TEMP);
 		if (ft_strncmp(split[0], var, ft_strlen(split[0])) == 0)
-		{
 			return (1);
-		}
 		i++;
 	}
 	return (0);
