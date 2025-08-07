@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <signal.h>
 #include <unistd.h>
 
 sig_atomic_t			g_received_signal = 0;
@@ -32,6 +33,15 @@ void	handle_signal(int signo)
 		g_received_signal = SIGNAL_SIGQUIT;
 }
 
+void handle_child_sig(int sig)
+{
+    if (sig == SIGINT)
+    {
+        g_received_signal = 130;
+        cleanup_exit(130);
+    }
+}
+
 void	setup_shell_signals(void)
 {
 	struct sigaction	sa;
@@ -48,10 +58,11 @@ void	setup_child_signals(void)
 {
 	struct sigaction	sa;
 
-	sa.sa_handler = SIG_DFL;
+	sa.sa_handler = &handle_child_sig;
 	sa.sa_flags = 0;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGINT, &sa, NULL);
+    sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
 }
 

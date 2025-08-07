@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <signal.h>
 
 static void	run_heredoc_child(t_heredoc *hd, t_minishell *minishell)
 {
@@ -35,21 +36,9 @@ static void	run_heredoc_child(t_heredoc *hd, t_minishell *minishell)
 
 static int	run_heredoc_parent(t_heredoc *hd)
 {
-	int	sig;
-
 	waitpid(hd->pid, &hd->status, 0);
-	if (WIFSIGNALED(hd->status))
-	{
-		sig = WTERMSIG(hd->status);
-		if (sig == SIGINT)
-		{
-			ft_putstr_fd("\n", 1);
-			g_received_signal = SIGNAL_SIGINT;
-		}
-		return (130); // NOTE: to be reviewed
-	}
-	else if (WIFEXITED(hd->status) && WEXITSTATUS(hd->status) != 0)
-		return (1);
+	if (WIFEXITED(hd->status))
+		return (WEXITSTATUS(hd->status));
 	return (0);
 }
 
@@ -60,7 +49,7 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 		return (1);
 	hd->fd = open(hd->filename, O_RDONLY, 0600);
 	if (hd->tmp_fd == -1)
-        return (1);
+		return (1);
 	unlink(hd->filename);
 	hd->pid = fork();
 	if (hd->pid < 0)
@@ -75,8 +64,7 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 		{
 			setup_shell_signals();
 			ft_putstr_fd(HEREDOC_ERROR, 2);
-			minishell->status = 130;
-			return (1);
+			return (minishell->status = 130, 1);
 		}
 		setup_shell_signals();
 	}

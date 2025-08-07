@@ -11,11 +11,13 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "includes/gbcol.h"
+#include "includes/types.h"
 
 void	dispatch(t_minishell *minishell)
 {
 	minishell->script = ft_parrsing(minishell);
-	print_script(minishell->script);
+	/* print_script(minishell->script); */
     if (!minishell->script)
 	{
 		free(minishell->input);
@@ -49,6 +51,7 @@ int	main(int argc, char *argv[], char **env)
 		if (*(minishell->input) == '\0')
 		{
 			free(minishell->input);
+            collector_cleanup(SCOPE_SESSION);
 			continue ;
 		}
 		add_history(minishell->input);

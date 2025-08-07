@@ -29,6 +29,10 @@ char	*my_getenv(char *name, char **env)
 		sub = ft_substr(env[i], 0, j, SCOPE_TEMP);
 		if (ft_strcmp(sub, name) == 0)
 		{
+            if (env[i][j] == '\0' || (env[i][j] == '=' && env[i][j + 1] == '\0'))
+            {
+                return (ft_strdup("", SCOPE_SESSION));
+            }
 			result = ft_strdup(env[i] + j + 1, SCOPE_SESSION);
 			return (result);
 		}
