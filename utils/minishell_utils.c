@@ -44,7 +44,6 @@ char	*get_path(char *cmd, char **env)
 	char		**allpath;
 	char		*path_part;
 	char		*result;
-	struct stat	stats;
 
 	i = -1;
 	allpath = ft_split(my_getenv("PATH", env), ':', SCOPE_TEMP);
@@ -54,9 +53,6 @@ char	*get_path(char *cmd, char **env)
 		exec = ft_strjoin(path_part, cmd, SCOPE_TEMP);
 		if (access(exec, F_OK) == 0)
 		{
-			stat(exec, &stats);
-			if (S_ISDIR(stats.st_mode))
-				continue ;
 			result = ft_strdup(exec, SCOPE_SESSION);
 			return (result);
 		}

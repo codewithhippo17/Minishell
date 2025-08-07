@@ -31,11 +31,15 @@ void	handle_command(t_minishell *minishell)
 {
 	t_builtin_name	name;
 
-	name = which_bultin(*minishell->script->cmd_args);
-	if (name != UNKNOWN && !minishell->script->next_cmd)
-		execute_builtin(minishell, minishell->script, name);
-	else if (minishell->script->cmd_args)
-		minishell->status = pipex(calcule_cmd(minishell->script), minishell);
+	if (minishell->script->cmd_args)
+	{
+		name = which_bultin(*minishell->script->cmd_args);
+		if (name != UNKNOWN && !minishell->script->next_cmd)
+			execute_builtin(minishell, minishell->script, name);
+		else
+			minishell->status = pipex(calcule_cmd(minishell->script),
+					minishell);
+	}
 	else
 	{
 		minishell->status = redirection(minishell->script);

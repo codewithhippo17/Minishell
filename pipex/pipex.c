@@ -12,7 +12,9 @@
 
 #include "../minishell.h"
 #include <readline/history.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 char	*error_managment(t_minishell *minishell, t_script *script, char **args)
 {
@@ -33,6 +35,12 @@ char	*error_managment(t_minishell *minishell, t_script *script, char **args)
 		path = get_path(args[0], minishell->m_env);
 		if (!path)
 			printerror(script, args, ": command not found\n", 127);
+		else
+		{
+			stat(path, &stats);
+			if (S_ISDIR(stats.st_mode))
+				printerror(script, args, ": Is a directory\n", 126);
+		}
 	}
 	return (path);
 }
@@ -43,7 +51,10 @@ static void	extrenal_cmds(t_minishell *minishell, t_script *script, char **args)
 
 	path = error_managment(minishell, script, args);
 	execve(path, args, minishell->m_env);
-	printerror(script, args, ": Permission denied\n", 126);
+	if (access(path, X_OK) == -1)
+		printerror(script, args, ": Permission denied\n", 126);
+	else
+		printerror(script, args, ": Eexc format error\n", EXIT_FAILURE);
 }
 
 static void	child_pr_all(t_minishell *minishell, t_script *script)
