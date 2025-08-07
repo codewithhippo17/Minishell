@@ -12,11 +12,18 @@
 
 #include "../minishell.h"
 
-int	envierment(char **m_env)
+int	envierment(char **str, char **m_env)
 {
 	int	i;
 
 	i = 0;
+	if (str[1])
+	{
+		ft_putstr_fd("minishell: env: ", 1);
+		ft_putstr_fd(str[1], 1);
+		ft_putstr_fd(": No such file or directory\n", 1);
+		cleanup_exit(127);
+	}
 	while (m_env[i])
 	{
 		if (ft_strchr(m_env[i], '='))

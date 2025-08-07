@@ -46,6 +46,8 @@ char	**token_to_arr(t_token *token)
 		current = current->next;
 	}
 	cmd[i] = NULL;
+	if (cmd[0] == NULL)
+		return NULL;
 	return (cmd);
 }
 
