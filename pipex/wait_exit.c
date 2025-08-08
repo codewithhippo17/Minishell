@@ -47,6 +47,8 @@ int	wait_for_children(int *pid, int ac)
          * */
 		if (WIFEXITED(status))
 			exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			exit_status = 128 + WTERMSIG(status);
 		i++;
 	}
 	return (exit_status);

@@ -22,7 +22,8 @@ int	exec_unset(t_minishell *minishell, t_script *script)
 		if (unset_env(script->cmd_args[i], &(minishell->m_env)))
 			return (1);
 		else if (unset_env(script->cmd_args[i], &(minishell->s_env)))
-			;
+		{
+		}
 		i++;
 	}
 	return (0);

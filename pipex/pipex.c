@@ -80,11 +80,12 @@ static void	child_pr_all(t_minishell *minishell, t_script *script)
 
 int	pipex(int ac, t_minishell *minishell)
 {
+	// Ignore SIGINT and SIGQUIT in parent while running children
+	setup_ignore_signals();
 	pid_t		*pids;
 	t_script	*curent;
 
-	int(p), (i), (fd[2]);
-	(1) && (p = -1, i = -1);
+	int p = -1, i = -1, fd[2];
 	pids = my_alloc(sizeof(int) * ac, SCOPE_SESSION);
 	curent = minishell->script;
 	while (curent)
@@ -96,8 +97,8 @@ int	pipex(int ac, t_minishell *minishell)
 			return (perror("fork"), 1);
 		if (pids[i] == 0)
 		{
-			/*  * TODO: here signals logic
-				*/
+						/* Set up child signal handlers */
+			setup_child_signals();
 			setup_input(p);
 			setup_output(fd, i, ac);
 			child_pr_all(minishell, curent);
@@ -107,5 +108,7 @@ int	pipex(int ac, t_minishell *minishell)
 	}
 	if (p != -1)
 		close(p);
-	return (wait_for_children(pids, ac));
+	int ret = wait_for_children(pids, ac);
+	restore_shell_signals();
+	return (ret);
 }
