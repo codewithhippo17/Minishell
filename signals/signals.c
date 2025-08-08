@@ -37,6 +37,7 @@ void handle_child_sig(int sig)
 {
     if (sig == SIGINT)
     {
+		write(1, "\n", 1);
         g_received_signal = 130;
         cleanup_exit(130);
     }
@@ -57,7 +58,6 @@ void	setup_shell_signals(void)
 	sigaction(SIGQUIT, &sa_quit, &g_old_sigquit);
 }
 
-// Ignore SIGINT and SIGQUIT in parent while running children, save old handlers
 void setup_ignore_signals(void)
 {
 	struct sigaction sa_ignore;
@@ -67,7 +67,6 @@ void setup_ignore_signals(void)
 	sigaction(SIGINT, &sa_ignore, &g_old_sigint);
 	sigaction(SIGQUIT, &sa_ignore, &g_old_sigquit);
 }
-
 
 void	setup_child_signals(void)
 {

@@ -39,6 +39,8 @@ static int	run_heredoc_parent(t_heredoc *hd)
 	waitpid(hd->pid, &hd->status, 0);
 	if (WIFEXITED(hd->status))
 		return (WEXITSTATUS(hd->status));
+	else if (WIFSIGNALED(hd->status))
+		return (128 + WTERMSIG(hd->status));
 	return (0);
 }
 
