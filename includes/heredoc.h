@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/06 23:25:21 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/15 11:04:38 by elhaiba hamza    ###   ########.fr       */
+/*   Created: 2025/08/09 18:42:54 by elhaiba hamza     #+#    #+#             */
+/*   Updated: 2025/08/09 18:42:54 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		free_heredoc(t_heredoc *hd);
 void		free_heredoc_list(t_heredoc *hd);
 void		add_heredoc(t_heredoc **head, t_heredoc *new_hd);
 int			heredoc(t_heredoc *hd, t_minishell *minishell);
-int         ft_heredoc(t_token *token, char *delimiter, t_quote quote,
+int			ft_heredoc(t_token *token, char *delimiter, t_quote quote,
 				t_minishell *minishell);
 
 #endif

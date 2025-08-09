@@ -41,6 +41,12 @@ void handle_child_sig(int sig)
         g_received_signal = 130;
         cleanup_exit(130);
     }
+    else if (sig == SIGQUIT)
+    {
+        write(1, "\n", 1);
+        g_received_signal = 131;
+        cleanup_exit(131);
+    }
 }
 
 void	setup_shell_signals(void)
@@ -72,7 +78,7 @@ void	setup_child_signals(void)
 {
 	struct sigaction sa;
 
-	sa.sa_handler = SIG_DFL;
+	sa.sa_handler = handle_child_sig;
 	sa.sa_flags = 0;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGINT, &sa, NULL);

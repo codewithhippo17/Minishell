@@ -6,11 +6,11 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:16:32 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/08/02 16:45:30 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:37:56 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../minishell.h"
-#include <stdlib.h>
 
 int	find_variable(char *var, char **env, int *pos)
 {

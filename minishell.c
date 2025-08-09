@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:35 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/31 04:25:11 by marvin           ###   ########.fr       */
+/*   Updated: 2025/08/09 18:45:26 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,3 @@ int	main(int argc, char *argv[], char **env)
 	restore_shell_signals();
 	cleanup_exit(0);
 }
-
-/* 		print_script(minishell->script);
-		printf("--------°°--exec--out--bellow--°°---------\n"); */

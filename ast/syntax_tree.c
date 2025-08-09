@@ -54,12 +54,12 @@ t_script	*ft_parrsing(t_minishell *minishell)
 	tokens = lexer(minishell->input);
 	if (checker(&tokens, minishell))
 	{
-		if (g_received_signal == SIGNAL_SIGINT) // TODO: remove this line later
+		if (g_received_signal == SIGNAL_SIGINT)
 			g_received_signal = SIGNAL_NONE;
-	    return (NULL);
+		return (NULL);
 	}
-    ft_expander(&tokens, minishell);
-    ft_join_tokens(&tokens);
+	ft_expander(&tokens, minishell);
+	ft_join_tokens(&tokens);
 	red = sub_red(tokens);
 	cmd = grep_tokens(&tokens);
 	while (cmd || red)
@@ -69,8 +69,6 @@ t_script	*ft_parrsing(t_minishell *minishell)
 		cmd = grep_tokens(&tokens);
 	}
 	if (!script_head || !script_tail)
-	{
 		return (NULL);
-	}
 	return (script_tail->next_cmd = NULL, script_head);
 }

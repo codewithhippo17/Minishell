@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/06 22:59:00 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/15 11:01:45 by elhaiba hamza    ###   ########.fr       */
+/*   Created: 2025/08/09 18:36:57 by elhaiba hamza     #+#    #+#             */
+/*   Updated: 2025/08/09 18:37:06 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 	{
 		signal(SIGINT, SIG_IGN);
 		minishell->status = run_heredoc_parent(hd);
-		if (minishell->status == 130)
+		if (minishell->status == 130 || minishell->status == 131)
 		{
 			setup_shell_signals();
 			ft_putstr_fd(HEREDOC_ERROR, 2);

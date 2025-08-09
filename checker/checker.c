@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/03 00:24:01 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/15 11:05:50 by elhaiba hamza    ###   ########.fr       */
+/*   Created: 2025/08/09 18:38:48 by elhaiba hamza     #+#    #+#             */
+/*   Updated: 2025/08/09 18:38:52 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/checker.h"
 #include "../minishell.h"
 
 bool	is_vpipe(t_token *token)
