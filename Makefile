@@ -119,6 +119,10 @@ fclean: clean
 
 re: fclean all
 
+
+n:
+	/usr/local/bin/norminette builtins/ exec_builtin/ expander/ heredoc/ kill/ libft/ minishell.h pipex/ ast/ checker/ executor/ gb_col/ includes/ lexer/ minishell.c signals
+
 valgrind: all clean
 	valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp --gen-suppressions=all  --track-fds=all ./minishell
 

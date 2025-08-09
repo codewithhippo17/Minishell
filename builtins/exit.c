@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:38:14 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/22 03:08:49 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/09 18:54:26 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ size_t	ft_atol(const char *str)
 
 int	ft_my_exit(t_script *script)
 {
-	size_t		i;
+	size_t	i;
 	char	**str;
 
 	i = 0;

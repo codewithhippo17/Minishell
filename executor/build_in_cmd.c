@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:14:12 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/08/02 16:47:39 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:56:12 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	exec_unset(t_minishell *minishell, t_script *script)
 	{
 		minishell->status = unset_env(script->cmd_args[i], &(minishell->m_env));
 		if (minishell->status == 0)
-			minishell->status = unset_env(script->cmd_args[i], &(minishell->s_env));
+			minishell->status = unset_env(script->cmd_args[i],
+					&(minishell->s_env));
 		i++;
 	}
 	return (0);

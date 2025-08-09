@@ -6,7 +6,7 @@
 /*   By: marvin <ybelghad@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 14:22:44 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/08/02 16:46:50 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:55:01 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	builtin_unset(t_minishell *m, t_script *s)
 
 int	builtin_exit(t_minishell *m, t_script *s)
 {
-    (void)m;
+	(void)m;
 	return (ft_my_exit(s));
 }
 
