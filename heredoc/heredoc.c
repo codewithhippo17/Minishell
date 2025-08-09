@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:36:57 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/08/09 18:37:06 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/09 18:48:44 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 		{
 			setup_shell_signals();
 			ft_putstr_fd(HEREDOC_ERROR, 2);
-			return (close(hd->fd), close(hd->tmp_fd), minishell->status = 130, 1);
+			return (close(hd->fd), close(hd->tmp_fd), 1);
 		}
 		setup_shell_signals();
 	}
