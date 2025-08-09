@@ -50,8 +50,8 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 	if (hd->tmp_fd == -1)
 		return (1);
 	hd->fd = open(hd->filename, O_RDONLY, 0600);
-	if (hd->tmp_fd == -1)
-		return (1);
+	if (hd->fd == -1)
+		return (close(hd->tmp_fd), 1);
 	unlink(hd->filename);
 	hd->pid = fork();
 	if (hd->pid < 0)
@@ -66,7 +66,7 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 		{
 			setup_shell_signals();
 			ft_putstr_fd(HEREDOC_ERROR, 2);
-			return (minishell->status = 130, 1);
+			return (close(hd->fd), close(hd->tmp_fd), minishell->status = 130, 1);
 		}
 		setup_shell_signals();
 	}
