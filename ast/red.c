@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 05:00:21 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/30 23:20:06 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/09 18:52:51 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ static void	append_red(t_red **head, t_red **tail, t_red *new_red)
 		*tail = new_red;
 	}
 }
+
+/*
+* NOTE: need to take a look on how this function behave because it overlap with the tokens greper
+* */
 
 t_red	*sub_red(t_token *token)
 {

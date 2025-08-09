@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 03:05:20 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/27 06:17:32 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/09 18:51:35 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ void	delete(t_token **head, t_token **token)
 		*head = tmp->next;
 	*token = (*token)->next;
 }
+
+/*
+ * NOTE: need to take a look on how this greper should functionate
+ * */
 
 t_token	*grep_tokens(t_token **tokens)
 {
