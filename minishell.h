@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/08/04 08:40:10 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/08/09 19:21:07 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		is_var(char *str);
 char	**set_env_utils(char **env);
 void	set_env(t_minishell *minishell, char **env);
 void	print_script(t_script *script);
-void print_tokens(t_token *token, int nb);
+void	print_tokens(t_token *token, int nb);
 // -----------------ººPIPEXºº------------------ //
 int		pipex(int ac, t_minishell *mini);
 

@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:43:40 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/08/09 18:43:41 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/09 19:16:03 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,6 @@
 # define SIGNAL_NONE 0
 # define SIGNAL_SIGINT 1
 # define SIGNAL_SIGQUIT 2
-
-
-typedef enum e_free
-{
-	FREE,
-	STILL,
-}						t_free;
 
 typedef enum e_scope
 {
@@ -75,7 +68,6 @@ typedef enum e_flag
 	DLR,
 	DRR,
 	HEREDOC,
-	VAR,
 	ERROR
 }						t_flag;
 
@@ -131,14 +123,14 @@ typedef struct s_splited
 
 typedef struct s_script
 {
-	t_token			*cmd_head;
-	t_red			*red;
-	char			**cmd_args;
-	int				saved_stdin;
-	int				saved_stdout;
-	int				exit_status;
-	struct s_script	*next_cmd;
-}					t_script;
+	t_token				*cmd_head;
+	t_red				*red;
+	char				**cmd_args;
+	int					saved_stdin;
+	int					saved_stdout;
+	int					exit_status;
+	struct s_script		*next_cmd;
+}						t_script;
 
 typedef struct s_collect
 {
@@ -154,7 +146,7 @@ typedef struct s_minishell
 	char				**s_env;
 	int					status;
 	t_script			*script;
-    t_collect           *collect;
+	t_collect			*collect;
 }						t_minishell;
 
 #endif
