@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <readline/chardefs.h>
 
 int	exec_unset(t_minishell *minishell, t_script *script)
 {
@@ -19,11 +20,9 @@ int	exec_unset(t_minishell *minishell, t_script *script)
 	i = 1;
 	while (script->cmd_args[i])
 	{
-		if (unset_env(script->cmd_args[i], &(minishell->m_env)))
-			return (1);
-		else if (unset_env(script->cmd_args[i], &(minishell->s_env)))
-		{
-		}
+		minishell->status = unset_env(script->cmd_args[i], &(minishell->m_env));
+		if (minishell->status == 0)
+			minishell->status = unset_env(script->cmd_args[i], &(minishell->s_env));
 		i++;
 	}
 	return (0);

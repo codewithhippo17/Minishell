@@ -114,6 +114,6 @@ int	exec_export(t_minishell *minishell, t_script *script)
 		}
 	}
 	else
-		status = declair_x(minishell->m_env);
+		status = declair_x(minishell->s_env);
 	return (status);
 }

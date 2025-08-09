@@ -12,6 +12,7 @@
 
 #include "../minishell.h"
 #include <readline/history.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -33,7 +34,7 @@ char	*error_managment(t_minishell *minishell, t_script *script, char **args)
 	else
 	{
 		path = get_path(args[0], minishell->m_env);
-		if (!path)
+		if (args[0][0] == '\0' || !path)
 			printerror(script, args, ": command not found\n", 127);
 		else
 		{
@@ -78,10 +79,16 @@ static void	child_pr_all(t_minishell *minishell, t_script *script)
 	}
 }
 
+void set_sig_fds(int p, int *fd, int i, int ac)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	setup_input(p);
+	setup_output(fd, i, ac);
+}
+
 int	pipex(int ac, t_minishell *minishell)
 {
-	// Ignore SIGINT and SIGQUIT in parent while running children
-	setup_ignore_signals();
 	pid_t		*pids;
 	t_script	*curent;
 
@@ -97,10 +104,7 @@ int	pipex(int ac, t_minishell *minishell)
 			return (perror("fork"), 1);
 		if (pids[i] == 0)
 		{
-						/* Set up child signal handlers */
-			setup_child_signals();
-			setup_input(p);
-			setup_output(fd, i, ac);
+			set_sig_fds(p, fd, i, ac);
 			child_pr_all(minishell, curent);
 		}
 		close_pr_fds(curent, &p, fd);
@@ -108,7 +112,5 @@ int	pipex(int ac, t_minishell *minishell)
 	}
 	if (p != -1)
 		close(p);
-	int ret = wait_for_children(pids, ac);
-	restore_shell_signals();
-	return (ret);
+	return (wait_for_children(pids, ac));
 }

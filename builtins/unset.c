@@ -49,7 +49,7 @@ int	if_ixist(char *var, char **env)
 	while (env[i])
 	{
 		split = ft_split(env[i], '=', SCOPE_TEMP);
-		if (ft_strncmp(split[0], var, ft_strlen(split[0])) == 0)
+		if (ft_strcmp(split[0], var) == 0)
 			return (1);
 		i++;
 	}
@@ -60,6 +60,8 @@ int	unset_env(char *var, char ***env)
 {
 	char	**tmp;
 
+	if (!var)
+		return (0);
 	if (!if_ixist(var, *env))
 		return (0);
 	tmp = rm_var(var, *env);

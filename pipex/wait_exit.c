@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/01 12:06:55 by ybelghad	       #+#    #+#             */
-/*   Updated: 2025/08/01 12:06:55 by ybelghad  	      ###   ########.fr       */
+/*   Created: 2025/08/01 12:06:55 by ybelghad		   #+#    #+#             */
+/*   Updated: 2025/08/07 15:33:35 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,28 @@ void	printerror(t_script *script, char **args, char *err, int exinum)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(args[0], 2);
 	ft_putstr_fd(err, 2);
-    if (script->red)
-    {
-        restore_fds(script);
-    }
-    cleanup_exit(exinum);
+	if (script->red)
+	{
+		restore_fds(script);
+	}
+	cleanup_exit(exinum);
+}
+
+static int	setup_signal(int status)
+{
+	if (WTERMSIG(status) == SIGINT)
+	{
+		write(2, "\n", 1);
+		setup_shell_signals();
+		return (130);
+	}
+	else if (WTERMSIG(status) == SIGQUIT)
+	{
+		write(2, "Quit (core dumped)\n", 20);
+		setup_shell_signals();
+		return (131);
+	}
+	return (0);
 }
 
 int	wait_for_children(int *pid, int ac)
@@ -39,17 +56,16 @@ int	wait_for_children(int *pid, int ac)
 	i = 0;
 	status = 0;
 	exit_status = 0;
+	signal(SIGINT, SIG_IGN);
 	while (i < ac)
 	{
 		waitpid(pid[i], &status, 0);
-        /*
-         * TODO: capture sigs
-         * */
-		if (WIFEXITED(status))
+		if (WIFSIGNALED(status))
+			return (setup_signal(status));
+		else
 			exit_status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			exit_status = 128 + WTERMSIG(status);
 		i++;
 	}
+	setup_shell_signals();
 	return (exit_status);
 }

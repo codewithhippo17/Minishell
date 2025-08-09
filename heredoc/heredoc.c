@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <signal.h>
 
 static void	run_heredoc_child(t_heredoc *hd, t_minishell *minishell)
 {
