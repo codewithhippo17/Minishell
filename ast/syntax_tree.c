@@ -58,18 +58,18 @@ t_script	*ft_parrsing(t_minishell *minishell)
 			g_received_signal = SIGNAL_NONE;
 		return (NULL);
 	}
-    printf("lexer\n");
-    print_tokens(tokens, 1);
+    // printf("lexer\n");
+    // print_tokens(tokens, 1);
 	ft_expander(&tokens, minishell);
-    printf("expander\n");
-    print_tokens(tokens, 2);
+    // printf("expander\n");
+    // print_tokens(tokens, 2);
 	ft_join_tokens(&tokens);
-    printf("join\n");
-    print_tokens(tokens, 3);
+    // printf("join\n");
+    // print_tokens(tokens, 3);
 	red = sub_red(tokens);
-    printf("red\n");
-    print_redirections(red);
-    print_tokens(tokens, 4);
+    // printf("red\n");
+    // print_redirections(red);
+    // print_tokens(tokens, 4);
 	cmd = grep_tokens(&tokens);
 	while (cmd || red)
 	{
