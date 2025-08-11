@@ -33,6 +33,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <linux/limits.h>
+#include <limits.h>
 # include <readline/chardefs.h>
 # include <signal.h>
 # include <stddef.h>

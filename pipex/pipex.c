@@ -11,13 +11,9 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <readline/history.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 
-char	*error_managment(t_minishell *minishell, t_script *script, char **args)
+static char	*error_managment(t_minishell *minishell, t_script *script,
+		char **args)
 {
 	char		*path;
 	struct stat	stats;
@@ -50,6 +46,12 @@ static void	extrenal_cmds(t_minishell *minishell, t_script *script, char **args)
 {
 	char	*path;
 
+	if (!args)
+	{
+		if (script->red)
+			restore_fds(script);
+		cleanup_exit(0);
+	}
 	path = error_managment(minishell, script, args);
 	execve(path, args, minishell->m_env);
 	if (access(path, X_OK) == -1)
@@ -62,7 +64,9 @@ static void	child_pr_all(t_minishell *minishell, t_script *script)
 {
 	t_builtin_name	name;
 
-	name = which_bultin(*script->cmd_args);
+	name = UNKNOWN;
+	if (script->cmd_args)
+		name = which_bultin(*script->cmd_args);
 	if (name != UNKNOWN)
 	{
 		execute_builtin(minishell, script, name);
@@ -79,7 +83,7 @@ static void	child_pr_all(t_minishell *minishell, t_script *script)
 	}
 }
 
-void set_sig_fds(int p, int *fd, int i, int ac)
+static void	set_sig_fds(int p, int *fd, int i, int ac)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -92,7 +96,8 @@ int	pipex(int ac, t_minishell *minishell)
 	pid_t		*pids;
 	t_script	*curent;
 
-	int p = -1, i = -1, fd[2];
+	int (p), (i), (fd[2]);
+	(1) && (p = -1), (i = -1);
 	pids = my_alloc(sizeof(int) * ac, SCOPE_SESSION);
 	curent = minishell->script;
 	while (curent)
