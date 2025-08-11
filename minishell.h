@@ -72,6 +72,8 @@ char	**set_env_utils(char **env);
 void	set_env(t_minishell *minishell, char **env);
 void	print_script(t_script *script);
 void	print_tokens(t_token *token, int nb);
+void print_redirections(t_red *red);
+
 // -----------------ººPIPEXºº------------------ //
 int		pipex(int ac, t_minishell *mini);
 

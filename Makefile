@@ -67,8 +67,7 @@ EXEC_SRC =		$(EXEC_DIR)/build_in_cmd.c \
 				$(EXEC_DIR)/token_to_arr.c \
 				$(EXEC_DIR)/executor.c
 
-GB_SRC =		$(GB_DIR)/cleanup.c \
-				$(GB_DIR)/gb_col.c \
+GB_SRC =		$(GB_DIR)/gb_col.c \
 				$(GB_DIR)/helpers.c
 
 
@@ -118,10 +117,6 @@ fclean: clean
 	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
-
-
-n:
-	/usr/local/bin/norminette builtins/ exec_builtin/ expander/ heredoc/ kill/ libft/ minishell.h pipex/ ast/ checker/ executor/ gb_col/ includes/ lexer/ minishell.c signals
 
 valgrind: all clean
 	valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp --gen-suppressions=all  --track-fds=all ./minishell
