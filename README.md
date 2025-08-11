@@ -28,6 +28,15 @@ A custom Unix shell implementation in C, mimicking bash/zsh behavior. Supports c
 
 ---
 
+## Pipeline and Redirect Edge Cases
+
+Minishell matches bash behavior for ambiguous or empty pipeline segments:
+- `> file | ls` creates `file` and runs `ls` (rightmost command always executes)
+- `| ls` and `> file |` produce syntax errors, matching bash
+- Empty or redirect-only segments do not crash or cause ambiguous redirect errors
+
+---
+
 ## Main Flow
 1. **Input**: Reads user input with `readline()`.
 2. **Lexing**: Tokenizes the input string.
