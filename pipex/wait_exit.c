@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/01 12:06:55 by ybelghad		   #+#    #+#             */
+/*   Created: 2025/08/01 12:06:55 by ybelghad			#+#    #+#             */
 /*   Updated: 2025/08/07 15:33:35 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -24,9 +24,7 @@ void	printerror(t_script *script, char **args, char *err, int exinum)
 	ft_putstr_fd(args[0], 2);
 	ft_putstr_fd(err, 2);
 	if (script->red)
-	{
 		restore_fds(script);
-	}
 	cleanup_exit(exinum);
 }
 

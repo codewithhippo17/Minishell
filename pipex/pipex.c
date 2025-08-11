@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <unistd.h>
 
 static char	*error_managment(t_minishell *minishell, t_script *script,
 		char **args)
@@ -29,7 +30,7 @@ static char	*error_managment(t_minishell *minishell, t_script *script,
 	}
 	else
 	{
-		path = get_path(args[0], minishell->m_env);
+		path = get_path(script, args[0], minishell->m_env);
 		if (args[0][0] == '\0' || !path)
 			printerror(script, args, ": command not found\n", 127);
 		else
