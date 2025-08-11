@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 09:04:18 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/22 06:45:55 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/09 18:59:11 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,9 @@ void	ft_expander(t_token **token, t_minishell *minishell)
 		}
 		else if (!no_var(c->value))
 		{
-			splited = ft_exspliter(token, c->value, idx, minishell);
+			splited = ft_exspliter(token, c->value, idx++, minishell);
 			insert_token(token, c, splited);
 		}
-        idx++;
 		c = c->next;
 	}
 	collector_cleanup(SCOPE_TEMP);

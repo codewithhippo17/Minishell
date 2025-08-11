@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 03:05:20 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/27 06:17:32 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/09 18:51:35 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	is_red(t_token *c)
 	return (c->type == RR || c->type == LR || c->type == DRR);
 }
 
-void	delete(t_token **head, t_token **token)
+void delete (t_token **head, t_token **token)
 {
 	t_token	*tmp;
 
@@ -33,6 +33,10 @@ void	delete(t_token **head, t_token **token)
 	*token = (*token)->next;
 }
 
+/*
+ * NOTE: need to take a look on how this greper should functionate
+ * */
+
 t_token	*grep_tokens(t_token **tokens)
 {
 	t_token	*c;
@@ -44,8 +48,13 @@ t_token	*grep_tokens(t_token **tokens)
 	{
 		if (c->type == PIPE)
 		{
-			c->prev->next = NULL;
-			cmd = *tokens;
+			if (c->prev)
+			{
+				c->prev->next = NULL;
+				cmd = *tokens;
+			}
+			else
+				cmd = NULL;
 			return (c->prev = NULL, delete (tokens, &(c)), *tokens = c, cmd);
 		}
 		if (c->type == HEREDOC || c->type == WS)

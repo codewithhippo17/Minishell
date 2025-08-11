@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/03 00:24:28 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/22 03:13:52 by elhaiba hamza    ###   ########.fr       */
+/*   Created: 2025/08/09 18:42:02 by elhaiba hamza     #+#    #+#             */
+/*   Updated: 2025/08/09 18:42:02 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "types.h"
 # include <stdbool.h>
 
-int	checker(t_token **token, t_minishell *minishell);
+int		checker(t_token **token, t_minishell *minishell);
 bool	is_word(t_token *token);
 bool	is_op(t_token *token);
 bool	check_quote(t_token *token);

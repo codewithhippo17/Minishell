@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/06 22:59:00 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/15 11:01:45 by elhaiba hamza    ###   ########.fr       */
+/*   Created: 2025/08/09 18:36:57 by elhaiba hamza     #+#    #+#             */
+/*   Updated: 2025/08/09 19:00:33 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <signal.h>
 
 static void	run_heredoc_child(t_heredoc *hd, t_minishell *minishell)
 {
@@ -39,6 +38,8 @@ static int	run_heredoc_parent(t_heredoc *hd)
 	waitpid(hd->pid, &hd->status, 0);
 	if (WIFEXITED(hd->status))
 		return (WEXITSTATUS(hd->status));
+	else if (WIFSIGNALED(hd->status))
+		return (128 + WTERMSIG(hd->status));
 	return (0);
 }
 
@@ -48,8 +49,8 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 	if (hd->tmp_fd == -1)
 		return (1);
 	hd->fd = open(hd->filename, O_RDONLY, 0600);
-	if (hd->tmp_fd == -1)
-		return (1);
+	if (hd->fd == -1)
+		return (close(hd->tmp_fd), 1);
 	unlink(hd->filename);
 	hd->pid = fork();
 	if (hd->pid < 0)
@@ -60,11 +61,11 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 	{
 		signal(SIGINT, SIG_IGN);
 		minishell->status = run_heredoc_parent(hd);
-		if (minishell->status == 130)
+		if (minishell->status == 130 || minishell->status == 131)
 		{
 			setup_shell_signals();
 			ft_putstr_fd(HEREDOC_ERROR, 2);
-			return (minishell->status = 130, 1);
+			return (close(hd->fd), close(hd->tmp_fd), 1);
 		}
 		setup_shell_signals();
 	}

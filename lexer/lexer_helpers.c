@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_helpers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/02 18:20:05 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/02 18:20:08 by ehamza           ###   ########.fr       */
+/*   Created: 2025/08/09 18:44:01 by elhaiba hamza     #+#    #+#             */
+/*   Updated: 2025/08/09 19:12:15 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	fill_token(t_token **token, char *value, t_flag flag, t_quote quote)
 {
-    if (value)
-	    (*token)->value = ft_strdup(value, SCOPE_SESSION);
-    else
-        (*token)->value = NULL;
-    (*token)->type = flag;
+	if (value)
+		(*token)->value = ft_strdup(value, SCOPE_SESSION);
+	else
+		(*token)->value = NULL;
+	(*token)->type = flag;
 	(*token)->quote = quote;
 	(*token)->join = NJ;
 	(*token)->ambg = OBV;

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   random.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/06 22:59:33 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/15 10:51:16 by elhaiba hamza    ###   ########.fr       */
+/*   Created: 2025/08/09 18:41:33 by elhaiba hamza     #+#    #+#             */
+/*   Updated: 2025/08/09 19:00:47 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/heredoc.h"
-#include <stdio.h>
-#include <unistd.h>
+#include "../minishell.h"
 
 char	*ft_random(void)
 {
@@ -39,10 +37,3 @@ char	*ft_random(void)
 	filename[LEN_RANDOM - 1] = '\0';
 	return (filename);
 }
-
-/*int main()
-{
-	char *random_filename = ft_random();
-	printf("%s\n", random_filename);
-	free(random_filename);
-}*/

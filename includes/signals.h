@@ -17,8 +17,9 @@
 
 extern sig_atomic_t	g_received_signal;
 
-void							setup_shell_signals(void);
-void							setup_child_signals(void);
-void							restore_shell_signals(void);
+void						setup_shell_signals(void);
+void						setup_child_signals(void);
+void						restore_shell_signals(void);
+void						setup_ignore_signals(void);
 
 #endif

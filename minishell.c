@@ -6,19 +6,18 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:35 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/31 04:25:11 by marvin           ###   ########.fr       */
+/*   Updated: 2025/08/09 18:45:26 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "includes/gbcol.h"
 #include "includes/types.h"
+#include "minishell.h"
 
 void	dispatch(t_minishell *minishell)
 {
 	minishell->script = ft_parrsing(minishell);
-	/* print_script(minishell->script); */
-    if (!minishell->script)
+	if (!minishell->script)
 	{
 		free(minishell->input);
 		return ;
@@ -26,7 +25,7 @@ void	dispatch(t_minishell *minishell)
 	collector_cleanup(SCOPE_TEMP);
 	extract_args(minishell);
 	handle_command(minishell);
-   	collector_cleanup(SCOPE_TEMP);
+	collector_cleanup(SCOPE_TEMP);
 	collector_cleanup(SCOPE_SESSION);
 	free(minishell->input);
 }
@@ -51,15 +50,10 @@ int	main(int argc, char *argv[], char **env)
 		if (*(minishell->input) == '\0')
 		{
 			free(minishell->input);
-            collector_cleanup(SCOPE_SESSION);
+			collector_cleanup(SCOPE_SESSION);
 			continue ;
 		}
 		add_history(minishell->input);
 		dispatch(minishell);
 	}
-	restore_shell_signals();
-	cleanup_exit(0);
 }
-
-/* 		print_script(minishell->script);
-		printf("--------°°--exec--out--bellow--°°---------\n"); */

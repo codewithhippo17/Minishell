@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/03 00:24:01 by ehamza            #+#    #+#             */
-/*   Updated: 2025/07/15 11:05:50 by elhaiba hamza    ###   ########.fr       */
+/*   Created: 2025/08/09 18:38:48 by elhaiba hamza     #+#    #+#             */
+/*   Updated: 2025/08/09 18:38:52 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/checker.h"
 #include "../minishell.h"
 
 bool	is_vpipe(t_token *token)
@@ -35,7 +34,7 @@ int	checker(t_token **token, t_minishell *minishell)
 
 	res = 0;
 	if (check_quote(*token) == false)
-		return (ft_putstr_fd("Syntx error: Unclosed quotes", 2), 1);
+		return (ft_putstr_fd(UNCLOSED_QUOTES, 2), 1);
 	c = *token;
 	while (c)
 	{

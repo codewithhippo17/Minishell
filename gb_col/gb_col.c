@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 01:58:43 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/08/02 04:40:01 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/09 19:00:13 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@ void	collector_cleanup(t_mem_scope scope)
 {
 	t_collect	*prev;
 	t_collect	*curr;
-    t_collect   *next;
+	t_collect	*next;
 
 	prev = NULL;
 	curr = g_head;
 	while (curr)
 	{
-        next = curr->next;
+		next = curr->next;
 		if (curr->scope == scope)
 		{
 			free(curr->ptr);
 			if (curr == g_tail)
 				g_tail = prev;
 			delete_collected(&g_head, prev, &curr);
-            curr = next;
+			curr = next;
 		}
 		else
 		{
@@ -88,7 +88,7 @@ void	collector_register(void *ptr, t_mem_scope scope)
 
 	collect = malloc(sizeof(t_collect));
 	if (!collect)
-        cleanup_exit(1);
+		cleanup_exit(1);
 	collect->ptr = ptr;
 	collect->scope = scope;
 	collect->next = NULL;

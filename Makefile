@@ -67,8 +67,7 @@ EXEC_SRC =		$(EXEC_DIR)/build_in_cmd.c \
 				$(EXEC_DIR)/token_to_arr.c \
 				$(EXEC_DIR)/executor.c
 
-GB_SRC =		$(GB_DIR)/cleanup.c \
-				$(GB_DIR)/gb_col.c \
+GB_SRC =		$(GB_DIR)/gb_col.c \
 				$(GB_DIR)/helpers.c
 
 

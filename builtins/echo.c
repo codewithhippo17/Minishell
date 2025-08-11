@@ -17,7 +17,7 @@ int	chek_flag(char *flag)
 	int	i;
 
 	i = 0;
-	if (flag[i] == '-')
+	if (flag[i] == '-' && flag[i + 1] == 'n')
 		i++;
 	else
 		return (0);

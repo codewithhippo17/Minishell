@@ -6,14 +6,11 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:38:14 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/22 03:08:49 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/09 18:54:26 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <limits.h>
-#include <stddef.h>
-#include <stdio.h>
 
 static int	is_num(char *str)
 {
@@ -31,15 +28,15 @@ static int	is_num(char *str)
 	return (1);
 }
 
-size_t	ft_atol(const char *str)
+static size_t	ft_atol(const char *str, int *flag)
 {
-	size_t	i;
+	int		i;
+	int		s;
 	size_t	n;
-	size_t	s;
+	size_t	a;
 
-	i = 0;
-	n = 0;
-	s = 1;
+	a = 0x8000000000000000;
+	(1) && (i = 0), (n = 0), (s = 1);
 	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	if (str[i] == '-')
@@ -49,6 +46,10 @@ size_t	ft_atol(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		n = n * 10 + (str[i] - '0');
+		if (n > LONG_MAX && s == 1)
+			return (*flag = -1, 1);
+		else if (n > a && s == -1)
+			return (*flag = -1, 1);
 		i++;
 	}
 	return (s * n);
@@ -56,15 +57,17 @@ size_t	ft_atol(const char *str)
 
 int	ft_my_exit(t_script *script)
 {
-	size_t		i;
+	size_t	i;
 	char	**str;
+	int		flag;
 
+	flag = 0;
 	i = 0;
 	str = script->cmd_args;
 	if (str[1])
-		i = ft_atol(script->cmd_args[1]);
+		i = ft_atol(script->cmd_args[1], &flag);
 	printf("exit\n");
-	if (str[1] && (!is_num(str[1]) || (i > LONG_MAX)))
+	if (str[1] && (!is_num(str[1]) || (flag == -1)))
 	{
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(str[1], 2);

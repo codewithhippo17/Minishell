@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 11:19:14 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/07/28 06:05:18 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/09 18:55:53 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	**token_to_arr(t_token *token)
 	}
 	cmd[i] = NULL;
 	if (cmd[0] == NULL)
-		return NULL;
+		return (NULL);
 	return (cmd);
 }
 

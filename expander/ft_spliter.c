@@ -6,7 +6,7 @@
 /*   By: elhaiba hamza <ehamza@student.1337.ma>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 13:57:19 by elhaiba hamza     #+#    #+#             */
-/*   Updated: 2025/07/22 06:53:19 by elhaiba hamza    ###   ########.fr       */
+/*   Updated: 2025/08/09 18:59:03 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,34 +54,30 @@ bool	is_all_space(char *word)
 static t_splited	*init_splited(char *word)
 {
 	t_splited	*sp;
-    t_token     *new;
-	
-    new = my_alloc(sizeof(t_token), SCOPE_SESSION);
-    sp = my_alloc(sizeof(t_splited), SCOPE_SESSION);
+	t_token		*new;
+
+	new = my_alloc(sizeof(t_token), SCOPE_SESSION);
+	sp = my_alloc(sizeof(t_splited), SCOPE_SESSION);
 	sp->len = 0;
 	sp->split = ft_split(word, ' ', SCOPE_TEMP);
 	sp->len = ft_len_split(sp->split);
-    if (!sp->split)
-    {
-        fill_token(&(new), NULL, WORD, NQS);
-        new->join = J;
-        new->ambg = AMBG;
-        sp->head = new;
-    }
-    else if (word && word[0] == '\0')
-    {
-        fill_token(&(new), "", WORD, NQS);
-        new->join = J;
-        new->ambg = AMBG;
-        sp->head = new;
-
-    }
-    else
-    {
-        sp->head = NULL;
-    }
-    sp->tail = NULL;
-	return (sp);
+	if (!sp->split)
+	{
+		fill_token(&(new), NULL, WORD, NQS);
+		new->join = J;
+		new->ambg = AMBG;
+		sp->head = new;
+	}
+	else if (word && word[0] == '\0')
+	{
+		fill_token(&(new), "", WORD, NQS);
+		new->join = J;
+		new->ambg = AMBG;
+		sp->head = new;
+	}
+	else
+		sp->head = NULL;
+	return (sp->tail = NULL, sp);
 }
 
 t_splited	*ft_spliter(char *word)

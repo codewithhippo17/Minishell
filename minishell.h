@@ -6,7 +6,7 @@
 /*   By: ehamza <ehamza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:15:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/08/04 08:40:10 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/08/09 19:21:07 by elhaiba hamza    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <linux/limits.h>
 # include <readline/chardefs.h>
 # include <signal.h>
@@ -47,8 +48,9 @@
 # define PIPE_ERROR1 "Syntax error: command cannot start with pipe '|'\n"
 # define PIPE_ERROR2 "syntax error: command cannot end with a pipe '|'\n"
 # define PIPE_ERROR3 "syntax error: command missing between pipes '|'\n"
-# define RED_ERROR "syntax error: redirection requires a filepath or heredoc delimiter\n"
+# define RED_ERROR "syntax error: filepath or delimiter missing\n"
 # define HEREDOC_ERROR "warning: heredoc canceled due to interruption\n"
+# define UNCLOSED_QUOTES "Syntx error: Unclosed quotes\n"
 
 //-------------------ººbuild-in_cmdºº-----------//
 
@@ -70,7 +72,9 @@ int		is_var(char *str);
 char	**set_env_utils(char **env);
 void	set_env(t_minishell *minishell, char **env);
 void	print_script(t_script *script);
-void print_tokens(t_token *token, int nb);
+void	print_tokens(t_token *token, int nb);
+void	print_redirections(t_red *red);
+
 // -----------------ººPIPEXºº------------------ //
 int		pipex(int ac, t_minishell *mini);
 
