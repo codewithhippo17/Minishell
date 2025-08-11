@@ -47,8 +47,9 @@
 # define PIPE_ERROR1 "Syntax error: command cannot start with pipe '|'\n"
 # define PIPE_ERROR2 "syntax error: command cannot end with a pipe '|'\n"
 # define PIPE_ERROR3 "syntax error: command missing between pipes '|'\n"
-# define RED_ERROR "syntax error: redirection requires a filepath or heredoc delimiter\n"
+# define RED_ERROR "syntax error: filepath or delimiter missing\n"
 # define HEREDOC_ERROR "warning: heredoc canceled due to interruption\n"
+# define UNCLOSED_QUOTES "Syntx error: Unclosed quotes\n"
 
 //-------------------ººbuild-in_cmdºº-----------//
 

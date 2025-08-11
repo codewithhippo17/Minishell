@@ -34,7 +34,7 @@ int	checker(t_token **token, t_minishell *minishell)
 
 	res = 0;
 	if (check_quote(*token) == false)
-		return (ft_putstr_fd("Syntx error: Unclosed quotes", 2), 1);
+		return (ft_putstr_fd(UNCLOSED_QUOTES, 2), 1);
 	c = *token;
 	while (c)
 	{
