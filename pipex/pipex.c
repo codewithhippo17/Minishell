@@ -46,6 +46,12 @@ static void	extrenal_cmds(t_minishell *minishell, t_script *script, char **args)
 {
 	char	*path;
 
+	if (!args)
+	{
+		if (script->red)
+			restore_fds(script);
+		cleanup_exit(0);
+	}
 	path = error_managment(minishell, script, args);
 	execve(path, args, minishell->m_env);
 	if (access(path, X_OK) == -1)
@@ -58,7 +64,9 @@ static void	child_pr_all(t_minishell *minishell, t_script *script)
 {
 	t_builtin_name	name;
 
-	name = which_bultin(*script->cmd_args);
+	name = UNKNOWN;
+	if (script->cmd_args)
+		name = which_bultin(*script->cmd_args);
 	if (name != UNKNOWN)
 	{
 		execute_builtin(minishell, script, name);
