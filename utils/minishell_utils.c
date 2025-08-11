@@ -20,7 +20,7 @@ char	*my_getenv(char *name, char **env)
 	char	*result;
 
 	i = 0;
-    result = NULL;
+	result = NULL;
 	while (env[i])
 	{
 		j = 0;
@@ -29,10 +29,9 @@ char	*my_getenv(char *name, char **env)
 		sub = ft_substr(env[i], 0, j, SCOPE_TEMP);
 		if (ft_strcmp(sub, name) == 0)
 		{
-            if (env[i][j] == '\0' || (env[i][j] == '=' && env[i][j + 1] == '\0'))
-            {
-                return (ft_strdup("", SCOPE_SESSION));
-            }
+			if (env[i][j] == '\0' || (env[i][j] == '=' && env[i][j
+					+ 1] == '\0'))
+				return (ft_strdup("", SCOPE_SESSION));
 			result = ft_strdup(env[i] + j + 1, SCOPE_SESSION);
 			return (result);
 		}
@@ -43,11 +42,11 @@ char	*my_getenv(char *name, char **env)
 
 char	*get_path(char *cmd, char **env)
 {
-	int			i;
-	char		*exec;
-	char		**allpath;
-	char		*path_part;
-	char		*result;
+	int		i;
+	char	*exec;
+	char	**allpath;
+	char	*path_part;
+	char	*result;
 
 	i = -1;
 	allpath = ft_split(my_getenv("PATH", env), ':', SCOPE_TEMP);
