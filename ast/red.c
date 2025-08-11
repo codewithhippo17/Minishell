@@ -41,10 +41,6 @@ static void	append_red(t_red **head, t_red **tail, t_red *new_red)
 	}
 }
 
-/*
-* NOTE: need to take a look on how this function behave because it overlap with the tokens greper
-* */
-
 t_red	*sub_red(t_token *token)
 {
 	t_red	*head;

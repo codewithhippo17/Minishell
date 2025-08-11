@@ -119,10 +119,9 @@ void	ft_expander(t_token **token, t_minishell *minishell)
 		}
 		else if (!no_var(c->value))
 		{
-			splited = ft_exspliter(token, c->value, idx, minishell);
+			splited = ft_exspliter(token, c->value, idx++, minishell);
 			insert_token(token, c, splited);
 		}
-		idx++;
 		c = c->next;
 	}
 	collector_cleanup(SCOPE_TEMP);

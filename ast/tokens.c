@@ -17,7 +17,7 @@ bool	is_red(t_token *c)
 	return (c->type == RR || c->type == LR || c->type == DRR);
 }
 
-void	delete(t_token **head, t_token **token)
+void delete (t_token **head, t_token **token)
 {
 	t_token	*tmp;
 
@@ -48,14 +48,14 @@ t_token	*grep_tokens(t_token **tokens)
 	{
 		if (c->type == PIPE)
 		{
-            if (c->prev)
-            {
-                c->prev->next = NULL;
-			    cmd = *tokens;
-            }
-            else
-                cmd = NULL;
-            return (c->prev = NULL, delete (tokens, &(c)), *tokens = c, cmd);
+			if (c->prev)
+			{
+				c->prev->next = NULL;
+				cmd = *tokens;
+			}
+			else
+				cmd = NULL;
+			return (c->prev = NULL, delete (tokens, &(c)), *tokens = c, cmd);
 		}
 		if (c->type == HEREDOC || c->type == WS)
 			delete (tokens, &c);
