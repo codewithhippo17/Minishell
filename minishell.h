@@ -32,8 +32,8 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <linux/limits.h>
-#include <limits.h>
 # include <readline/chardefs.h>
 # include <signal.h>
 # include <stddef.h>
@@ -73,7 +73,7 @@ char	**set_env_utils(char **env);
 void	set_env(t_minishell *minishell, char **env);
 void	print_script(t_script *script);
 void	print_tokens(t_token *token, int nb);
-void print_redirections(t_red *red);
+void	print_redirections(t_red *red);
 
 // -----------------ººPIPEXºº------------------ //
 int		pipex(int ac, t_minishell *mini);
