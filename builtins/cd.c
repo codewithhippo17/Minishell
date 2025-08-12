@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:02:39 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/08/02 19:30:10 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/08/11 23:53:09 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int	chlstdir(char **m_env)
 
 	lst_dir = my_getenv("OLDPWD", m_env);
 	if (lst_dir != NULL)
-		printf("%s\n", lst_dir);
+	{
+		ft_putstr_fd(lst_dir, 1);
+		ft_putchar_fd('\n', 1);
+	}
 	else
 	{
 		ft_putstr_fd("No previous directory\n", 2);
