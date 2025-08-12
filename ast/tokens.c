@@ -17,7 +17,7 @@ bool	is_red(t_token *c)
 	return (c->type == RR || c->type == LR || c->type == DRR);
 }
 
-void delete (t_token **head, t_token **token)
+void	delete_token(t_token **head, t_token **token)
 {
 	t_token	*tmp;
 
@@ -33,45 +33,44 @@ void delete (t_token **head, t_token **token)
 	*token = (*token)->next;
 }
 
-/*
- * NOTE: need to take a look on how this greper should functionate
- * */
+void	delete_red(t_token **tokens, t_token **c)
+{
+	if (!*c)
+		return ;
+	delete_token(tokens, c);
+	if (*c && (*c)->type == WS)
+		delete_token(tokens, c);
+	if (*c && (*c)->ambg == OBV)
+		delete_token(tokens, c);
+	else
+	{
+		while (*c && (*c)->ambg == AMBG)
+			delete_token(tokens, c);
+	}
+}
 
 t_token	*grep_tokens(t_token **tokens)
 {
-	t_token	*c;
-	t_token	*cmd;
-
+	t_token *(c), *(cmd);
 	c = *tokens;
 	cmd = *tokens;
 	while (c)
 	{
 		if (c->type == PIPE)
 		{
+			cmd = NULL;
 			if (c->prev)
 			{
 				c->prev->next = NULL;
 				cmd = *tokens;
 			}
-			else
-				cmd = NULL;
-			return (c->prev = NULL, delete (tokens, &(c)), *tokens = c, cmd);
+			return (c->prev = NULL, delete_token(tokens, &(c)), *tokens = c,
+				cmd);
 		}
 		if (c->type == HEREDOC || c->type == WS)
-			delete (tokens, &c);
+			delete_token(tokens, &c);
 		else if (is_red(c))
-		{
-			delete (tokens, &c);
-			if (c->type == WS)
-				delete (tokens, &c);
-			if (c->ambg == OBV)
-				delete (tokens, &c);
-			else
-			{
-				while (c && c->ambg == AMBG)
-					delete (tokens, &c);
-			}
-		}
+			delete_red(tokens, &c);
 		else
 			c = c->next;
 	}
