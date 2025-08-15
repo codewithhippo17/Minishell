@@ -34,17 +34,17 @@ int	checker(t_token **token, t_minishell *minishell)
 
 	res = 0;
 	if (check_quote(*token) == false)
-		return (ft_putstr_fd(UNCLOSED_QUOTES, 2), 1);
+		return (ft_putstr_fd(UNCLOSED_QUOTES, 2), minishell->status = 1, 1);
 	c = *token;
 	while (c)
 	{
 		if (c->type == PIPE)
 		{
 			if (is_vpipe(c) == false)
-				return (1);
+				return (minishell->status = 1, 1);
 		}
 		if (is_op(c) == true && (!c->next || is_word(c->next) == false))
-			return (ft_putstr_fd(RED_ERROR, 2), 1);
+			return (minishell->status = 1, ft_putstr_fd(RED_ERROR, 2), 1);
 		if (c->type == DLR)
 			res = ft_heredoc(c, grabdel(c), grabquote(c), minishell);
 		if (res != 0)

@@ -124,7 +124,6 @@ typedef struct s_script
 	char				**cmd_args;
 	int					saved_stdin;
 	int					saved_stdout;
-	int					exit_status;
 	struct s_script		*next_cmd;
 }						t_script;
 

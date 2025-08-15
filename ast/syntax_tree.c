@@ -37,7 +37,6 @@ t_script	*init_script(t_token *cmd, t_red *red)
 	script->cmd_head = cmd;
 	script->cmd_args = NULL;
 	script->next_cmd = NULL;
-	script->exit_status = -1;
 	return (script);
 }
 
