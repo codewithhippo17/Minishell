@@ -12,20 +12,20 @@
 
 #include "../minishell.h"
 
-int	envierment(char **str, char **m_env)
+int	envierment(char **m_env)
 {
-	int	i;
+	int		i;
+	char	*env;
 
+	env = NULL;
 	i = 0;
-	if (str[1])
-	{
-		ft_putstr_fd("env: ", 1);
-		ft_putstr_fd(str[1], 1);
-		ft_putstr_fd(": No such file or directory\n", 1);
-		cleanup_exit(127);
-	}
 	while (m_env[i])
 	{
+		if (ft_strncmp(m_env[i], "_=", 2) == 0)
+		{
+			env = m_env[i++];
+			continue ;
+		}
 		if (ft_strchr(m_env[i], '='))
 		{
 			ft_putstr_fd(m_env[i], 1);
@@ -33,5 +33,7 @@ int	envierment(char **str, char **m_env)
 		}
 		i++;
 	}
+	if (env)
+		printf("%s\n", env);
 	return (0);
 }
