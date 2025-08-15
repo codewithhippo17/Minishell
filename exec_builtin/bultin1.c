@@ -33,5 +33,5 @@ int	builtin_pwd(t_minishell *m, t_script *s)
 int	builtin_env(t_minishell *m, t_script *s)
 {
 	(void)s;
-	return (envierment(s->cmd_args, m->m_env));
+	return (envierment(m->m_env));
 }
