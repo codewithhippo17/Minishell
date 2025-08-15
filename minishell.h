@@ -45,6 +45,14 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+//-------------------ººSIGNALS_MACROSºº-----------//
+
+# define SIGNAL_NONE 0
+# define SIGNAL_SIGINT 1
+# define SIGNAL_SIGQUIT 2
+
+//-------------------ººERROR_MSGS_MACROSºº-----------//
+
 # define PIPE_ERROR1 "Syntax error: command cannot start with pipe '|'\n"
 # define PIPE_ERROR2 "syntax error: command cannot end with a pipe '|'\n"
 # define PIPE_ERROR3 "syntax error: command missing between pipes '|'\n"
@@ -71,20 +79,12 @@ int		is_piped(char *input);
 int		is_var(char *str);
 char	**set_env_utils(char **env);
 void	set_env(t_minishell *minishell, char **env);
-void	print_script(t_script *script);
-void	print_tokens(t_token *token, int nb);
-void	print_redirections(t_red *red);
 
 // -----------------ººPIPEXºº------------------ //
 int		pipex(int ac, t_minishell *mini);
 
 //-----------------ººREVAMPºº-------------------/
-// t_minishell	*shell(t_minishell *mini);
-t_red	*sub_red(t_token *token);
-void	ft_join_tokens(t_token **token);
-// t_minishell	*shell(t_minishell *mini);
-t_token	*token_init(void);
-t_red	*red_init(void);
+
 void	mini_update(t_minishell *mini, t_token *token);
 
 #endif
