@@ -55,8 +55,6 @@ typedef enum e_quote
 typedef enum e_flag
 {
 	WORD,
-	CMD,
-	ARG,
 	WS,
 	PIPE,
 	LR,
@@ -83,7 +81,6 @@ typedef struct s_heredoc
 	char				*filename;
 	char				*del;
 	t_quote				quote;
-	t_ambg				ambg;
 }						t_heredoc;
 
 typedef struct s_red
