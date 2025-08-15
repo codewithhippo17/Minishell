@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <string.h>
 
 int	ft_structlen(t_token *token)
 {

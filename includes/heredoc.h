@@ -13,12 +13,7 @@
 #ifndef HEREDOC_H
 # define HEREDOC_H
 
-# include "../libft/libft.h"
 # include "types.h"
-# include <fcntl.h>
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
 
 # define LEN_RANDOM 8
 

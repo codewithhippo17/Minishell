@@ -20,4 +20,4 @@ void	free_strings(char **s);
 void	ft_close_wait_exit(int p_fd[], int pid1, int pid2);
 void	free_exit_minishell(t_minishell *minishell, int status);
 
-#endif // !KILL_H
+#endif

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/checker.h"
+#include "../minishell.h"
 
 bool	is_op(t_token *token)
 {

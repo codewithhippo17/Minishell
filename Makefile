@@ -70,7 +70,6 @@ EXEC_SRC =		$(EXEC_DIR)/build_in_cmd.c \
 GB_SRC =		$(GB_DIR)/gb_col.c \
 				$(GB_DIR)/helpers.c
 
-
 KILL_SRC =		$(KILL_DIR)/free_exit.c
 
 UTILS_SRC =		$(UTILS_DIR)/set_env.c \
@@ -79,16 +78,17 @@ UTILS_SRC =		$(UTILS_DIR)/set_env.c \
 
 SIG_SRC	=		$(SIG_DIR)/signals.c
 
-
-TEST = 			./test/test.c
-
 MAIN_SRCS = minishell.c
 
 # All source files
-SRCS =			$(GB_SRC) $(LEXER_SRCS) $(CHECKER_SRCS) $(SIG_SRC) $(HEREDOC_SRCS) $(MINI) $(EXPAND_SRC) $(AST_SRCS) \
-				$(BULTINS_SRC) $(PIPE_SRC) $(EXEC_SRC) $(KILL_SRC) $(UTILS_SRC) $(TEST) \
+SRCS =			$(GB_SRC) $(LEXER_SRCS) \
+				$(CHECKER_SRCS) $(SIG_SRC) \
+				$(HEREDOC_SRCS) $(MINI) \
+				$(EXPAND_SRC) $(AST_SRCS) \
+				$(BULTINS_SRC) $(PIPE_SRC) \
+				$(EXEC_SRC) $(KILL_SRC) \
+				$(UTILS_SRC) \
 				$(MAIN_SRCS)
-
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -114,7 +114,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	make -C $(LIBFT_DIR) fclean
+	rm -f $(LIBFT)
 
 re: fclean all
 

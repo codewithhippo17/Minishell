@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/gbcol.h"
-#include "includes/types.h"
 #include "minishell.h"
 
 void	dispatch(t_minishell *minishell)

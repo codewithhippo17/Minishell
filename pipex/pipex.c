@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <unistd.h>
 
 static char	*error_managment(t_minishell *minishell, t_script *script,
 		char **args)

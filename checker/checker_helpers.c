@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/checker.h"
 #include "../minishell.h"
 
 bool	check_quote(t_token *token)

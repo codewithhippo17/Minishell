@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdio.h>
 
 static t_minishell	*g_minishell = NULL;
 static t_collect	*g_head = NULL;

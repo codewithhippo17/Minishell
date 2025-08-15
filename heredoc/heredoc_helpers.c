@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/heredoc.h"
+#include "../minishell.h"
 
 t_heredoc	*init_heredoc(void)
 {

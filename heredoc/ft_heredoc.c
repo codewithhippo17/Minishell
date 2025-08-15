@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/heredoc.h"
-#include <stdlib.h>
+#include "../minishell.h"
 
 int	ft_heredoc(t_token *token, char *del, t_quote quote, t_minishell *minishell)
 {

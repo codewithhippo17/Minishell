@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <readline/chardefs.h>
 
 int	exec_unset(t_minishell *minishell, t_script *script)
 {

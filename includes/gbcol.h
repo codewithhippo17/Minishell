@@ -13,7 +13,7 @@
 #ifndef GBCOL_H
 # define GBCOL_H
 
-# include "../includes/types.h"
+# include "./types.h"
 
 void	collector_init_shell(t_minishell **shell, char **env);
 void	collector_cleanup(t_mem_scope scope);
