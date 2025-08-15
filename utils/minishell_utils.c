@@ -40,7 +40,7 @@ char	*my_getenv(char *name, char **env)
 	return (NULL);
 }
 
-char	*get_path(char *cmd, char **env)
+char	*get_path(t_script *script, char *cmd, char **env)
 {
 	int		i;
 	char	*exec;
@@ -50,6 +50,9 @@ char	*get_path(char *cmd, char **env)
 
 	i = -1;
 	allpath = ft_split(my_getenv("PATH", env), ':', SCOPE_TEMP);
+	if (!allpath)
+		printerror(script, script->cmd_args, ": No such file or directory\n",
+			127);
 	while (allpath[++i])
 	{
 		path_part = ft_strjoin(allpath[i], "/", SCOPE_TEMP);

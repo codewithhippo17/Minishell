@@ -6,7 +6,7 @@
 /*   By: ybelghad <ybelghad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:10:42 by ybelghad          #+#    #+#             */
-/*   Updated: 2025/06/12 18:10:42 by ybelghad         ###   ########.fr       */
+/*   Updated: 2025/08/11 23:53:15 by ybelghad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	envierment(char **str, char **m_env)
 	i = 0;
 	if (str[1])
 	{
-		ft_putstr_fd("minishell: env: ", 1);
+		ft_putstr_fd("env: ", 1);
 		ft_putstr_fd(str[1], 1);
 		ft_putstr_fd(": No such file or directory\n", 1);
 		cleanup_exit(127);

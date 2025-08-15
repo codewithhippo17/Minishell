@@ -61,7 +61,7 @@ int		ft_exec_all(t_minishell *minishell);
 
 //-----------------ººminishel_utilsºº----------------//
 char	*my_getenv(char *name, char **env);
-char	*get_path(char *cmd, char **env);
+char	*get_path(t_script *script, char *cmd, char **env);
 
 //-------------ººminishell_helpreºº-------------------//
 int		is_builtin(char **s);
