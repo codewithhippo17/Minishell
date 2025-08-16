@@ -96,8 +96,7 @@ int	cd(char **str, t_minishell *minishell)
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
 		return (1);
 	}
-	if (str[1] == NULL || str[1][0] == '\0' || ft_strncmp(str[1], "~",
-			ft_strlen("~")) == 0)
+	if (str[1] == NULL || str[1][0] == '\0' || ft_strcmp(str[1], "~") == 0)
 	{
 		if (chthmdir(minishell->m_env))
 			return (1);

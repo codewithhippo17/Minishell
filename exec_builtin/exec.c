@@ -36,8 +36,8 @@ t_builtin_name	which_bultin(const char *cmd)
 typedef int			(*t_builtin_fn)(t_minishell *, t_script *);
 
 static t_builtin_fn	g_builtin_dispatch[] = {builtin_echo, builtin_cd,
-	builtin_pwd, builtin_env, builtin_export, builtin_unset, builtin_exit,
-	builtin_unknown};
+		builtin_pwd, builtin_env, builtin_export, builtin_unset, builtin_exit,
+		builtin_unknown};
 
 int	execute_builtin(t_minishell *minishell, t_script *script,
 		t_builtin_name name)
