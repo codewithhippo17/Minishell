@@ -101,7 +101,7 @@ int	cd(char **str, t_minishell *minishell)
 		if (chthmdir(minishell->m_env))
 			return (1);
 	}
-	else if (ft_strncmp(str[1], "-", ft_strlen("-")) == 0)
+	else if (ft_strcmp(str[1], "-") == 0)
 	{
 		if (chlstdir(minishell->m_env))
 			return (1);
