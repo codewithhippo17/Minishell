@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-t_token	*nonvar_parser(char *str, int *i, t_minishell *minishell)
+static t_token	*nonvar_parser(char *str, int *i, t_minishell *minishell)
 {
 	char	*tmp;
 	int		idx;
@@ -41,8 +41,7 @@ t_token	*nonvar_parser(char *str, int *i, t_minishell *minishell)
 	return (*i += idx, token = fill_var_token(tmp), token);
 }
 
-t_splited	*ft_exspliter(t_token **token, char *str, int idx,
-		t_minishell *minishell)
+static t_splited	*ft_exspliter(t_token **token, char *str, t_minishell *minishell)
 {
 	t_splited	*splited;
 	t_splited	*tmp;
@@ -52,8 +51,6 @@ t_splited	*ft_exspliter(t_token **token, char *str, int idx,
 	i = 0;
 	c = *token;
 	tmp = init_inner();
-	while (idx-- > 0)
-		c = c->next;
 	while (str[i])
 	{
 		if (str[i] != '$' || (str[i] == '$' && !is_var_start(str[i + 1])))
@@ -102,9 +99,7 @@ void	ft_expander(t_token **token, t_minishell *minishell)
 {
 	t_token		*c;
 	t_splited	*splited;
-	int			idx;
 
-	idx = 0;
 	c = *token;
 	while (c)
 	{
@@ -119,7 +114,7 @@ void	ft_expander(t_token **token, t_minishell *minishell)
 		}
 		else if (!no_var(c->value))
 		{
-			splited = ft_exspliter(token, c->value, idx++, minishell);
+			splited = ft_exspliter(token, c->value, minishell);
 			insert_token(token, c, splited);
 		}
 		c = c->next;
