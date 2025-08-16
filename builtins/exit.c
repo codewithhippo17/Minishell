@@ -55,7 +55,7 @@ static size_t	ft_atol(const char *str, int *flag)
 	return (s * n);
 }
 
-int	ft_my_exit(t_script *script)
+int	ft_my_exit(t_script *script, t_minishell *minishell)
 {
 	size_t	i;
 	char	**str;
@@ -79,6 +79,6 @@ int	ft_my_exit(t_script *script)
 	else if (str[1] && !str[2] && is_num(str[1]))
 		cleanup_exit(i);
 	else
-		cleanup_exit(0);
+		cleanup_exit(minishell->status);
 	return (0);
 }

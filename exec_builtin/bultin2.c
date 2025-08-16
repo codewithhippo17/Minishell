@@ -24,8 +24,7 @@ int	builtin_unset(t_minishell *m, t_script *s)
 
 int	builtin_exit(t_minishell *m, t_script *s)
 {
-	(void)m;
-	return (ft_my_exit(s));
+	return (ft_my_exit(s, m));
 }
 
 int	builtin_unknown(t_minishell *m, t_script *s)
