@@ -61,7 +61,7 @@ int	heredoc(t_heredoc *hd, t_minishell *minishell)
 	{
 		signal(SIGINT, SIG_IGN);
 		minishell->status = run_heredoc_parent(hd);
-		if (minishell->status == 130 || minishell->status == 131)
+		if (minishell->status == 130)
 		{
 			setup_shell_signals();
 			ft_putstr_fd(HEREDOC_ERROR, 2);
