@@ -41,7 +41,8 @@ static t_token	*nonvar_parser(char *str, int *i, t_minishell *minishell)
 	return (*i += idx, token = fill_var_token(tmp), token);
 }
 
-static t_splited	*ft_exspliter(t_token **token, char *str, t_minishell *minishell)
+static t_splited	*ft_exspliter(t_token **token, char *str,
+		t_minishell *minishell)
 {
 	t_splited	*splited;
 	t_splited	*tmp;
