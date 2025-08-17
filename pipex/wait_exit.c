@@ -33,13 +33,11 @@ static int	setup_signal(int status)
 	if (WTERMSIG(status) == SIGINT)
 	{
 		write(2, "\n", 1);
-		setup_shell_signals();
 		return (130);
 	}
 	else if (WTERMSIG(status) == SIGQUIT)
 	{
 		write(2, "Quit (core dumped)\n", 20);
-		setup_shell_signals();
 		return (131);
 	}
 	return (0);
@@ -64,6 +62,5 @@ int	wait_for_children(int *pid, int ac)
 			exit_status = WEXITSTATUS(status);
 		i++;
 	}
-	setup_shell_signals();
 	return (exit_status);
 }

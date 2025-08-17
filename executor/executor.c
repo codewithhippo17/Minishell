@@ -43,6 +43,7 @@ void	handle_command(t_minishell *minishell)
 		if (name == UNKNOWN || minishell->script->next_cmd)
 			minishell->status = pipex(calcule_cmd(minishell->script),
 					minishell);
+		setup_shell_signals();
 	}
 	else
 	{

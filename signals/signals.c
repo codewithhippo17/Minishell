@@ -46,6 +46,7 @@ void	setup_shell_signals(void)
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
 
+	g_received_signal = 0;
 	sa_int.sa_handler = &handle_signal;
 	sa_int.sa_flags = SA_RESTART;
 	sigemptyset(&sa_int.sa_mask);
@@ -62,7 +63,7 @@ void	setup_child_signals(void)
 	struct sigaction	sa_quit;
 
 	sa_int.sa_handler = handle_child_sig;
-	sa_quit.sa_flags = SA_RESTART;
+	sa_int.sa_flags = SA_RESTART;
 	sigemptyset(&sa_int.sa_mask);
 	sigaction(SIGINT, &sa_int, NULL);
 	sa_quit.sa_handler = SIG_IGN;
