@@ -72,8 +72,9 @@ int	pipex(int ac, t_minishell *minishell)
 	pid_t		*pids;
 	t_script	*curent;
 
-	int(p), (i), (fd[2]);
-	(1) && (p = -1, i = -1);
+	int	p = -1;
+	int	i = -1;
+	int	fd[2];
 	pids = malloc(sizeof(int) * ac);
 	curent = minishell->script;
 	while (curent)
