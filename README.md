@@ -1,49 +1,19 @@
 # Minishell
 
-A compact, modular, POSIX-like command-line shell implemented in C. This repository contains a custom shell project that implements tokenization, parsing, expansion, execution, builtins and inter-process communication (pipes/redirections), with support for heredoc and signal handling.
-
-This README summarizes the repository, highlights its strengths, describes how to build and run the project, and gives usage and contribution guidance.
+A compact, modular, POSIX-like shell implemented in **C**, featuring tokenization, parsing, expansion, execution, builtins, and inter-process communication (pipes/redirections), with support for heredoc and signal handling.
 
 ---
 
-## Highlights & Strengths
+## Features
 
-- Modular code layout: the source is organized into focused directories (lexer, parser/ast, expander, executor, builtins, heredoc, signals, pipex, etc.), which makes the project easy to navigate, reason about, and extend.
-- Readline integration: the shell uses GNU Readline for interactive input (history and line-editing features).
-- Full command pipeline support: separate pipex/executor components indicate support for multi-process pipelines.
-- Redirections and heredoc support: dedicated heredoc and redirection handling are present.
-- Built-ins separation: builtins are implemented in a dedicated folder, keeping builtin logic isolated from the executor.
-- Included libft: a bundled `libft` indicates a set of reusable helpers and utilities reduces external dependencies.
-- Build automation: a Makefile is provided for compiling the project and common targets.
-- Active commit history: frequent commits and incremental improvements indicate active development.
-
-> Note: This summary is based on a repository scan of the code structure and files. For full details or exact feature lists, consult the source files in each directory.
-
----
-
-## Repository Structure (top-level)
-
-- Makefile
-- minishell.c
-- minishell.h
-- .gitignore
-- ast/            — AST/parsing related code
-- builtins/       — builtin command implementations (cd, echo, pwd, export, unset, env, exit, etc.)
-- checker/        — syntax/semantic checking utilities
-- exec_builtin/   — interfaces to execute builtins
-- executor/       — process execution, command launching
-- expander/       — variable and wildcard expansion
-- gb_col/         — helpers / collections
-- heredoc/        — here-document implementation
-- includes/       — header files used across modules
-- kill/           — signal/termination helpers
-- lexer/          — tokenization and lexical analysis
-- libft/          — bundled libft utility library
-- pipex/          — pipeline handling and orchestration
-- signals/        — signal handling logic
-- utils/          — assorted utilities and helpers
-
-(Each folder contains the relevant implementation files and headers to realize the shell functionality.)
+- **Modular codebase**: lexer, parser/AST, expander, executor, builtins, heredoc, signals, pipex, etc.  
+- **GNU Readline integration**: interactive input, history, and line-editing.  
+- **Full pipeline support**: multi-process pipelines handled by executor/pipex.  
+- **Redirections & heredoc**: robust support for input/output redirection.  
+- **Built-ins**: cd, echo, pwd, export, unset, env, exit, etc.  
+- **Reusable helpers**: bundled `libft` for utilities and reduced dependencies.
+- **Build automation**: Makefile with standard targets.
+- **Active development**: frequent commits and improvements.
 
 ---
 
@@ -102,21 +72,15 @@ Example usage:
   ```
 
 - Heredoc (example)
-  ```sh
+```sh
   cat << EOF
   line 1
   line 2
   EOF
-  ```
+```
 
-- Builtins (examples)
-  - cd
-  - echo
-  - pwd
-  - export
-  - unset
-  - env
-  - exit
+**Builtins**
+- `cd`, `echo`, `pwd`, `export`, `unset`, `env`, `exit`
 
 (Exact builtin behavior is implemented in the `builtins/` and `exec_builtin/` directories. See those files for specific semantics and edge cases.)
 
@@ -125,47 +89,9 @@ Example usage:
 ## Testing & Debugging
 
 - Use the shell interactively to test common flows: pipelines, redirections, heredoc, environment variable expansion, and builtin commands.
-- For unit or integration tests, examine `checker/` and the source directories for any provided test helpers.
 - To debug, compile with debugging symbols (edit the Makefile or add `CFLAGS=-g`) and run under gdb or use valgrind to check for memory issues:
-  ```sh
-  valgrind --leak-check=full ./minishell
+```sh
+make CFLAGS=-g
+gdb ./minishell
+valgrind --leak-check=full ./minishell
   ```
-
----
-
-## Contributing
-
-Contribution areas that will add value:
-
-- Improve parsing and error messages
-- Extend builtin compatibility and behavior
-- Improve robustness (edge cases, signal safety, race conditions)
-- Add automated unit/integration tests
-- Add CI (GitHub Actions) to run builds and tests automatically
-- Add a clear LICENSE file and contribution guidelines
-
-If you plan to contribute:
-- Fork the repository
-- Create a branch for your feature/fix
-- Open a PR with a clear description and test cases
-
----
-
-## Notes & Suggestions
-
-- If you plan to distribute or collaborate, consider adding a LICENSE file to clarify reuse and contribution terms.
-- Document known limitations and differences from a standard POSIX shell to help users and contributors understand expected behavior.
-- The project already contains a clean modular layout — maintaining that separation of concerns will make future improvements easier.
-
----
-
-## Acknowledgements
-
-- Built upon concepts used in educational shell projects and standard Unix shell design.
-- Readline is used to provide a polished interactive experience (editing and history).
-
----
-
-If you want, I can:
-- produce a polished README file ready to commit to the repository (with a suggested license and contributing template),
-- or generate specific sections expanded with code references (e.g., where the lexer or executor lives) to make onboarding easier.
